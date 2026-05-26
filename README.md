@@ -7,8 +7,14 @@ The **Automated Exam Seating System** is a web-based solution designed to automa
 
 
 ## Tech Stack
-
-
+|Layer             | Technology      | Purpose                    |
+|------------------|-----------------|----------------------------|
+|Language          | C++             |Core logic                 
+|GUI               | Qt framework    |UI/visualization
+|File handling     | CSV             |Student data import/export
+|Data structures   | STL             |Seat allocation logic          
+|Build Tool        |                 |project building
+|Version control   | Git+Github      |Collaboration
 ## Team Members
 
 | Name                | Roll Number     | Role                      |
@@ -21,7 +27,7 @@ The **Automated Exam Seating System** is a web-based solution designed to automa
 
 > **Note:** It will be Updated
 
-## How to work:
+
 ## How to Work:
 
 1. git clone https://github.com/nasala001/Automated-Exam-Seating-System.git
