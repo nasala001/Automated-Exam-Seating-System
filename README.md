@@ -1,6 +1,25 @@
-# Automated-Exam-Seating-System
+# Automated Exam Seating System
 
-This repository is set up for **GitHub-native collaboration** so your team can plan, edit, review, and merge work directly on GitHub.
+The **Automated Exam Seating System** is a web-based solution designed to automate the allocation of exam seats in educational institutions. The primary goal of this project is to simplify the complex task of exam seating arrangements, minimize manual errors, and provide a transparent, efficient interface for both administrative staff and students.
+
+## Project Features
+
+
+
+## Tech Stack
+
+
+## Team Members
+
+| Name                | Roll Number     | Role                      |
+|---------------------|---------------- |---------------------------|
+| Aashish Dangal      |                 | |
+| Shreeshant Jha      |                 |         |
+| Shresh khanal       |                 |        |
+| Pratisthit Khaniya  |                 |           |
+| Nasala Lakhey       |                 |        |
+
+> **Note:** It will be Updated
 
 ## How to collaborate in GitHub
 
