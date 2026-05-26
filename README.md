@@ -21,17 +21,17 @@ The **Automated Exam Seating System** is a web-based solution designed to automa
 
 > **Note:** It will be Updated
 
-## How to collaborate in GitHub
+## How to work:
+## How to Work:
 
-1. Open or pick an issue for the task.
-2. Create a branch from that issue.
-3. Make changes directly in GitHub:
-   - Use the web editor for small edits, or
-   - Use GitHub Codespaces for full development in-browser.
-4. Open a pull request using the provided PR template.
-5. Request review and merge after approval.
+1. git clone https://github.com/nasala001/Automated-Exam-Seating-System.git
+2. cd Automated-Exam-Seating-System
+3. Create your own branch:
+   git checkout -b your-name
+4. Make your changes
+5. git add .
+6. git commit -m "describe what you did"
+7. git push origin your-name
 
-## Collaboration guides
 
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.
-- Use the `.github/pull_request_template.md` checklist when opening PRs.
+
