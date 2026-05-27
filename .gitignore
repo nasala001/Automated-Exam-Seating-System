@@ -1,0 +1,83 @@
+# Antigravity
+Antigravity.md
+antigravity.md
+
+# Compiled Object files
+*.o
+*.obj
+*.slo
+*.lo
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.a
+*.lib
+*.la
+*.lai
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Build Directories
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+out/
+
+# Qt / Qt Creator
+*.user
+*.user.user
+*.qmake.stash
+*.qmake.cache
+/Makefile*
+/object_script.*
+/moc_*.cpp
+/moc_*.h
+/qrc_*.cpp
+/ui_*.h
+/Makefile
+/Makefile.Debug
+/Makefile.Release
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeSettings.json
+cmake_install.cmake
+install/
+CMakeUserPresets.json
+
+# Visual Studio / MSVC
+.vs/
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDEs (VS Code, JetBrains CLion)
+.vscode/
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Operating System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
