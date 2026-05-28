@@ -31,7 +31,6 @@ public:
     string getSeatCode();
 };
 
-// Declaring our helper function using the generic name parameter
 void breakCsvRow(string line, string words[], int &count);
 
 #endif
