@@ -19,11 +19,11 @@ The **Automated Exam Seating System** is a web-based solution designed to automa
 
 | Name                | Roll Number     | Role                      |
 |---------------------|---------------- |---------------------------|
-| Aashish Dangal      |                 | |
-| Shreeshant Jha      |                 |         |
-| Shresh khanal       |                 |        |
-| Pratisthit Khaniya  |                 |           |
-| Nasala Lakhey       |                 |        |
+| Aashish Dangal      |  Roll no.7      | |
+| Shreeshant Jha      |  Roll no. 33    |         |
+| Shresh khanal       |  Roll no.41     |        |
+| Pratisthit Khaniya  |  Roll no.42     |           |
+| Nasala Lakhey       |  Roll no.45     |        |
 
 > **Note:** It will be Updated
 
