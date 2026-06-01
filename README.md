@@ -17,13 +17,13 @@ The **Automated Exam Seating System** is a web-based solution designed to automa
 |Version control   | Git+Github      |Collaboration
 ## Team Members
 
-| Name                | Roll Number     | Role                      |
-|---------------------|---------------- |---------------------------|
-| Aashish Dangal      |                 | |
-| Shreeshant Jha      |                 |         |
-| Shresh khanal       |                 |        |
-| Pratisthit Khaniya  |                 |           |
-| Nasala Lakhey       |                 |        |
+| Name                | Roll Number     | Role                                |
+|---------------------|---------------- |-------------------------------------|
+| Aashish Dangal      |  Roll no.7      |Seat Code Logic+ Seat planning Engine|
+| Shreeshant Jha      |  Roll no. 33    |CSV File Reader+ Export System       |
+| Shresh khanal       |  Roll no.41     |Rule System + validation             |
+| Pratisthit Khaniya  |  Roll no.42     |UI+System Integration                |
+| Nasala Lakhey       |  Roll no.45     |Room/Hall Management+Documentation   |
 
 > **Note:** It will be Updated
 
