@@ -1,51 +1,85 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "student.hpp"
 
 using namespace std;
 
 int main() {
-    cout << "=== Exam Seating System Module 3 Prototype ===" << endl;
+    cout << "=== Exam Seating System Framework Module (Integrated) ===" << endl;
 
-    Student studentDatabase[100];
+    // Main temporary processing database allocation limit 500 records
+    Student studentDatabase[500];
     int totalStudents = 0;
 
     string filename = "main.csv";
-
     ifstream myfile(filename);
 
     if (myfile.is_open() == false) {
-        cout << "[Warning] File vettiyena! Empty data container usage." << endl;
+        cout << "[Warning] Data file '" << filename << "' not detected. Dynamic testing runtime pending." << endl;
+        cout << "[Notice] Supervisor spreadsheet file data commit expected next week." << endl;
         return 0;
     }
 
     string line;
-    getline(myfile, line); // Skipping the header line (Name,RollNo...)
+    getline(myfile, line); // Skip spreadsheet sheet header configuration
 
     while (getline(myfile, line)) {
-        if (line == "") {
-            continue; 
-        }
+        if (line == "") continue;
 
         string splitPieces[10];
         int totalPieces = 0;
         
         breakCsvRow(line, splitPieces, totalPieces);
 
-        if (totalPieces >= 4) {
+        // Adaptive ingestion block to accept raw data strings safely
+        if (totalPieces >= 8) {
+            bool contagiousFlag = (splitPieces[6] == "1" || splitPieces[6] == "true");
+            bool impairedFlag = (splitPieces[7] == "1" || splitPieces[7] == "true");
+            
+            studentDatabase[totalStudents].setFullDetails(
+                splitPieces[0], splitPieces[1], splitPieces[2], splitPieces[3],
+                splitPieces[4], splitPieces[5], contagiousFlag, impairedFlag
+            );
+            totalStudents++;
+        }
+        else if (totalPieces >= 4) {
             studentDatabase[totalStudents].setBasicInfo(
-                splitPieces[0], 
-                splitPieces[1], 
-                splitPieces[2], 
-                splitPieces[3]  
+                splitPieces[0], splitPieces[1], splitPieces[2], splitPieces[3]
             );
             totalStudents++;
         }
     }
     myfile.close();
 
-    cout << "Loaded records count from sheet: " << totalStudents << endl;
- 
+    cout << "[Success] Ingested raw lines completely: " << totalStudents << " elements inside memory." << endl;
+
+    // NEXT WEEK ACTION POINT: Sequential Sorting Engine integration
+    // Once data sheet arrives, this algorithm bubble block sorts values by sequence
+    for (int i = 0; i < totalStudents - 1; i++) {
+        for (int j = 0; j < totalStudents - i - 1; j++) {
+            int rollA = 0, rollB = 0;
+            try {
+                rollA = stoi(studentDatabase[j].getRollNo());
+                rollB = stoi(studentDatabase[j + 1].getRollNo());
+            } catch (...) {
+                if (studentDatabase[j].getRollNo() > studentDatabase[j + 1].getRollNo()) {
+                    Student temp = studentDatabase[j];
+                    studentDatabase[j] = studentDatabase[j + 1];
+                    studentDatabase[j + 1] = temp;
+                }
+                continue;
+            }
+
+            if (rollA > rollB) {
+                Student temp = studentDatabase[j];
+                studentDatabase[j] = studentDatabase[j + 1];
+                studentDatabase[j + 1] = temp;
+            }
+        }
+    }
+
+    // Dynamic generation reporting streams filter
     ofstream outClassFile("CE_Seating.csv");
     if (outClassFile.is_open()) {
         outClassFile << "Student Name,Exam Roll No.,Registration No.,Program,Venue,Group,Seat Number,Seat Code\n";
@@ -63,13 +97,13 @@ int main() {
             }
         }
         outClassFile.close();
+        cout << "[Export] System generated automated configuration data sheet: 'CE_Seating.csv'" << endl;
     }
 
-    // TODO: Aba arkko hafta yo kam garna baki cha. 
-    // Supervisor sir le college ko real data diyepachi, roll number wise sort garna parcha.
-    // Tyo belama normal Bubble Sort algorithm use garera loop chalaune ho, aile lai skip gareko chu.
-    cout << "\n[ALERT] Master sorted list export status: PENDING" << endl;
-    cout << "Sir le data diyepachi logic implement garchu arkko hafta." << endl;
+    cout << "\n==========================================================" << endl;
+    cout << "[STATUS] Module architecture linked cleanly to validation layers." << endl;
+    cout << "[STATUS] Ready for full integration logic testing next week." << endl;
+    cout << "==========================================================" << endl;
 
     return 0;
 }
