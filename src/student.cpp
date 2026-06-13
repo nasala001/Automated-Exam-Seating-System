@@ -1,76 +1,33 @@
 #include "student.hpp"
-#include <sstream>
 
-using namespace std;
+// Teacher Constructor Implementation
+Teacher::Teacher(string cid, int b, string n, string contact) {
+    courseId = cid;
+    batch = b;
+    name = n;
+    contactNo = contact;
+}
 
-// Default allocation structures tracking memory variables clear
-Student::Student() {
-    name = "";
-    rollNo = "";
-    regNo = "";
-    program = "";
-    department = "DoCSE";
-    subject = "N/A";
-    hasContagiousDisease = false;
-    isPhysicallyImpaired = false;
+// Student Constructor Implementation
+Student::Student(string n, string roll, string reg, string prog, bool disease, bool impaired) {
+    name = n;
+    rollNo = roll;
+    regNo = reg;
+    program = prog;
+    hasContagiousDisease = disease;
+    isPhysicallyImpaired = impaired;
     
+    // Conditional Department Allocation logic (DoCSE for CE/AI, DESE for others)
+    if (prog == "CE") {
+        department = "DoCSE";
+    } else {
+        department = "DESE";
+    }
+    
+    // Default initializations before seat processing runs
+    subjectCode = "N/A";
     venue = "N/A";
     group = "N/A";
     seatNumber = 0;
     seatCode = "N/A";
-}
-
-void Student::setFullDetails(string n, string r, string rg, string p, string dept, string sub, bool contagious, bool impaired) {
-    name = n;
-    rollNo = r;
-    regNo = rg;
-    program = p;
-    department = dept;
-    subject = sub;
-    hasContagiousDisease = contagious;
-    isPhysicallyImpaired = impaired;
-}
-
-void Student::setBasicInfo(string n, string r, string rg, string p) {
-    name = n;
-    rollNo = r;
-    regNo = rg;
-    program = p;
-}
-
-void Student::setVenue(string v) { venue = v; }
-void Student::setGroup(string g) { group = g; }
-void Student::setSeatNumber(int sNum) { seatNumber = sNum; }
-void Student::setSeatCode(string sCode) { seatCode = sCode; }
-
-string Student::getName() { return name; }
-string Student::getRollNo() { return rollNo; }
-string Student::getRegNo() { return regNo; }
-string Student::getProgram() { return program; }
-string Student::getDepartment() { return department; }
-string Student::getSubject() { return subject; }
-bool Student::getHasContagiousDisease() { return hasContagiousDisease; }
-bool Student::getIsPhysicallyImpaired() { return isPhysicallyImpaired; }
-
-string Student::getVenue() { return venue; }
-string Student::getGroup() { return group; }
-int Student::getSeatNumber() { return seatNumber; }
-string Student::getSeatCode() { return seatCode; }
-
-// Dynamic stream parsing splitter engine without syntax issues
-void breakCsvRow(string line, string words[], int &count) {
-    stringstream ss(line);
-    string dataToken;
-    count = 0;
-    
-    while (getline(ss, dataToken, ',')) {
-        size_t start = dataToken.find_first_not_of(" \t\r\n");
-        size_t end = dataToken.find_last_not_of(" \t\r\n");
-        if (start != string::npos && end != string::npos) {
-            words[count] = dataToken.substr(start, (end - start + 1));
-        } else {
-            words[count] = "";
-        }
-        count++;
-    }
 }
