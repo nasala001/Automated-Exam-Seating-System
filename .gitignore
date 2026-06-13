@@ -1,0 +1,12 @@
+# CMake build directories
+out/
+build/
+
+# IDE files
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userossc
+*.sln.docstates
