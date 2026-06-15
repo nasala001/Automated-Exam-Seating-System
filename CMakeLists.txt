@@ -9,6 +9,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCES
     src/main.cpp
     src/SeatCodeUtils.cpp
+    src/Student.cpp
+    src/SeatingEngine.cpp
     src/Venue.cpp
 )
 

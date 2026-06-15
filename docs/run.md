@@ -20,27 +20,32 @@
 ## Build Steps
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/nasala001/Automated-Exam-Seating-System.git
 cd Automated-Exam-Seating-System
 ```
 
 ### 2. Create a build directory and configure
+
 ```bash
 cmake -B build -S .
 ```
 
 > **Using MinGW on Windows?** Add the generator flag:
+>
 > ```bash
 > cmake -B build -S . -G "MinGW Makefiles"
 > ```
 
 ### 3. Compile
+
 ```bash
 cmake --build build
 ```
 
 The executable will be placed in:
+
 ```
 build/SeatCodeDemo          # Linux / macOS / MinGW
 build/Debug/SeatCodeDemo.exe  # MSVC (Debug mode)
@@ -51,11 +56,13 @@ build/Debug/SeatCodeDemo.exe  # MSVC (Debug mode)
 ## Running the Demo
 
 ### Windows (MSVC)
+
 ```powershell
 .\build\Debug\SeatCodeDemo.exe
 ```
 
 ### Windows (MinGW) / Linux
+
 ```bash
 ./build/SeatCodeDemo
 ```

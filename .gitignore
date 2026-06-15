@@ -2,6 +2,7 @@
 Antigravity.md
 antigravity.md
 explain.md
+teammates.md
 
 # Compiled Object files
 *.o
@@ -82,3 +83,7 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
+
+# Scratchpads
+src/aiscratchpad.md
+
