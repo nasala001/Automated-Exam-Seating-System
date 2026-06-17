@@ -8,6 +8,7 @@
 #include <QTabWidget>
 #include <QLineEdit>
 #include <QSpinBox>
+#include <QComboBox>
 
 class MainWindow;
 
@@ -26,12 +27,14 @@ private slots:
     void addSection();
     void removeSection();
     void saveHall();
+    void previewHall();
 
     // Room tab
     void addRoom();
 
     // Venue summary
     void deleteVenue();
+    void visualizeVenue(int row);
 
 private:
     MainWindow *mainWindow;
@@ -50,7 +53,12 @@ private:
     // ── Venue summary ──────────────────
     QTableWidget *venueSummaryTable;
 
+    // ── Seat layout visualization ──────
+    QTableWidget *seatGridPreview;
+    QLabel       *previewTitle;
+
     QWidget* createHallTab();
     QWidget* createRoomTab();
     void refreshVenueSummary();
+    void showSeatGrid(int venueIndex);
 };
