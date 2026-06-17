@@ -4,6 +4,15 @@ antigravity.md
 explain.md
 teammates.md
 
+# AI / Architecture docs (not source code)
+APPLICATION_ARCHITECTURE_AND_STACK.md
+
+# Cache
+.cache/
+
+# Compile commands
+compile_commands.json
+
 # Compiled Object files
 *.o
 *.obj
