@@ -5,11 +5,16 @@
 #include <QLabel>
 #include <QLineEdit>
 
+class MainWindow;
+
 class StudentPage : public QWidget
 {
     Q_OBJECT
 public:
-    explicit StudentPage(QWidget *parent = nullptr);
+    explicit StudentPage(MainWindow *mainWin, QWidget *parent = nullptr);
+
+signals:
+    void studentsLoaded(int count);
 
 private slots:
     void browseFile();
@@ -17,6 +22,7 @@ private slots:
     void deleteSelected();
 
 private:
+    MainWindow   *mainWindow;
     QTableWidget *studentTable;
     QPushButton  *btnBrowse;
     QPushButton  *btnDelete;

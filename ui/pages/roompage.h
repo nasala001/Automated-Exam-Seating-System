@@ -1,29 +1,56 @@
 #pragma once
-
 #include <QWidget>
 #include <QLabel>
 #include <QTableWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QHeaderView>
-#include <QInputDialog>
-#include <QMessageBox>
-#include <QString>
+#include <QTabWidget>
+#include <QLineEdit>
+#include <QSpinBox>
+
+class MainWindow;
 
 class RoomPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit RoomPage(QWidget *parent = nullptr);
+    explicit RoomPage(MainWindow *mainWin, QWidget *parent = nullptr);
+
+signals:
+    void venueAdded();
 
 private slots:
+    // Hall tab
+    void addSection();
+    void removeSection();
+    void saveHall();
+
+    // Room tab
     void addRoom();
-    void deleteRoom();
+
+    // Venue summary
+    void deleteVenue();
 
 private:
-    QTableWidget *roomTable  = nullptr;
-    QPushButton  *btnAdd     = nullptr;
-    QPushButton  *btnDelete  = nullptr;
+    MainWindow *mainWindow;
+
+    // ── Hall tab widgets ───────────────
+    QLineEdit    *hallNameEdit;
+    QSpinBox     *hallRowsSpin;
+    QTableWidget *sectionTable;
+
+    // ── Room tab widgets ───────────────
+    QLineEdit    *blockNameEdit;
+    QLineEdit    *roomNumberEdit;
+    QSpinBox     *roomRowsSpin;
+    QSpinBox     *roomColsSpin;
+
+    // ── Venue summary ──────────────────
+    QTableWidget *venueSummaryTable;
+
+    QWidget* createHallTab();
+    QWidget* createRoomTab();
+    void refreshVenueSummary();
 };

@@ -1,4 +1,7 @@
-#include "StudentPage.h"
+#include "studentpage.h"
+#include "mainwindow.h"
+#include "Student.h"
+
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -6,7 +9,8 @@
 #include <QDir>
 #include <QMessageBox>
 
-StudentPage::StudentPage(QWidget *parent) : QWidget(parent)
+StudentPage::StudentPage(MainWindow *mainWin, QWidget *parent)
+    : QWidget(parent), mainWindow(mainWin)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(30, 30, 30, 30);
@@ -51,9 +55,10 @@ StudentPage::StudentPage(QWidget *parent) : QWidget(parent)
     filePathLabel->setStyleSheet("color: #6c7086; font-size: 12px;");
     layout->addWidget(filePathLabel);
 
-    // Table
-    studentTable = new QTableWidget(0, 4, this);
-    studentTable->setHorizontalHeaderLabels({"ID", "Name", "Faculty", "Exam"});
+    // Table — 6 columns matching Student struct
+    studentTable = new QTableWidget(0, 6, this);
+    studentTable->setHorizontalHeaderLabels(
+        {"Name", "Exam Roll No", "Reg No", "Program", "Semester", "Subject"});
     studentTable->horizontalHeader()->setStretchLastSection(true);
     studentTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     studentTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -90,11 +95,38 @@ void StudentPage::browseFile()
 void StudentPage::loadFile(const QString &filePath)
 {
     filePathLabel->setText("📄 " + filePath);
-    // TODO: connect to teammate's CSV reader
-    // QList<Student> students = csvReader->importCSV(filePath);
-    QMessageBox::information(this, "File Loaded",
-                             "File selected:\n" + filePath +
-                                 "\n\nCSV reader will be connected here.");
+
+    // Use the backend CSV parser
+    std::vector<Student> parsed = parseStudentsFromCSV(filePath.toStdString());
+
+    if (parsed.empty()) {
+        QMessageBox::warning(this, "Import Failed",
+                             "No students found in the file.\n"
+                             "Expected CSV format:\n"
+                             "Name,ExamRollNo,RegNo,Program,Semester,Subject");
+        return;
+    }
+
+    // Store in MainWindow's shared data
+    mainWindow->setStudents(parsed);
+
+    // Populate the table
+    studentTable->setRowCount(0);
+    for (const auto& s : parsed) {
+        int row = studentTable->rowCount();
+        studentTable->insertRow(row);
+        studentTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(s.name)));
+        studentTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(s.examRollNo)));
+        studentTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(s.registrationNo)));
+        studentTable->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(s.program)));
+        studentTable->setItem(row, 4, new QTableWidgetItem(QString::number(s.semester)));
+        studentTable->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(s.subject)));
+    }
+
+    QMessageBox::information(this, "Import Successful",
+                             QString("Loaded %1 students from CSV.").arg(parsed.size()));
+
+    emit studentsLoaded(static_cast<int>(parsed.size()));
 }
 
 void StudentPage::filterTable(const QString &text)

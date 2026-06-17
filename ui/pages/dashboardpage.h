@@ -13,15 +13,16 @@ class DashboardPage : public QWidget
 
 public:
     explicit DashboardPage(QWidget *parent = nullptr);
-    void updateStats(int students, int rooms, int assigned, int conflicts);
+    void updateStats(int students, int venues, int totalSeats, int conflicts);
 
 private:
     QLabel *lblStudents  = nullptr;
-    QLabel *lblRooms     = nullptr;
-    QLabel *lblAssigned  = nullptr;
+    QLabel *lblVenues    = nullptr;
+    QLabel *lblSeats     = nullptr;
     QLabel *lblConflicts = nullptr;
 
     QWidget* makeStatCard(const QString &label,
                           const QString &value,
-                          const QString &color);
+                          const QString &color,
+                          QLabel **outValueLabel);
 };

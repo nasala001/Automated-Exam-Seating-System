@@ -7,6 +7,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
+#include "Student.h"
+#include "Venue.h"
+
+#include <vector>
+#include <memory>
+
 class DashboardPage;
 class StudentPage;
 class RoomPage;
@@ -20,6 +26,16 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    // ── Shared data accessors ──────────────────
+    std::vector<Student>&                       getStudents();
+    void                                        setStudents(std::vector<Student> s);
+    std::vector<std::unique_ptr<Venue>>&        getVenues();
+    void                                        addVenue(std::unique_ptr<Venue> v);
+    int                                         totalSeatCount() const;
+
+public slots:
+    void refreshDashboard();
+
 private slots:
     void showDashboard();
     void showStudents();
@@ -27,6 +43,11 @@ private slots:
     void showResults();
 
 private:
+    // ── Shared data ────────────────────────────
+    std::vector<Student>                students;
+    std::vector<std::unique_ptr<Venue>> venues;
+
+    // ── UI ─────────────────────────────────────
     QStackedWidget *pages;
 
     QPushButton *btnDashboard;

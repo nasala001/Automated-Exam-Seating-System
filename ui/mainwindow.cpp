@@ -1,13 +1,46 @@
 #include "mainwindow.h"
-#include "pages/DashboardPage.h"
-#include "pages/StudentPage.h"
-#include "pages/RoomPage.h"
-#include "pages/ResultPage.h"
+#include "pages/dashboardpage.h"
+#include "pages/studentpage.h"
+#include "pages/roompage.h"
+#include "pages/resultpage.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QFrame>
+
+// ── Shared data accessors ──────────────────────────────────────────────────
+
+std::vector<Student>& MainWindow::getStudents() { return students; }
+
+void MainWindow::setStudents(std::vector<Student> s) {
+    students = std::move(s);
+    refreshDashboard();
+}
+
+std::vector<std::unique_ptr<Venue>>& MainWindow::getVenues() { return venues; }
+
+void MainWindow::addVenue(std::unique_ptr<Venue> v) {
+    venues.push_back(std::move(v));
+    refreshDashboard();
+}
+
+int MainWindow::totalSeatCount() const {
+    int total = 0;
+    for (auto& v : venues) total += v->totalSeats();
+    return total;
+}
+
+void MainWindow::refreshDashboard() {
+    dashboardPage->updateStats(
+        static_cast<int>(students.size()),
+        static_cast<int>(venues.size()),
+        totalSeatCount(),
+        0  // conflicts — Phase 2
+    );
+}
+
+// ── Constructor ────────────────────────────────────────────────────────────
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
