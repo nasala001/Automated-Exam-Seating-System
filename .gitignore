@@ -41,6 +41,7 @@ out/
 # Qt / Qt Creator
 *.user
 *.user.user
+.qtcreator/
 *.qmake.stash
 *.qmake.cache
 /Makefile*
