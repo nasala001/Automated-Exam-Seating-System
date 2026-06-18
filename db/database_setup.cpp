@@ -2,19 +2,19 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "../database/sqlite3.h" // // Imported official SQLite3 library header.
+#include "../database/sqlite3.h" // Imported official SQLite3 library header.
 
 using namespace std;
 
 int main() {
-    sqlite3* DB;
+    sqlite3* DB = nullptr; // Variable name strictly matches everywhere now
     char* errMsg = nullptr;
     
-    // creates .db file in data folder 
-    int exit = sqlite3_open("../data/KU_Exam_System.db", &DB);
+    // Exact absolute path to ensure Windows never loses directory context
+    int exit = sqlite3_open("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\KU_Exam_System.db", &DB);
     if (exit != SQLITE_OK) {
        cout << "[ERROR] Could not open or create database!" << endl;
-        return -1;
+       return -1;
     }
     cout << "[SUCCESS] Database opened/created successfully.\n";
 
@@ -34,16 +34,17 @@ int main() {
 
     exit = sqlite3_exec(DB, createTables.c_str(), NULL, 0, &errMsg);
     if (exit != SQLITE_OK) {
-       cout << "[SUCCESS] Tables created successfully." << endl;
-        sqlite3_free(errMsg);
-        return -1;
+       cout << "[ERROR] Tables creation failed: " << errMsg << endl;
+       sqlite3_free(errMsg);
+       sqlite3_close(DB);
+       return -1;
     }
     cout << "[SUCCESS] Tables created successfully.\n";
 
     sqlite3_exec(DB, "BEGIN TRANSACTION;", NULL, 0, NULL);
 
     // --- A. Student_Info.csv migration ---
-    ifstream fileStud("../data/Student_Info.csv");
+    ifstream fileStud("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Student_Info.csv");
     if (fileStud.is_open()) {
         string line;
         getline(fileStud, line); 
@@ -69,7 +70,7 @@ int main() {
     }
 
     // --- B. Medical_Log.csv migration ---
-    ifstream fileMed("../data/Medical_Log.csv");
+    ifstream fileMed("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Medical_Log.csv");
     if (fileMed.is_open()) {
         string line;
         getline(fileMed, line);
@@ -89,7 +90,7 @@ int main() {
     }
 
     // --- C. Teacher_Info.csv migration ---
-    ifstream fileTeach("../data/Teacher_Info.csv");
+    ifstream fileTeach("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Teacher_Info.csv");
     if (fileTeach.is_open()) {
         string line;
         getline(fileTeach, line);
@@ -112,7 +113,7 @@ int main() {
     }
 
     // --- D. Exam_Routine.csv migration ---
-    ifstream fileRoutine("../data/Exam_Routine.csv");
+    ifstream fileRoutine("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Exam_Routine.csv");
     if (fileRoutine.is_open()) {
         string line;
         getline(fileRoutine, line);
