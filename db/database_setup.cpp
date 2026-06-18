@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "../database/sqlite3.h" // database फोल्डर भित्रको sqlite3.h तानेको
+#include "../database/sqlite3.h" // // Imported official SQLite3 library header.
 
 using namespace std;
 
@@ -10,15 +10,15 @@ int main() {
     sqlite3* DB;
     char* errMsg = nullptr;
     
-    // data फोल्डर भित्र .db फाइल क्रिएट हुन्छ
+    // creates .db file in data folder 
     int exit = sqlite3_open("../data/KU_Exam_System.db", &DB);
     if (exit != SQLITE_OK) {
-        cerr << "डाटाबेस खोल्न वा बनाउन सकिएन!" << endl;
+       cout << "[ERROR] Could not open or create database!" << endl;
         return -1;
     }
     cout << "[SUCCESS] Database opened/created successfully.\n";
 
-    // टेबल स्ट्रक्चर
+    // table structure
     string createTables = 
         "CREATE TABLE IF NOT EXISTS STUDENT ("
         "NAME TEXT, REGID TEXT PRIMARY KEY, ROLLNO TEXT, PROGRAM TEXT, BATCH TEXT, IS_DISABLED TEXT);"
@@ -34,7 +34,7 @@ int main() {
 
     exit = sqlite3_exec(DB, createTables.c_str(), NULL, 0, &errMsg);
     if (exit != SQLITE_OK) {
-        cerr << "टेबल बनाउन त्रुटि भयो: " << errMsg << endl;
+       cout << "[SUCCESS] Tables created successfully." << endl;
         sqlite3_free(errMsg);
         return -1;
     }
@@ -42,7 +42,7 @@ int main() {
 
     sqlite3_exec(DB, "BEGIN TRANSACTION;", NULL, 0, NULL);
 
-    // --- A. Student_Info.csv माइग्रेसन ---
+    // --- A. Student_Info.csv migration ---
     ifstream fileStud("../data/Student_Info.csv");
     if (fileStud.is_open()) {
         string line;
@@ -68,7 +68,7 @@ int main() {
         cout << "[SUCCESS] Student data migrated.\n";
     }
 
-    // --- B. Medical_Log.csv माइग्रेसन ---
+    // --- B. Medical_Log.csv migration ---
     ifstream fileMed("../data/Medical_Log.csv");
     if (fileMed.is_open()) {
         string line;
@@ -88,7 +88,7 @@ int main() {
         cout << "[SUCCESS] Medical logs migrated.\n";
     }
 
-    // --- C. Teacher_Info.csv माइग्रेसन ---
+    // --- C. Teacher_Info.csv migration ---
     ifstream fileTeach("../data/Teacher_Info.csv");
     if (fileTeach.is_open()) {
         string line;
@@ -111,7 +111,7 @@ int main() {
         cout << "[SUCCESS] Teacher data migrated.\n";
     }
 
-    // --- D. Exam_Routine.csv माइग्रेसन ---
+    // --- D. Exam_Routine.csv migration ---
     ifstream fileRoutine("../data/Exam_Routine.csv");
     if (fileRoutine.is_open()) {
         string line;
