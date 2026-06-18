@@ -61,6 +61,12 @@ bool InputValidator::validateStudentData(const std::string& rawRow) {
         return false;
     }
 
+    // Check for numeric name
+    if (isDigits(name)) {
+        lastError_ = "Invalid student name: '" + name + "' cannot be numeric.";
+        return false;
+    }
+
     // 2. Validate boolean format (0 or 1, or case-insensitive "true"/"false")
     auto validateBool = [](std::string s) {
         std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });

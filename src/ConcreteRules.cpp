@@ -76,6 +76,7 @@ bool OneStudentOneSeatRule::validate(const SeatPlan& seatPlan) {
     std::unordered_set<std::string> seenRolls;
     std::unordered_set<std::string> seenRegs;
     std::vector<std::string> duplicateRolls;
+    std::vector<std::string> duplicateRegs;
 
     for (int r = 0; r < seatPlan.room.rows; ++r) {
         for (int c = 0; c < seatPlan.room.columns; ++c) {
@@ -89,17 +90,31 @@ bool OneStudentOneSeatRule::validate(const SeatPlan& seatPlan) {
                         }
                     }
                     if (!student.registrationNo.empty()) {
-                        seenRegs.insert(student.registrationNo);
+                        if (!seenRegs.insert(student.registrationNo).second) {
+                            duplicateRegs.push_back(student.registrationNo);
+                        }
                     }
                 }
             }
         }
     }
 
-    if (!duplicateRolls.empty()) {
-        warning_ = "Duplicate Student Placement: The following roll numbers are assigned to multiple seats: ";
-        for (size_t i = 0; i < duplicateRolls.size(); ++i) {
-            warning_ += duplicateRolls[i] + (i + 1 < duplicateRolls.size() ? ", " : "");
+    if (!duplicateRolls.empty() || !duplicateRegs.empty()) {
+        warning_ = "Duplicate Student Placement: ";
+        if (!duplicateRolls.empty()) {
+            warning_ += "The following roll numbers are assigned to multiple seats: ";
+            for (size_t i = 0; i < duplicateRolls.size(); ++i) {
+                warning_ += duplicateRolls[i] + (i + 1 < duplicateRolls.size() ? ", " : "");
+            }
+            if (!duplicateRegs.empty()) {
+                warning_ += "; ";
+            }
+        }
+        if (!duplicateRegs.empty()) {
+            warning_ += "The following registration numbers are assigned to multiple seats: ";
+            for (size_t i = 0; i < duplicateRegs.size(); ++i) {
+                warning_ += duplicateRegs[i] + (i + 1 < duplicateRegs.size() ? ", " : "");
+            }
         }
         return false;
     }
