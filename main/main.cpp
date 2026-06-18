@@ -1,10 +1,33 @@
 #include <QApplication>
 #include <QFont>
+#include <QPalette>
+#include <QStyleFactory>
 #include "../include/mainwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    // Force Fusion style + light palette to ignore macOS system dark mode
+    app.setStyle(QStyleFactory::create("Fusion"));
+    QPalette lightPal;
+    lightPal.setColor(QPalette::Window,          QColor("#f5f7fa"));
+    lightPal.setColor(QPalette::WindowText,       QColor("#1a2332"));
+    lightPal.setColor(QPalette::Base,             QColor("#ffffff"));
+    lightPal.setColor(QPalette::AlternateBase,    QColor("#f8fafc"));
+    lightPal.setColor(QPalette::ToolTipBase,      QColor("#003366"));
+    lightPal.setColor(QPalette::ToolTipText,      QColor("#ffffff"));
+    lightPal.setColor(QPalette::Text,             QColor("#1a2332"));
+    lightPal.setColor(QPalette::Button,           QColor("#f0f4fa"));
+    lightPal.setColor(QPalette::ButtonText,       QColor("#1a2332"));
+    lightPal.setColor(QPalette::BrightText,       QColor("#8b0000"));
+    lightPal.setColor(QPalette::Link,             QColor("#003366"));
+    lightPal.setColor(QPalette::Highlight,        QColor("#dce8f7"));
+    lightPal.setColor(QPalette::HighlightedText,  QColor("#003366"));
+    lightPal.setColor(QPalette::Disabled, QPalette::WindowText, QColor("#9ab0c8"));
+    lightPal.setColor(QPalette::Disabled, QPalette::Text,       QColor("#9ab0c8"));
+    lightPal.setColor(QPalette::Disabled, QPalette::ButtonText, QColor("#9ab0c8"));
+    app.setPalette(lightPal);
 
     // Application-wide font
     QFont appFont("Segoe UI", 10);

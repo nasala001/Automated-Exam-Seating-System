@@ -14,7 +14,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowTitle("KU Examination Seating System");
+    setWindowTitle("KU Seating System");
     setMinimumSize(1200, 780);
     resize(1440, 900);
 
@@ -72,7 +72,7 @@ void MainWindow::buildSidebar() {
     tvl->setContentsMargins(16, 16, 16, 14);
     tvl->setSpacing(3);
 
-    auto *appTitle = new QLabel("ExamSeat Pro");
+    auto *appTitle = new QLabel("Exam Seating");
     appTitle->setStyleSheet("font-size:16px; font-weight:bold; color:#c9a84c; "
                             "font-family:'Segoe UI',Arial,sans-serif;");
     auto *appSub = new QLabel("Kathmandu University");
