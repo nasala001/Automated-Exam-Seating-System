@@ -1,0 +1,63 @@
+# Build
+build/
+cmake-build-*/
+*.o
+*.obj
+*.exe
+*.lib
+*.a
+*.dll
+*.so
+*.dylib
+
+# Qt
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*_autogen/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+CMakeUserPresets.json
+compile_commands.json
+
+# Qt Creator
+*.pro.user*
+*.pro.user.*
+*.creator.user*
+*.config
+*.includes
+*.autosave
+QtCreator.ini
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj*
+*.suo
+*.user
+
+# VS Code
+.vscode/
+
+# IDE
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+*.vscode
+
+# OS
+.DS_Store
+Thumbs.db
+*.lnk
+desktop.ini
+
+# Logs & temp
+*.log
+*.tmp
+*.temp
