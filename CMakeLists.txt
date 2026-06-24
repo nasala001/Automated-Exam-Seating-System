@@ -1,5 +1,5 @@
-﻿cmake_minimum_required(VERSION 3.16)
-project(ExamSeating VERSION 1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+project(ExamSeating VERSION 1.0 LANGUAGES CXX C)
 
 # ── C++20 standard ────────────────────────────────────────────────────────────
 set(CMAKE_CXX_STANDARD 20)
@@ -15,8 +15,10 @@ set(SOURCES
     src/Room.cpp
     src/Hall.cpp
     src/HallManager.cpp
-    # TODO: add these as you implement them:
-    # src/sqlite3.c          <- SQLite amalgamation
+    src/sqlite3.c
+    src/RoomRepository.cpp
+    src/HallRepository.cpp
+    # TODO: add these as your teammates implement them:
     # src/models/Student.cpp
     # src/models/Exam.cpp
     # src/engine/SeatPlanner.cpp
@@ -27,9 +29,12 @@ set(SOURCES
 # ── Main executable ───────────────────────────────────────────────────────────
 add_executable(ExamSeating ${SOURCES})
 
-# ── SQLite (add when you drop in sqlite3.c / sqlite3.h) ──────────────────────
-# target_sources(ExamSeating PRIVATE src/sqlite3.c)
-# target_link_libraries(ExamSeating PRIVATE dl pthread)
+# ── SQLite ─────────────────────────────────────────────────────────────────────
+# sqlite3.c is a C file, not C++ — tell CMake to compile it as C
+set_source_files_properties(src/sqlite3.c PROPERTIES LANGUAGE C)
+if (UNIX)
+    target_link_libraries(ExamSeating PRIVATE dl pthread)
+endif()
 
 # ── GoogleTest (enable when you add tests/) ───────────────────────────────────
 # include(FetchContent)

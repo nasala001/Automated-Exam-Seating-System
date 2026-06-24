@@ -1,33 +1,25 @@
 #include "HallManager.h"
-#include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+// ── Hall CRUD ─────────────────────────────────────────────────────────────────
 void HallManager::addHall(const Hall& hall) {
     for (const auto& h : halls)
-        if (h.hallGetID() == hall.hallGetID())
-            throw invalid_argument("[ERROR] Hall ID '" + hall.hallGetID() + "' already exists.");
+        if (h.getHallID() == hall.getHallID())
+            throw invalid_argument(
+                "[HallManager] Hall ID '" + hall.getHallID() + "' already exists.");
     halls.push_back(hall);
 }
 
 bool HallManager::removeHall(const string& hallID) {
     for (auto it = halls.begin(); it != halls.end(); ++it) {
-        if (it->hallGetID() == hallID) { halls.erase(it); return true; }
+        if (it->getHallID() == hallID) {
+            halls.erase(it);
+            return true;
+        }
     }
     return false;
-}
-
-Hall* HallManager::findHall(const string& hallID) {
-    for (auto& h : halls)
-        if (h.hallGetID() == hallID) return &h;
-    return nullptr;
-}
-
-Hall* HallManager::findHallByName(const string& name) {
-    for (auto& h : halls)
-        if (h.getHallName() == name) return &h;
-    return nullptr;
 }
 
 bool HallManager::editHallName(const string& hallID, const string& newName) {
@@ -37,16 +29,100 @@ bool HallManager::editHallName(const string& hallID, const string& newName) {
     return true;
 }
 
+// ── Hall queries ──────────────────────────────────────────────────────────────
+Hall* HallManager::findHall(const string& hallID) {
+    for (auto& h : halls)
+        if (h.getHallID() == hallID) return &h;
+    return nullptr;
+}
+
+const Hall* HallManager::findHall(const string& hallID) const {
+    for (const auto& h : halls)
+        if (h.getHallID() == hallID) return &h;
+    return nullptr;
+}
+
+Hall* HallManager::findHallByName(const string& name) {
+    for (auto& h : halls)
+        if (h.getHallName() == name) return &h;
+    return nullptr;
+}
+
+const Hall* HallManager::findHallByName(const string& name) const {
+    for (const auto& h : halls)
+        if (h.getHallName() == name) return &h;
+    return nullptr;
+}
+
+// ── System-wide capacity queries ──────────────────────────────────────────────
 int HallManager::getTotalSystemCapacity() const {
-    int t = 0; for (const auto& h : halls) t += h.getTotalCapacity(); return t;
+    int total = 0;
+    for (const auto& h : halls) total += h.getTotalCapacity();
+    return total;
 }
 
-void HallManager::checkCapacityWarning(int totalStudents) const {
+int HallManager::getTotalSystemAssigned() const {
+    int total = 0;
+    for (const auto& h : halls) total += h.getTotalAssigned();
+    return total;
+}
+
+int HallManager::getTotalSystemAvailable() const {
+    return getTotalSystemCapacity() - getTotalSystemAssigned();
+}
+
+bool HallManager::checkCapacity(int totalStudents) const {
     int seats = getTotalSystemCapacity();
-    if (totalStudents > seats)
-        cout << "[WARNING] Students exceed seats by " << (totalStudents - seats) << "!\n";
-    else
-        cout << "[OK] " << (seats - totalStudents) << " seats remaining.\n";
+    return totalStudents <= seats;
 }
 
+// ── Engine-facing queries ─────────────────────────────────────────────────────
+vector<Room*> HallManager::getAllAvailableRooms() {
+    vector<Room*> result;
+    for (auto& h : halls) {
+        auto available = h.getAvailableRooms();
+        result.insert(result.end(), available.begin(), available.end());
+    }
+    return result;
+}
+
+vector<Room*> HallManager::getAllAccessibleRooms() {
+    vector<Room*> result;
+    for (auto& h : halls) {
+        auto accessible = h.getAccessibleRooms();
+        result.insert(result.end(), accessible.begin(), accessible.end());
+    }
+    return result;
+}
+
+vector<Room*> HallManager::getAllIsolatedRooms() {
+    vector<Room*> result;
+    for (auto& h : halls) {
+        auto isolated = h.getIsolatedRooms();
+        result.insert(result.end(), isolated.begin(), isolated.end());
+    }
+    return result;
+}
+
+vector<Room*> HallManager::getRoomsWithMinCapacity(int minCapacity) {
+    vector<Room*> result;
+    for (auto& h : halls)
+        for (auto& r : h.getRooms())
+            if (r.getCapacity() >= minCapacity && r.hasAvailableSeat())
+                result.push_back(&r);
+    return result;
+}
+
+// ── Collection access ─────────────────────────────────────────────────────────
 const vector<Hall>& HallManager::getHalls() const { return halls; }
+vector<Hall>&       HallManager::getHalls()       { return halls; }
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+bool HallManager::isEmpty()   const { return halls.empty();               }
+int  HallManager::hallCount() const { return static_cast<int>(halls.size()); }
+
+void HallManager::resetAllAssignments() {
+    for (auto& h : halls)
+        for (auto& r : h.getRooms())
+            r.resetAssignments();
+}

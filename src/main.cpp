@@ -1,47 +1,67 @@
-
 #include <iostream>
 #include "HallManager.h"
+#include "HallRepository.h"
 
 using namespace std;
 
-int main() {
-    HallManager manager;
+// ─────────────────────────────────────────────────────────────────────────────
+//  main.cpp – application entry point
+//  Demonstrates: Hall/Room creation -> SQLite save -> SQLite load back
+// ─────────────────────────────────────────────────────────────────────────────
 
+int main() {
+    // ── Open (or create) the database file ────────────────────────────────────
+    sqlite3* db = HallRepository::openDatabase("exam_seating.db");
+    if (!db) {
+        cerr << "[FATAL] Could not open database.\n";
+        return 1;
+    }
+    HallRepository hallRepo(db);
+
+    // ── Build halls/rooms in memory (same as before) ──────────────────────────
+    HallManager manager;
     try {
         Hall hall1("TTC", "TTC Hall");
-        hall1.addRoom(Room("R101", "TTC Room 1", 5, 8));
-        hall1.addRoom(Room("R102", "TTC Isolated Room", 2, 5, true, false));
+        hall1.addRoom(Room("R101", "TTC Main Room",       5,  8));
+        hall1.addRoom(Room("R102", "TTC Isolated Room",   2,  5, true,  false));
+        hall1.addRoom(Room("R103", "TTC Accessible Room", 3,  6, false, true));
         manager.addHall(hall1);
 
         Hall hall2("MPH", "Multipurpose Hall");
-        hall2.addRoom(Room("R201", "MPH Main Room", 10, 20));
-        hall2.addRoom(Room("R202", "MPH Accessible Room", 3, 5, false, true));
+        hall2.addRoom(Room("R201", "MPH Main Room",       10, 20));
+        hall2.addRoom(Room("R202", "MPH Accessible Room", 3,  5, false, true));
         manager.addHall(hall2);
     } catch (const exception& e) {
-        cout << e.what() << "\n";
+        cerr << e.what() << "\n";
+        sqlite3_close(db);
+        return 1;
     }
 
-    // Safe pointer usage - ALWAYS check for null
-    Hall* h = manager.findHall("TTC");
-    if (h) {
-        if (h->editRoom("R101", "TTC Main Exam Room", 6, 10))
-            cout << "[OK] Room edited.\n";
-
-        Room* r = h->findRoom("R101");
-        if (r)
-            cout << "Status: " << r->getStatusString()
-                 << "  Occupancy: " << r->getOccupancyPercent() << "%\n";
+    // ── Save each hall (with its rooms) to SQLite, skipping duplicates ────────
+    cout << "[DB] Saving halls...\n";
+    for (const auto& hall : manager.getHalls()) {
+        if (hallRepo.exists(hall.getHallID())) {
+            cout << "  -> " << hall.getHallID() << " already in DB, skipping.\n";
+            continue;
+        }
+        if (hallRepo.save(hall))
+            cout << "  -> Saved " << hall.getHallID() << " (" << hall.getRoomCount() << " rooms)\n";
+        else
+            cout << "  -> FAILED to save " << hall.getHallID() << "\n";
     }
 
-    manager.checkCapacityWarning(250);
-    manager.checkCapacityWarning(50);
+    // ── Load everything back from SQLite to prove persistence works ──────────
+    cout << "\n[DB] Loading halls back from database...\n";
+    vector<Hall> loadedHalls = hallRepo.loadAll();
+    for (const auto& hall : loadedHalls) {
+        cout << "  Hall: " << hall.getHallID() << " - " << hall.getHallName()
+             << " | Rooms: " << hall.getRoomCount()
+             << " | Capacity: " << hall.getTotalCapacity() << "\n";
+        for (const auto& room : hall.getRooms())
+            cout << "    -> " << room.getRoomID() << " " << room.getBadge()
+                 << " cap=" << room.getCapacity() << "\n";
+    }
 
-    // Validation tests
-    try { Room bad("", "", -1, 0); }
-    catch (const exception& e) { cout << e.what() << "\n"; }
-
-    try { manager.addHall(Hall("TTC", "Dup")); }
-    catch (const exception& e) { cout << e.what() << "\n"; }
-
+    sqlite3_close(db);
     return 0;
 }
