@@ -1,41 +1,47 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
 
+#include "../database/sqlite3.h"
 #include <string>
+#include <vector>
 
-using namespace std;
-
-// Teacher Blueprint Mapping
-class Teacher {
-public:
-    string courseId;    
-    int batch;
-    string name;
-    string contactNo;
-
-    Teacher(string cid, int b, string n, string contact);
-};
-
-// Student Blueprint Mapping with 12 Core Parameters
 class Student {
-public:
-    string name;
-    string rollNo;
-    string regNo;
-    string program;        // CE or Civil
-    string department;     // DoCSE or DESE
-    string subjectCode;    // Mapped via the dynamic parallel routine
-    bool hasContagiousDisease;
-    bool isPhysicallyImpaired;
-    
-    // Core structural variables used for routing and printing
-    string venue;
-    string group;
-    int seatNumber;
-    string seatCode;
+private:
+    std::string name;
+    std::string regNo;
+    std::string rollNo;
+    std::string program;
+    std::string batch;
+    std::string isDisabled;
+    std::string hasContagious; // From medical.csv
+    std::string subjectCode;   // From routine.csv
+    std::string teacherName;   // From teacher.csv (Sir's Requirement)
+    std::string seatCode;      // Generated dynamic seat format
 
-    // Constructor Declaration
-    Student(string n, string roll, string reg, string prog, bool disease, bool impaired);
+public:
+    // Constructor
+    Student(std::string n, std::string reg, std::string roll, std::string prog, 
+            std::string b, std::string dis, std::string sick = "false", 
+            std::string sub = "UNKNOWN", std::string teach = "UNKNOWN");
+
+    // Getters and Setters
+    std::string getName() const { return name; }
+    std::string getRegNo() const { return regNo; }
+    std::string getRollNo() const { return rollNo; }
+    std::string getProgram() const { return program; }
+    std::string getBatch() const { return batch; }
+    std::string getIsDisabled() const { return isDisabled; }
+    std::string getHasContagious() const { return hasContagious; }
+    std::string getSubjectCode() const { return subjectCode; }
+    std::string getTeacherName() const { return teacherName; }
+    std::string getSeatCode() const { return seatCode; }
+    
+    void setSeatCode(std::string code) { seatCode = code; }
 };
 
-#endif // STUDENT_HPP
+// Core Prototypes
+bool runDatabaseMigrationEngine(sqlite3* DB);
+void loadLiveRecordsIntoVectors(sqlite3* DB, std::vector<Student>& studentList);
+void generateAndExportSeatPlan(sqlite3* DB, std::vector<Student>& studentList);
+
+#endif

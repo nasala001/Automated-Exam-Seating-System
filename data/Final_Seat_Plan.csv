@@ -1,0 +1,51 @@
+Student_Name,Registration_ID,Roll_No,Subject_Code,Assigned_Teacher,Room_Block,Sub_Group,Seat_Code,Status
+Aashish Dangal,REG101,01,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST1,NORMAL
+Shreeshant Jha,REG102,02,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST2,NORMAL
+Pratishthit Khaniya,REG104,04,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST3,NORMAL
+Aman Jha,REG111,06,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST4,NORMAL
+Bipana Sen,REG112,07,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST5,NORMAL
+Dinesh Poudel,REG114,09,COMP116,Pankaj Kumar,Multipurpose Hall,A1,MH-A1-ST6,NORMAL
+Rohan Sharma,REG106,01,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST1,NORMAL
+Aayush Joshi,REG107,02,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST2,NORMAL
+Anjali Shrestha,REG108,03,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST3,NORMAL
+Sita Thapa,REG109,04,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST4,NORMAL
+Ram Bahadur,REG110,05,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST5,NORMAL
+Gopal Thapa,REG116,06,ENGG103,Prof. Ram Swarth,Multipurpose Hall,A2,MH-A2-ST6,NORMAL
+Elena Maskey,REG115,10,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST1,NORMAL
+Binod Khadka,REG121,11,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST2,NORMAL
+Deepak Raj,REG122,12,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST3,NORMAL
+Gita Oli,REG123,13,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST4,NORMAL
+Hari Vansa,REG124,14,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST5,NORMAL
+Ishwor Karki,REG125,15,COMP116,Pankaj Kumar,Multipurpose Hall,A3,MH-A3-ST6,NORMAL
+Om Shrestha,REG131,16,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST1,NORMAL
+Pooja Magar,REG132,17,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST2,NORMAL
+Ramesh Tamang,REG133,18,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST3,NORMAL
+Suman Lama,REG134,19,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST4,NORMAL
+Tara Acharya,REG135,20,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST5,NORMAL
+Sanjay Jha,REG141,21,COMP116,Pankaj Kumar,Multipurpose Hall,B1,MH-B1-ST6,NORMAL
+Hemant Roy,REG117,07,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST1,NORMAL
+Indra Jit,REG118,08,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST2,NORMAL
+Jeevan Kumar,REG119,09,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST3,NORMAL
+Kamal Hasan,REG120,10,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST4,NORMAL
+Janak Puri,REG126,11,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST5,NORMAL
+Kiran KC,REG127,12,ENGG103,Prof. Ram Swarth,Multipurpose Hall,B2,MH-B2-ST6,NORMAL
+Tilak Rana,REG142,22,COMP116,Pankaj Kumar,Multipurpose Hall,B3,MH-B3-ST1,NORMAL
+Umesh Yadav,REG143,23,COMP116,Pankaj Kumar,Multipurpose Hall,B3,MH-B3-ST2,NORMAL
+Vivek Gupta,REG144,24,COMP116,Pankaj Kumar,Multipurpose Hall,B3,MH-B3-ST3,NORMAL
+Yubaraj KC,REG145,25,COMP116,Pankaj Kumar,Multipurpose Hall,B3,MH-B3-ST4,NORMAL
+Laxmi Giri,REG128,13,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST1,NORMAL
+Madan Rai,REG129,14,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST2,NORMAL
+Nabin Shah,REG130,15,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST3,NORMAL
+Lalita Shrestha,REG136,16,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST4,NORMAL
+Mina Kunwar,REG137,17,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST5,NORMAL
+Niranjan Shah,REG138,18,ENGG103,Prof. Ram Swarth,Multipurpose Hall,C2,MH-C2-ST6,NORMAL
+Ritu Basnet,REG140,20,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST1,NORMAL
+Zoya Khan,REG146,21,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST2,NORMAL
+Anand Jha,REG147,22,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST3,NORMAL
+Barsha Rana,REG148,23,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST4,NORMAL
+Chetan Yogi,REG149,24,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST5,NORMAL
+Dilip Kumar,REG150,25,ENGG103,Prof. Ram Swarth,Multipurpose Hall,D2,MH-D2-ST6,NORMAL
+Shresh Khanal,REG103,03,COMP116,Pankaj Kumar,Isolation Block,ISO,ISO-ROOM,CONTAGIOUS
+Nasala Lakhey,REG105,05,COMP116,Pankaj Kumar,Isolation Block,ISO,ISO-ROOM,DISABLED
+Chitra GC,REG113,08,COMP116,Pankaj Kumar,Isolation Block,ISO,ISO-ROOM,DISABLED
+Pradip Rimal,REG139,19,ENGG103,Prof. Ram Swarth,Isolation Block,ISO,ISO-ROOM,CONTAGIOUS

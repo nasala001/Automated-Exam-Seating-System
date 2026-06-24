@@ -1,143 +1,109 @@
+#include "../include/student.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include "../database/sqlite3.h" // Imported official SQLite3 library header.
 
 using namespace std;
 
-int main() {
-    sqlite3* DB = nullptr; // Variable name strictly matches everywhere now
-    char* errMsg = nullptr;
+bool runDatabaseMigrationEngine(sqlite3* DB) {
+    char* err = nullptr;
     
-    // Exact absolute path to ensure Windows never loses directory context
-    int exit = sqlite3_open("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\KU_Exam_System.db", &DB);
-    if (exit != SQLITE_OK) {
-       cout << "[ERROR] Could not open or create database!" << endl;
-       return -1;
-    }
-    cout << "[SUCCESS] Database opened/created successfully.\n";
-
-    // table structure
-    string createTables = 
-        "CREATE TABLE IF NOT EXISTS STUDENT ("
-        "NAME TEXT, REGID TEXT PRIMARY KEY, ROLLNO TEXT, PROGRAM TEXT, BATCH TEXT, IS_DISABLED TEXT);"
+    // Core database schema initialization matching project requirements
+    string schema = 
+        "DROP TABLE IF EXISTS STUDENT; DROP TABLE IF EXISTS MEDICAL;"
+        "DROP TABLE IF EXISTS TEACHER; DROP TABLE IF EXISTS ROUTINE; DROP TABLE IF EXISTS SEAT_PLAN;"
         
-        "CREATE TABLE IF NOT EXISTS MEDICAL ("
-        "REGID TEXT PRIMARY KEY, HAS_CONTAGIOUS TEXT);"
-        
-        "CREATE TABLE IF NOT EXISTS TEACHER ("
-        "COURSEID TEXT PRIMARY KEY, BATCH TEXT, TEACHER_NAME TEXT, CONTACT_NO TEXT);"
-        
-        "CREATE TABLE IF NOT EXISTS ROUTINE ("
-        "COURSEID TEXT PRIMARY KEY, PROGRAM TEXT, BATCH TEXT, EXAM_DATE TEXT);";
+        "CREATE TABLE STUDENT (NAME TEXT, REGID TEXT PRIMARY KEY, ROLLNO TEXT, PROGRAM TEXT, BATCH TEXT, IS_DISABLED TEXT);"
+        "CREATE TABLE MEDICAL (REGID TEXT PRIMARY KEY, HAS_CONTAGIOUS TEXT);"
+        "CREATE TABLE TEACHER (COURSEID TEXT PRIMARY KEY, BATCH TEXT, TEACHER_NAME TEXT, CONTACT_NO TEXT);"
+        "CREATE TABLE ROUTINE (COURSEID TEXT PRIMARY KEY, PROGRAM TEXT, BATCH TEXT, EXAM_DATE TEXT);"
+        "CREATE TABLE SEAT_PLAN (NAME TEXT, REGID TEXT, ROLLNO TEXT, SEAT_CODE TEXT, SUB_GROUP TEXT, TEACHER TEXT);";
 
-    exit = sqlite3_exec(DB, createTables.c_str(), NULL, 0, &errMsg);
-    if (exit != SQLITE_OK) {
-       cout << "[ERROR] Tables creation failed: " << errMsg << endl;
-       sqlite3_free(errMsg);
-       sqlite3_close(DB);
-       return -1;
+    if (sqlite3_exec(DB, schema.c_str(), 0, 0, &err) != SQLITE_OK) {
+        cout << "[ERROR] Schema initialization failed: " << err << endl;
+        sqlite3_free(err);
+        return false;
     }
-    cout << "[SUCCESS] Tables created successfully.\n";
 
-    sqlite3_exec(DB, "BEGIN TRANSACTION;", NULL, 0, NULL);
+    int studentCount = 0, medicalCount = 0, routineCount = 0, teacherCount = 0;
+    string line;
 
-    // --- A. Student_Info.csv migration ---
-    ifstream fileStud("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Student_Info.csv");
-    if (fileStud.is_open()) {
-        string line;
-        getline(fileStud, line); 
-        while (getline(fileStud, line)) {
-            stringstream ss(line);
-            string name, regId, rollNo, program, batch, isDisabled;
-
-            getline(ss, name, ',');
-            getline(ss, regId, ',');
-            getline(ss, rollNo, ',');
-            getline(ss, program, ',');
-            getline(ss, batch, ',');
-            getline(ss, isDisabled, ',');
-
-            if (!regId.empty() && (program == "CE" || program == "Civil")) {
-                string insertSQL = "INSERT OR IGNORE INTO STUDENT (NAME, REGID, ROLLNO, PROGRAM, BATCH, IS_DISABLED) VALUES ('" 
-                                   + name + "', '" + regId + "', '" + rollNo + "', '" + program + "', '" + batch + "', '" + isDisabled + "');";
-                sqlite3_exec(DB, insertSQL.c_str(), NULL, 0, NULL);
+    // 1. Parse and migrate Student_Info.csv
+    ifstream f1("data/Student_Info.csv");
+    if (!f1.is_open()) {
+        cout << "[CRITICAL ERROR] data/Student_Info.csv not found! Check directory structure." << endl;
+    } else {
+        getline(f1, line); // Skip CSV headers
+        while (getline(f1, line)) {
+            stringstream ss(line); string n, reg, r, p, b, d;
+            getline(ss, n, ','); getline(ss, reg, ','); getline(ss, r, ',');
+            getline(ss, p, ','); getline(ss, b, ','); getline(ss, d, ',');
+            if(!reg.empty()) {
+                string sql = "INSERT OR IGNORE INTO STUDENT VALUES ('"+n+"','"+reg+"','"+r+"','"+p+"','"+b+"','"+d+"');";
+                if(sqlite3_exec(DB, sql.c_str(), 0, 0, 0) == SQLITE_OK) studentCount++;
             }
         }
-        fileStud.close();
-        cout << "[SUCCESS] Student data migrated.\n";
+        f1.close();
     }
 
-    // --- B. Medical_Log.csv migration ---
-    ifstream fileMed("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Medical_Log.csv");
-    if (fileMed.is_open()) {
-        string line;
-        getline(fileMed, line);
-        while (getline(fileMed, line)) {
-            stringstream ss(line);
-            string regId, hasContagious;
-            getline(ss, regId, ',');
-            getline(ss, hasContagious, ',');
-
-            if (!regId.empty()) {
-                string insertSQL = "INSERT OR IGNORE INTO MEDICAL (REGID, HAS_CONTAGIOUS) VALUES ('" + regId + "', '" + hasContagious + "');";
-                sqlite3_exec(DB, insertSQL.c_str(), NULL, 0, NULL);
+    // 2. Parse and migrate Medical_Log.csv
+    ifstream f2("data/Medical_Log.csv");
+    if (!f2.is_open()) {
+        cout << "[WARNING] data/Medical_Log.csv not found!" << endl;
+    } else {
+        getline(f2, line); // Skip CSV headers
+        while (getline(f2, line)) {
+            stringstream ss(line); string reg, sick;
+            getline(ss, reg, ','); getline(ss, sick, ',');
+            if(!reg.empty()) {
+                string sql = "INSERT OR IGNORE INTO MEDICAL VALUES ('"+reg+"','"+sick+"');";
+                if(sqlite3_exec(DB, sql.c_str(), 0, 0, 0) == SQLITE_OK) medicalCount++;
             }
         }
-        fileMed.close();
-        cout << "[SUCCESS] Medical logs migrated.\n";
+        f2.close();
     }
 
-    // --- C. Teacher_Info.csv migration ---
-    ifstream fileTeach("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Teacher_Info.csv");
-    if (fileTeach.is_open()) {
-        string line;
-        getline(fileTeach, line);
-        while (getline(fileTeach, line)) {
-            stringstream ss(line);
-            string courseId, batch, teacherName, contactNo;
-            getline(ss, courseId, ',');
-            getline(ss, batch, ',');
-            getline(ss, teacherName, ',');
-            getline(ss, contactNo, ',');
-
-            if (!courseId.empty()) {
-                string insertSQL = "INSERT OR IGNORE INTO TEACHER (COURSEID, BATCH, TEACHER_NAME, CONTACT_NO) VALUES ('" 
-                                   + courseId + "', '" + batch + "', '" + teacherName + "', '" + contactNo + "');";
-                sqlite3_exec(DB, insertSQL.c_str(), NULL, 0, NULL);
+    // 3. Parse and migrate Exam_Routine.csv
+    ifstream f3("data/Exam_Routine.csv");
+    if (!f3.is_open()) {
+        cout << "[WARNING] data/Exam_Routine.csv not found!" << endl;
+    } else {
+        getline(f3, line); // Skip CSV headers
+        while (getline(f3, line)) {
+            stringstream ss(line); string cid, prog, batch, dt;
+            getline(ss, cid, ','); getline(ss, prog, ','); getline(ss, batch, ','); getline(ss, dt, ',');
+            if(!cid.empty()) {
+                string sql = "INSERT OR IGNORE INTO ROUTINE VALUES ('"+cid+"','"+prog+"','"+batch+"','"+dt+"');";
+                if(sqlite3_exec(DB, sql.c_str(), 0, 0, 0) == SQLITE_OK) routineCount++;
             }
         }
-        fileTeach.close();
-        cout << "[SUCCESS] Teacher data migrated.\n";
+        f3.close();
     }
 
-    // --- D. Exam_Routine.csv migration ---
-    ifstream fileRoutine("C:\\Users\\User\\OneDrive\\Documents\\GitHub\\Automated-Exam-Seating-System\\data\\Exam_Routine.csv");
-    if (fileRoutine.is_open()) {
-        string line;
-        getline(fileRoutine, line);
-        while (getline(fileRoutine, line)) {
-            stringstream ss(line);
-            string courseId, program, batch, examDate;
-            getline(ss, courseId, ',');
-            getline(ss, program, ',');
-            getline(ss, batch, ',');
-            getline(ss, examDate, ',');
-
-            if (!courseId.empty() && (program == "CE" || program == "Civil")) {
-                string insertSQL = "INSERT OR IGNORE INTO ROUTINE (COURSEID, PROGRAM, BATCH, EXAM_DATE) VALUES ('" 
-                                   + courseId + "', '" + program + "', '" + batch + "', '" + examDate + "');";
-                sqlite3_exec(DB, insertSQL.c_str(), NULL, 0, NULL);
+    // 4. Parse and migrate Teacher_Info.csv
+    ifstream f4("data/Teacher_Info.csv");
+    if (!f4.is_open()) {
+        cout << "[WARNING] data/Teacher_Info.csv not found!" << endl;
+    } else {
+        getline(f4, line); // Skip CSV headers
+        while (getline(f4, line)) {
+            stringstream ss(line); string cid, b, tname, phone;
+            getline(ss, cid, ','); getline(ss, b, ','); getline(ss, tname, ','); getline(ss, phone, ',');
+            if(!cid.empty()) {
+                string sql = "INSERT OR IGNORE INTO TEACHER VALUES ('"+cid+"','"+b+"','"+tname+"','"+phone+"');";
+                if(sqlite3_exec(DB, sql.c_str(), 0, 0, 0) == SQLITE_OK) teacherCount++;
             }
         }
-        fileRoutine.close();
-        cout << "[SUCCESS] Exam routine migrated.\n";
+        f4.close();
     }
 
-    sqlite3_exec(DB, "COMMIT;", NULL, 0, NULL);
-    cout << "\n[MIGRATION COMPLETE] All data perfectly synced.\n";
+    // Live migration terminal execution summaries
+    cout << "\n--- DB MIGRATION REPORT ---" << endl;
+    cout << "STUDENT Table Rows Inserted: " << studentCount << endl;
+    cout << "MEDICAL Table Rows Inserted: " << medicalCount << endl;
+    cout << "ROUTINE Table Rows Inserted: " << routineCount << endl;
+    cout << "TEACHER Table Rows Inserted: " << teacherCount << endl;
+    cout << "---------------------------\n" << endl;
 
-    sqlite3_close(DB);
-    return 0;
+    return true;
 }
