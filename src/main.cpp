@@ -7,22 +7,18 @@ using namespace std;
 int main() {
     sqlite3* DB;
     
-    // Connect to local architecture database logs
     if (sqlite3_open("data/KU_Exam_System.db", &DB) != SQLITE_OK) {
         cout << "[ERROR] Cannot establish link connection to SQLite database storage!" << endl;
         return 1;
     }
 
-    // Run execution chain
     if (runDatabaseMigrationEngine(DB)) {
-        vector<Student> globalStudentVector;
+        vector<Student> globalContainer;
 
-        // Populate system records into dynamic vectors via SQL LEFT JOIN
-        loadLiveRecordsIntoVectors(DB, globalStudentVector);
+        loadLiveRecordsIntoVectors(DB, globalContainer);
 
-        // Apply rules layout and dump final CSV profiles
-        if (!globalStudentVector.empty()) {
-            generateAndExportSeatPlan(DB, globalStudentVector);
+        if (!globalContainer.empty()) {
+            generateAndExportSeatPlan(DB, globalContainer);
         } else {
             cout << "[WARNING] Vector ingestion contains 0 active student files!" << endl;
         }

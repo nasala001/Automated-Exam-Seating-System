@@ -1,3 +1,2 @@
-regNo,hasContagiousDisease
-REG103,true
-REG139,true
+Registration_ID,Has_Contagious
+KU26093,true

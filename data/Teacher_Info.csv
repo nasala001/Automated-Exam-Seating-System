@@ -1,10 +1,9 @@
-courseId,batch,teacherName,contactNo
-COMP116,2025,Pankaj Kumar,9818XXXXXX
-ENGG103,2025,Prof. Ram Swarth,9843XXXXXX
-MATH104,2025,Suman Shrestha,9841XXXXXX
-ENGT102,2025,Nirmala Rai,9852XXXXXX
-PHYS102,2025,Dr. Binod Bhattarai,9803XXXXXX
-ENVE101,2025,Dr. Jyoti Giri,9851XXXXXX
-EDRG102,2025,Ramesh Joshi,9842XXXXXX
-MEEG101,2025,Suresh Shrestha,9863XXXXXX
-ENGG102,2025,Sita Thapa,9860XXXXXX
+CourseID,Teacher_Name
+COMP116,Pankaj Kumar
+CIEG102,Dr. Ram Swarth
+ELEG103,Prof. Upendra
+MECH104,Er. Subash
+ARCH105,Ar. Binita
+ELEX106,Er. Anil
+CHTR107,Dr. Sarita
+CMPE108,Er. Niraj

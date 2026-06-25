@@ -7,53 +7,84 @@
 
 using namespace std;
 
-Student::Student(string n, string reg, string roll, string prog, string b, string dis, string sick, string sub, string teach)
-    : name(n), regNo(reg), rollNo(roll), program(prog), batch(b), isDisabled(dis), hasContagious(sick), subjectCode(sub), teacherName(teach), seatCode("UNASSIGNED") {}
+Student::Student(int id, string n, string reg, string roll, string dept, string sem, string prog, string b, string dis, string sick, string sub, string teach)
+    : sn(id), name(n), regNo(reg), rollNo(roll), department(dept), semester(sem), program(prog), batch(b), isDisabled(dis), hasContagious(sick), subjectCode(sub), teacherName(teach), seatCode("UNASSIGNED") {}
+
+// --- यहाँ नयाँ शिक्षक एसाइन गर्ने लोजिक हालिएको छ ---
+string getAssignedTeacher(const string& seatCode) {
+    if (seatCode == "ISO-ROOM") {
+        return "Medical Team Incharge";
+    }
+
+    // सिट कोडको सुरुवाती ५ क्यारेक्टर लिने (जस्तै: "MH-A1")
+    string subGroup = seatCode.substr(0, 5);
+
+    // प्रत्येक सब-ग्रुप अनुसार फरक-फरक शिक्षकहरूको म्यापिङ
+    map<string, string> teacherMap = {
+        {"MH-A1", "Prof. Ram Swarth"},
+        {"MH-A2", "Dr. Sunita Sharma"},
+        {"MH-A3", "Er. Rajesh Gupta"},
+        {"MH-B1", "Prof. KP Mishra"},
+        {"MH-B2", "Dr. Niranjan Joshi"},
+        {"MH-B3", "Er. Sandesh Shrestha"},
+        {"MH-C1", "Mrs. Anjana Regmi"},
+        {"MH-C2", "Dr. Santosh Bhandari"},
+        {"MH-C3", "Er. Dipendra Shah"}
+    };
+
+    if (teacherMap.find(subGroup) != teacherMap.end()) {
+        return teacherMap[subGroup];
+    }
+    
+    return "Pankaj Kumar"; // यदि कुनै पनि मिलेन भने डिफल्ट
+}
 
 void loadLiveRecordsIntoVectors(sqlite3* DB, vector<Student>& studentList) {
-    // A simplified, highly compatible JOIN query for Windows SQLite environments
     string joinQuery = 
-        "SELECT S.NAME, S.REGID, S.ROLLNO, S.PROGRAM, S.BATCH, S.IS_DISABLED, "
+        "SELECT S.SN, S.NAME, S.REGID, S.ROLLNO, S.DEPARTMENT, S.SEMESTER, S.PROGRAM, S.BATCH, S.IS_DISABLED, "
         "       IFNULL(M.HAS_CONTAGIOUS, 'false'), "
-        "       IFNULL(R.COURSEID, 'COMP116'), " // Fallback to avoid UNKNOWN display
+        "       IFNULL(R.COURSEID, 'COMP116'), " 
         "       IFNULL(T.TEACHER_NAME, 'Pankaj Kumar') "
         "FROM STUDENT S "
         "LEFT JOIN MEDICAL M ON S.REGID = M.REGID "
-        "LEFT JOIN ROUTINE R ON S.PROGRAM = R.PROGRAM AND S.BATCH = R.BATCH "
+        "LEFT JOIN ROUTINE R ON S.DEPARTMENT = R.PROGRAM AND S.BATCH = R.BATCH "
         "LEFT JOIN TEACHER T ON R.COURSEID = T.COURSEID "
-        "GROUP BY S.REGID " 
-        "ORDER BY R.COURSEID, CAST(S.ROLLNO AS INTEGER);"; 
+        "ORDER BY S.SN ASC;"; 
 
     sqlite3_stmt* stmt;
     if (sqlite3_prepare_v2(DB, joinQuery.c_str(), -1, &stmt, NULL) == SQLITE_OK) {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
-            string name = (char*)sqlite3_column_text(stmt, 0) ? (char*)sqlite3_column_text(stmt, 0) : "UNKNOWN";
-            string reg = (char*)sqlite3_column_text(stmt, 1) ? (char*)sqlite3_column_text(stmt, 1) : "";
-            string roll = (char*)sqlite3_column_text(stmt, 2) ? (char*)sqlite3_column_text(stmt, 2) : "0";
-            string prog = (char*)sqlite3_column_text(stmt, 3) ? (char*)sqlite3_column_text(stmt, 3) : "UNKNOWN";
-            string batch = (char*)sqlite3_column_text(stmt, 4) ? (char*)sqlite3_column_text(stmt, 4) : "UNKNOWN";
-            string dis = (char*)sqlite3_column_text(stmt, 5) ? (char*)sqlite3_column_text(stmt, 5) : "false";
-            string sick = (char*)sqlite3_column_text(stmt, 6) ? (char*)sqlite3_column_text(stmt, 6) : "false";
-            string sub = (char*)sqlite3_column_text(stmt, 7) ? (char*)sqlite3_column_text(stmt, 7) : "COMP116";
-            string teach = (char*)sqlite3_column_text(stmt, 8) ? (char*)sqlite3_column_text(stmt, 8) : "Pankaj Kumar";
+            int id = sqlite3_column_int(stmt, 0);
+            string name = (char*)sqlite3_column_text(stmt, 1) ? (char*)sqlite3_column_text(stmt, 1) : "UNKNOWN";
+            string reg = (char*)sqlite3_column_text(stmt, 2) ? (char*)sqlite3_column_text(stmt, 2) : "";
+            string roll = (char*)sqlite3_column_text(stmt, 3) ? (char*)sqlite3_column_text(stmt, 3) : "0";
+            string dept = (char*)sqlite3_column_text(stmt, 4) ? (char*)sqlite3_column_text(stmt, 4) : "Computer Science";
+            string sem = (char*)sqlite3_column_text(stmt, 5) ? (char*)sqlite3_column_text(stmt, 5) : "Sem 1";
+            string prog = (char*)sqlite3_column_text(stmt, 6) ? (char*)sqlite3_column_text(stmt, 6) : "BE";
+            string batch = (char*)sqlite3_column_text(stmt, 7) ? (char*)sqlite3_column_text(stmt, 7) : "2025";
+            string dis = (char*)sqlite3_column_text(stmt, 8) ? (char*)sqlite3_column_text(stmt, 8) : "false";
+            string sick = (char*)sqlite3_column_text(stmt, 9) ? (char*)sqlite3_column_text(stmt, 9) : "false";
+            string sub = (char*)sqlite3_column_text(stmt, 10) ? (char*)sqlite3_column_text(stmt, 10) : "COMP116";
+            string teach = (char*)sqlite3_column_text(stmt, 11) ? (char*)sqlite3_column_text(stmt, 11) : "Pankaj Kumar";
 
             if (!reg.empty()) {
-                Student s(name, reg, roll, prog, batch, dis, sick, sub, teach);
+                Student s(id, name, reg, roll, dept, sem, prog, batch, dis, sick, sub, teach);
                 studentList.push_back(s);
             }
         }
         sqlite3_finalize(stmt);
     }
 }
+
 void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
     ofstream csvFile("data/Final_Seat_Plan.csv");
-    csvFile << "Student_Name,Registration_ID,Roll_No,Subject_Code,Assigned_Teacher,Room_Block,Sub_Group,Seat_Code,Status\n";
+    
+    csvFile << "SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Subject_Code,Assigned_Teacher,Seat_Code\n";
 
     map<string, vector<Student>> subjectBuckets;
     vector<Student> isolationStudents;
     vector<string> subjectsOrder;
 
-    // 1. Group students by Subject or Isolation
     for (const auto& s : studentList) {
         if (s.getHasContagious() == "true" || s.getIsDisabled() == "true") {
             isolationStudents.push_back(s);
@@ -67,11 +98,9 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
 
     sqlite3_exec(DB, "DELETE FROM SEAT_PLAN;", 0, 0, 0);
 
-    // Trackers for current layout
     char currentBlock = 'A';
-    int currentRow = 1; // Always 1, 2, or 3
+    int maxSeatsPerRow = 12; 
     
-    // Maintain map pointers for tracking how many students are popped
     map<string, size_t> bucketIndices;
     for(auto const& sub : subjectsOrder) {
         bucketIndices[sub] = 0;
@@ -79,37 +108,39 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
 
     bool studentsRemaining = true;
 
-    // 2. Main Hall Interleaved Row Allocation Loop
-    while (studentsRemaining) {
+    while (studentsRemaining && currentBlock <= 'I') {
         studentsRemaining = false;
         
-        // Loop through rows 1 to 3 for the current Block (e.g., A1, A2, A3)
         for (int r = 1; r <= 3; ++r) {
-            // Map each row to a unique subject from our list
+            if(subjectsOrder.empty()) break;
             size_t subIdx = (r - 1) % subjectsOrder.size();
-            if (subIdx >= subjectsOrder.size()) continue;
 
             string targetedSub = subjectsOrder[subIdx];
             size_t &startIdx = bucketIndices[targetedSub];
             vector<Student> &subStudents = subjectBuckets[targetedSub];
 
-            // If this subject still has students left, pick up to 6 for this row
             if (startIdx < subStudents.size()) {
                 studentsRemaining = true;
                 string subgroupLabel = string(1, currentBlock) + to_string(r);
                 
                 int seatCounter = 1;
-                while (startIdx < subStudents.size() && seatCounter <= 6) {
+                while (startIdx < subStudents.size() && seatCounter <= maxSeatsPerRow) {
                     Student s = subStudents[startIdx];
                     string calculatedSeat = "MH-" + subgroupLabel + "-ST" + to_string(seatCounter);
                     s.setSeatCode(calculatedSeat);
 
-                    csvFile << s.getName() << "," << s.getRegNo() << "," << s.getRollNo() << ","
-                            << s.getSubjectCode() << "," << s.getTeacherName() << ",Multipurpose Hall,"
-                            << subgroupLabel << "," << s.getSeatCode() << ",NORMAL\n";
+                    // --- यहाँ सिट कोड अनुसार डाइनामिकली शिक्षकको नाम सेट गरिन्छ ---
+                    string dynamicTeacher = getAssignedTeacher(calculatedSeat);
 
-                    string sql = "INSERT INTO SEAT_PLAN VALUES ('" + s.getName() + "', '" + s.getRegNo() + "', '" 
-                                 + s.getRollNo() + "', '" + s.getSeatCode() + "', '" + subgroupLabel + "', '" + s.getTeacherName() + "');";
+                    csvFile << s.getSN() << "," << s.getRegNo() << "," << s.getRollNo() << ","
+                            << s.getName() << "," << s.getDepartment() << "," << s.getSemester() << ","
+                            << s.getProgram() << "," << s.getSubjectCode() << "," << dynamicTeacher << ","
+                            << s.getSeatCode() << "\n";
+
+                    string sql = "INSERT INTO SEAT_PLAN VALUES (" + to_string(s.getSN()) + ", '" + s.getRegNo() + "', '" 
+                                 + s.getRollNo() + "', '" + s.getName() + "', '" + s.getDepartment() + "', '" 
+                                 + s.getSemester() + "', '" + s.getProgram() + "', '" + s.getSubjectCode() + "', '" 
+                                 + dynamicTeacher + "', '" + s.getSeatCode() + "');";
                     sqlite3_exec(DB, sql.c_str(), 0, 0, 0);
 
                     seatCounter++;
@@ -118,23 +149,27 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
             }
         }
 
-        // Once A1, A2, A3 are processed, jump directly to B1, B2, B3
         if (studentsRemaining) {
             currentBlock++;
         }
     }
 
-    // 3. Export Isolation List
+    // Process Isolation Records
     for (auto& s : isolationStudents) {
         s.setSeatCode("ISO-ROOM");
-        string type = (s.getHasContagious() == "true") ? "CONTAGIOUS" : "DISABLED";
+        
+        // --- आइसोलेसनका लागि पनि डाइनामिकली शिक्षक सेट गरेको ---
+        string dynamicTeacher = getAssignedTeacher("ISO-ROOM");
 
-        csvFile << s.getName() << "," << s.getRegNo() << "," << s.getRollNo() << ","
-                << s.getSubjectCode() << "," << s.getTeacherName() << ",Isolation Block,ISO," 
-                << s.getSeatCode() << "," << type << "\n";
+        csvFile << s.getSN() << "," << s.getRegNo() << "," << s.getRollNo() << ","
+                << s.getName() << "," << s.getDepartment() << "," << s.getSemester() << ","
+                << s.getProgram() << "," << s.getSubjectCode() << "," << dynamicTeacher << ","
+                << s.getSeatCode() << "\n";
 
-        string sql = "INSERT INTO SEAT_PLAN VALUES ('" + s.getName() + "', '" + s.getRegNo() + "', '" 
-                     + s.getRollNo() + "', '" + s.getSeatCode() + "', 'ISO', '" + s.getTeacherName() + "');";
+        string sql = "INSERT INTO SEAT_PLAN VALUES (" + to_string(s.getSN()) + ", '" + s.getRegNo() + "', '" 
+                     + s.getRollNo() + "', '" + s.getName() + "', '" + s.getDepartment() + "', '" 
+                     + s.getSemester() + "', '" + s.getProgram() + "', '" + s.getSubjectCode() + "', '" 
+                     + dynamicTeacher + "', '" + s.getSeatCode() + "');";
         sqlite3_exec(DB, sql.c_str(), 0, 0, 0);
     }
 

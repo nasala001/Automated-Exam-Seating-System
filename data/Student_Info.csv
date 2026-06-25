@@ -1,51 +1,101 @@
-name,regNo,rollNo,program,batch,isPhysicallyImpaired
-Aashish Dangal,REG101,01,CE,2025,false
-Shreeshant Jha,REG102,02,CE,2025,false
-Shresh Khanal,REG103,03,CE,2025,false
-Pratishthit Khaniya,REG104,04,CE,2025,false
-Nasala Lakhey,REG105,05,CE,2025,true
-Rohan Sharma,REG106,01,Civil,2025,false
-Aayush Joshi,REG107,02,Civil,2025,false
-Anjali Shrestha,REG108,03,Civil,2025,false
-Sita Thapa,REG109,04,Civil,2025,false
-Ram Bahadur,REG110,05,Civil,2025,false
-Aman Jha,REG111,06,CE,2025,false
-Bipana Sen,REG112,07,CE,2025,false
-Chitra GC,REG113,08,CE,2025,true
-Dinesh Poudel,REG114,09,CE,2025,false
-Elena Maskey,REG115,10,CE,2025,false
-Gopal Thapa,REG116,06,Civil,2025,false
-Hemant Roy,REG117,07,Civil,2025,false
-Indra Jit,REG118,08,Civil,2025,false
-Jeevan Kumar,REG119,09,Civil,2025,false
-Kamal Hasan,REG120,10,Civil,2025,false
-Binod Khadka,REG121,11,CE,2025,false
-Deepak Raj,REG122,12,CE,2025,false
-Gita Oli,REG123,13,CE,2025,false
-Hari Vansa,REG124,14,CE,2025,false
-Ishwor Karki,REG125,15,CE,2025,false
-Janak Puri,REG126,11,Civil,2025,false
-Kiran KC,REG127,12,Civil,2025,false
-Laxmi Giri,REG128,13,Civil,2025,false
-Madan Rai,REG129,14,Civil,2025,false
-Nabin Shah,REG130,15,Civil,2025,false
-Om Shrestha,REG131,16,CE,2025,false
-Pooja Magar,REG132,17,CE,2025,false
-Ramesh Tamang,REG133,18,CE,2025,false
-Suman Lama,REG134,19,CE,2025,false
-Tara Acharya,REG135,20,CE,2025,false
-Lalita Shrestha,REG136,16,Civil,2025,false
-Mina Kunwar,REG137,17,Civil,2025,false
-Niranjan Shah,REG138,18,Civil,2025,false
-Pradip Rimal,REG139,19,Civil,2025,false
-Ritu Basnet,REG140,20,Civil,2025,false
-Sanjay Jha,REG141,21,CE,2025,false
-Tilak Rana,REG142,22,CE,2025,false
-Umesh Yadav,REG143,23,CE,2025,false
-Vivek Gupta,REG144,24,CE,2025,false
-Yubaraj KC,REG145,25,CE,2025,false
-Zoya Khan,REG146,21,Civil,2025,false
-Anand Jha,REG147,22,Civil,2025,false
-Barsha Rana,REG148,23,Civil,2025,false
-Chetan Yogi,REG149,24,Civil,2025,false
-Dilip Kumar,REG150,25,Civil,2025,false
+SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Batch,Is_Disabled,Has_Contagious
+1,KU26001,1,Aarav Sharma,Computer Science,Sem 1,BSc,2025,false,false
+2,KU26002,2,Bikash Thapa,Civil Engineering,Sem 2,BE,2025,false,false
+3,KU26003,3,Chandra Poudel,Electrical Engineering,Sem 3,BE,2024,false,false
+4,KU26004,4,Dipika Rai,Mechanical Engineering,Sem 4,BE,2024,false,false
+5,KU26005,5,Elina Karki,Architecture,Sem 5,BArch,2023,false,false
+6,KU26006,6,Firoj Magar,Electronics,Sem 1,BE,2025,false,false
+7,KU26007,7,Gita Tamang,Chemical Engineering,Sem 2,BE,2025,false,false
+8,KU26008,8,Hari Basnet,Computer Engineering,Sem 3,BE,2024,false,false
+9,KU26009,9,Isha Shrestha,Computer Science,Sem 4,BSc,2024,false,false
+10,KU26010,10,Jeevan Adhikari,Civil Engineering,Sem 5,BE,2023,false,false
+11,KU26011,11,Kabita Gurung,Electrical Engineering,Sem 1,BE,2025,false,false
+12,KU26012,12,Laxman Bhatt,Mechanical Engineering,Sem 2,BE,2025,false,false
+13,KU26013,13,Maya Neupane,Architecture,Sem 3,BArch,2024,false,false
+14,KU26014,14,Nabin Dahal,Electronics,Sem 4,BE,2024,false,false
+15,KU26015,15,Ojasvi Joshi,Chemical Engineering,Sem 5,BE,2023,false,false
+16,KU26016,16,Prakash Khadka,Computer Engineering,Sem 1,BE,2025,false,false
+17,KU26017,17,Rita Shrestha,Computer Science,Sem 2,BSc,2025,false,false
+18,KU26018,18,Suman Thapa,Civil Engineering,Sem 3,BE,2024,false,false
+19,KU26019,19,Tulasi Ghimire,Electrical Engineering,Sem 4,BE,2024,false,false
+20,KU26020,20,Umesh Rai,Mechanical Engineering,Sem 5,BE,2023,false,false
+21,KU26021,21,Anjali Yogi,Architecture,Sem 1,BArch,2025,false,false
+22,KU26022,22,Binod Kunwar,Electronics,Sem 2,BE,2025,false,false
+23,KU26023,23,Chitra GC,Chemical Engineering,Sem 3,BE,2024,false,false
+24,KU26024,24,Dinesh Shah,Computer Engineering,Sem 4,BE,2024,false,false
+25,KU26025,25,Esha Giri,Computer Science,Sem 5,BSc,2023,false,false
+26,KU26026,26,Ganesh Khatri,Civil Engineering,Sem 1,BE,2025,false,false
+27,KU26027,27,Hemanta Rana,Electrical Engineering,Sem 2,BE,2025,false,false
+28,KU26028,28,Ishwor Thapa,Mechanical Engineering,Sem 3,BE,2024,false,false
+29,KU26029,29,Janaki Rimal,Architecture,Sem 4,BArch,2024,false,false
+30,KU26030,30,Kiran Poudel,Electronics,Sem 5,BE,2023,false,false
+31,KU26031,31,Laxmi Giri,Chemical Engineering,Sem 1,BE,2025,false,false
+32,KU26032,32,Madan Rai,Computer Engineering,Sem 2,BE,2025,false,false
+33,KU26033,33,Nabin Shah,Computer Science,Sem 3,BSc,2024,false,false
+34,KU26034,34,Lalita Shrestha,Civil Engineering,Sem 4,BE,2024,false,false
+35,KU26035,35,Mina Kunwar,Electrical Engineering,Sem 5,BE,2023,false,false
+36,KU26036,36,Niranjan Shah,Mechanical Engineering,Sem 1,BE,2025,false,false
+37,KU26037,37,Ritu Basnet,Architecture,Sem 2,BArch,2025,false,false
+38,KU26038,38,Zoya Khan,Electronics,Sem 3,BE,2024,false,false
+39,KU26039,39,Anand Jha,Chemical Engineering,Sem 4,BE,2024,false,false
+40,KU26040,40,Barsha Rana,Computer Engineering,Sem 5,BE,2023,false,false
+41,KU26041,41,Chetan Yogi,Computer Science,Sem 1,BSc,2025,false,false
+42,KU26042,42,Dilip Kumar,Civil Engineering,Sem 2,BE,2025,false,false
+43,KU26043,43,Shresh Khanal,Electrical Engineering,Sem 3,BE,2024,false,false
+44,KU26044,44,Nasala Lakhey,Mechanical Engineering,Sem 4,BE,2024,false,false
+45,KU26045,45,Pradip Rimal,Architecture,Sem 5,BArch,2023,false,false
+46,KU26046,46,Rohan Shrestha,Electronics,Sem 1,BE,2025,false,false
+47,KU26047,47,Sita Aryal,Chemical Engineering,Sem 2,BE,2025,false,false
+48,KU26048,48,Yubaraj Thapa,Computer Engineering,Sem 3,BE,2024,false,false
+49,KU26049,49,Asmita Dhakal,Computer Science,Sem 4,BSc,2024,false,false
+50,KU26050,50,Bibek Khadka,Civil Engineering,Sem 5,BE,2023,false,false
+51,KU26051,51,Ayush Karki,Electrical Engineering,Sem 1,BE,2025,false,false
+52,KU26052,52,Bhumi Shrestha,Mechanical Engineering,Sem 2,BE,2025,false,false
+53,KU26053,53,Deepak Rai,Architecture,Sem 3,BArch,2024,false,false
+54,KU26054,54,Gaurav Thapa,Electronics,Sem 4,BE,2024,false,false
+55,KU26055,55,Jyoti Magar,Chemical Engineering,Sem 5,BE,2023,false,false
+56,KU26056,56,Kshitiz Bhandari,Computer Engineering,Sem 1,BE,2025,false,false
+57,KU26057,57,Manish Poudel,Computer Science,Sem 2,BSc,2025,false,false
+58,KU26058,58,Nisha Tamang,Civil Engineering,Sem 3,BE,2024,false,false
+59,KU26059,59,Prabin Basnet,Electrical Engineering,Sem 4,BE,2024,false,false
+60,KU26060,60,Rachana Rai,Mechanical Engineering,Sem 5,BE,2023,false,false
+61,KU26061,61,Sabin Karki,Architecture,Sem 1,BArch,2025,false,false
+62,KU26062,62,Sajana Shrestha,Electronics,Sem 2,BE,2025,false,false
+63,KU26063,63,Utsav Dhakal,Chemical Engineering,Sem 3,BE,2024,false,false
+64,KU26064,64,Amrit Thapa,Computer Engineering,Sem 4,BE,2024,false,false
+65,KU26065,65,Bhumika Gurung,Computer Science,Sem 5,BSc,2023,false,false
+66,KU26066,66,Chandan Mahato,Civil Engineering,Sem 1,BE,2025,false,false
+67,KU26067,67,Dipa Rai,Electrical Engineering,Sem 2,BE,2025,false,false
+68,KU26068,68,Hariom Dev,Mechanical Engineering,Sem 3,BE,2024,false,false
+69,KU26069,69,Kiran KC,Architecture,Sem 4,BArch,2024,false,false
+70,KU26070,70,Manju Shrestha,Electronics,Sem 5,BE,2023,false,false
+71,KU26071,71,Narendra Modi,Chemical Engineering,Sem 1,BE,2025,false,false
+72,KU26072,72,Pratima Thapa,Computer Engineering,Sem 2,BE,2025,false,false
+73,KU26073,73,Ramesh Joshi,Computer Science,Sem 3,BSc,2024,false,false
+74,KU26074,74,Saraswati Rai,Civil Engineering,Sem 4,BE,2024,false,false
+75,KU26075,75,Tara Sharma,Electrical Engineering,Sem 5,BE,2023,false,false
+76,KU26076,76,Vijay Kumar,Mechanical Engineering,Sem 1,BE,2025,false,false
+77,KU26077,77,Aasha Thapa,Architecture,Sem 2,BArch,2025,false,false
+78,KU26078,78,Bharat Shah,Electronics,Sem 3,BE,2024,false,false
+79,KU26079,79,Devendra Poudel,Chemical Engineering,Sem 4,BE,2024,false,false
+80,KU26080,80,Gopal Krishna,Computer Engineering,Sem 5,BE,2023,false,false
+81,KU26081,81,Indira Joshi,Computer Science,Sem 1,BSc,2025,false,false
+82,KU26082,82,Kamal Thapa,Civil Engineering,Sem 2,BE,2025,false,false
+83,KU26083,83,Lila Shrestha,Electrical Engineering,Sem 3,BE,2024,false,false
+84,KU26084,84,Mira Rai,Mechanical Engineering,Sem 4,BE,2024,false,false
+85,KU26085,85,Nirmal Chhetri,Architecture,Sem 5,BArch,2023,false,false
+86,KU26086,86,Om Prakash,Electronics,Sem 1,BE,2025,false,false
+87,KU26087,87,Pooja Hegde,Chemical Engineering,Sem 2,BE,2025,false,false
+88,KU26088,88,Rajesh Hamal,Computer Engineering,Sem 3,BE,2024,false,false
+89,KU26089,89,Sita Ram,Computer Science,Sem 4,BSc,2024,false,false
+90,KU26090,90,Uma Thapa,Civil Engineering,Sem 5,BE,2023,false,false
+91,KU26091,91,Vivek Oberoi,Electrical Engineering,Sem 1,BE,2025,false,false
+92,KU26092,92,Yamuna Rai,Mechanical Engineering,Sem 2,BE,2025,false,false
+93,KU26093,93,Arjun Kapoor,Architecture,Sem 3,BArch,2024,false,true
+94,KU26094,94,Bipana Thapa,Electronics,Sem 4,BE,2024,false,false
+95,KU26095,95,Chirag Paswan,Chemical Engineering,Sem 5,BE,2023,false,false
+96,KU26096,96,Dharendra Yogi,Computer Engineering,Sem 1,BE,2025,false,false
+97,KU26097,97,Hemanta Mishra,Computer Science,Sem 2,BSc,2025,true,false
+98,KU26098,98,Karishma Manandhar,Civil Engineering,Sem 3,BE,2024,false,false
+99,KU26099,99,Niraj Basnet,Electrical Engineering,Sem 4,BE,2024,false,false
+100,KU26100,100,Pradeep Khadka,Mechanical Engineering,Sem 5,BE,2023,false,false

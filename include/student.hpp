@@ -7,27 +7,33 @@
 
 class Student {
 private:
+    int sn;                     // Primary Key (ID is SN)
     std::string name;
-    std::string regNo;
+    std::string regNo;          // KU Prefix
     std::string rollNo;
-    std::string program;
+    std::string department;     // New Field
+    std::string semester;       // New Field
+    std::string program;        // New Field
     std::string batch;
     std::string isDisabled;
-    std::string hasContagious; // From medical.csv
-    std::string subjectCode;   // From routine.csv
-    std::string teacherName;   // From teacher.csv (Sir's Requirement)
-    std::string seatCode;      // Generated dynamic seat format
+    std::string hasContagious;  // From Medical_Log.csv
+    std::string subjectCode;    // From Exam_Routine.csv
+    std::string teacherName;    // From Teacher_Info.csv
+    std::string seatCode;       // Generated dynamic seat format
 
 public:
-    // Constructor
-    Student(std::string n, std::string reg, std::string roll, std::string prog, 
-            std::string b, std::string dis, std::string sick = "false", 
-            std::string sub = "UNKNOWN", std::string teach = "UNKNOWN");
+    // Constructor Updated with New Fields
+    Student(int id, std::string n, std::string reg, std::string roll, std::string dept, 
+            std::string sem, std::string prog, std::string b, std::string dis, 
+            std::string sick = "false", std::string sub = "UNKNOWN", std::string teach = "UNKNOWN");
 
     // Getters and Setters
+    int getSN() const { return sn; }
     std::string getName() const { return name; }
     std::string getRegNo() const { return regNo; }
     std::string getRollNo() const { return rollNo; }
+    std::string getDepartment() const { return department; }
+    std::string getSemester() const { return semester; }
     std::string getProgram() const { return program; }
     std::string getBatch() const { return batch; }
     std::string getIsDisabled() const { return isDisabled; }

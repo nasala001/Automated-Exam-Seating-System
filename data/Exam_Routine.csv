@@ -1,11 +1,17 @@
-courseId,program,batch,examDate
-COMP116,CE,2025,2026-07-01
-ENGG103,Civil,2025,2026-07-01
-MATH104,CE,2025,2026-07-03
-ENGT102,Civil,2025,2026-07-03
-PHYS102,CE,2025,2026-07-05
-ENVE101,Civil,2025,2026-07-05
-EDRG102,CE,2025,2026-07-07
-MEEG101,Civil,2025,2026-07-07
-ENGG102,CE,2025,2026-07-09
-ENGG102,Civil,2025,2026-07-09
+Program,Batch,CourseID
+BSc,2025,COMP116
+BSc,2024,COMP116
+BSc,2023,COMP116
+Civil Engineering,2025,CIEG102
+Civil Engineering,2024,CIEG102
+Civil Engineering,2023,CIEG102
+Electrical Engineering,2025,ELEG103
+Electrical Engineering,2024,ELEG103
+Mechanical Engineering,2025,MECH104
+Mechanical Engineering,2024,MECH104
+Architecture,2025,ARCH105
+Architecture,2024,ARCH105
+Architecture,2023,ARCH105
+Electronics,2025,ELEX106
+Chemical Engineering,2025,CHTR107
+Computer Engineering,2025,CMPE108
