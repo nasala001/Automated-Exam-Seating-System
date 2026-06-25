@@ -7,19 +7,20 @@
 
 using namespace std;
 
+// Initialize student object with details
 Student::Student(int id, string n, string reg, string roll, string dept, string sem, string prog, string b, string dis, string sick, string sub, string teach)
     : sn(id), name(n), regNo(reg), rollNo(roll), department(dept), semester(sem), program(prog), batch(b), isDisabled(dis), hasContagious(sick), subjectCode(sub), teacherName(teach), seatCode("UNASSIGNED") {}
 
-// --- यहाँ नयाँ शिक्षक एसाइन गर्ने लोजिक हालिएको छ ---
+// Match room subgroup with specific invigilator
 string getAssignedTeacher(const string& seatCode) {
     if (seatCode == "ISO-ROOM") {
         return "Medical Team Incharge";
     }
 
-    // सिट कोडको सुरुवाती ५ क्यारेक्टर लिने (जस्तै: "MH-A1")
+    // Get block and row prefix like "MH-A1"
     string subGroup = seatCode.substr(0, 5);
 
-    // प्रत्येक सब-ग्रुप अनुसार फरक-फरक शिक्षकहरूको म्यापिङ
+    // Dynamic map to look up teachers for each sub-block
     map<string, string> teacherMap = {
         {"MH-A1", "Prof. Ram Swarth"},
         {"MH-A2", "Dr. Sunita Sharma"},
@@ -36,10 +37,12 @@ string getAssignedTeacher(const string& seatCode) {
         return teacherMap[subGroup];
     }
     
-    return "Pankaj Kumar"; // यदि कुनै पनि मिलेन भने डिफल्ट
+    return "Pankaj Kumar"; // Fallback default teacher
 }
 
+// Fetch live database records using SQL join operation
 void loadLiveRecordsIntoVectors(sqlite3* DB, vector<Student>& studentList) {
+    // Left join query to pull relational data together cleanly
     string joinQuery = 
         "SELECT S.SN, S.NAME, S.REGID, S.ROLLNO, S.DEPARTMENT, S.SEMESTER, S.PROGRAM, S.BATCH, S.IS_DISABLED, "
         "       IFNULL(M.HAS_CONTAGIOUS, 'false'), "
@@ -53,6 +56,7 @@ void loadLiveRecordsIntoVectors(sqlite3* DB, vector<Student>& studentList) {
 
     sqlite3_stmt* stmt;
     if (sqlite3_prepare_v2(DB, joinQuery.c_str(), -1, &stmt, NULL) == SQLITE_OK) {
+        // Read database row by row
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             int id = sqlite3_column_int(stmt, 0);
             string name = (char*)sqlite3_column_text(stmt, 1) ? (char*)sqlite3_column_text(stmt, 1) : "UNKNOWN";
@@ -76,15 +80,18 @@ void loadLiveRecordsIntoVectors(sqlite3* DB, vector<Student>& studentList) {
     }
 }
 
+// Generate the output CSV format and dump to file system
 void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
     ofstream csvFile("data/Final_Seat_Plan.csv");
     
+    // CSV Header mapping UI layout
     csvFile << "SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Subject_Code,Assigned_Teacher,Seat_Code\n";
 
     map<string, vector<Student>> subjectBuckets;
     vector<Student> isolationStudents;
     vector<string> subjectsOrder;
 
+    // Separate normal students from isolation candidates
     for (const auto& s : studentList) {
         if (s.getHasContagious() == "true" || s.getIsDisabled() == "true") {
             isolationStudents.push_back(s);
@@ -96,6 +103,7 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
         }
     }
 
+    // Refresh old seating data from tables
     sqlite3_exec(DB, "DELETE FROM SEAT_PLAN;", 0, 0, 0);
 
     char currentBlock = 'A';
@@ -108,6 +116,7 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
 
     bool studentsRemaining = true;
 
+    // Main hall seating layout calculation loops
     while (studentsRemaining && currentBlock <= 'I') {
         studentsRemaining = false;
         
@@ -129,50 +138,5 @@ void generateAndExportSeatPlan(sqlite3* DB, vector<Student>& studentList) {
                     string calculatedSeat = "MH-" + subgroupLabel + "-ST" + to_string(seatCounter);
                     s.setSeatCode(calculatedSeat);
 
-                    // --- यहाँ सिट कोड अनुसार डाइनामिकली शिक्षकको नाम सेट गरिन्छ ---
-                    string dynamicTeacher = getAssignedTeacher(calculatedSeat);
-
-                    csvFile << s.getSN() << "," << s.getRegNo() << "," << s.getRollNo() << ","
-                            << s.getName() << "," << s.getDepartment() << "," << s.getSemester() << ","
-                            << s.getProgram() << "," << s.getSubjectCode() << "," << dynamicTeacher << ","
-                            << s.getSeatCode() << "\n";
-
-                    string sql = "INSERT INTO SEAT_PLAN VALUES (" + to_string(s.getSN()) + ", '" + s.getRegNo() + "', '" 
-                                 + s.getRollNo() + "', '" + s.getName() + "', '" + s.getDepartment() + "', '" 
-                                 + s.getSemester() + "', '" + s.getProgram() + "', '" + s.getSubjectCode() + "', '" 
-                                 + dynamicTeacher + "', '" + s.getSeatCode() + "');";
-                    sqlite3_exec(DB, sql.c_str(), 0, 0, 0);
-
-                    seatCounter++;
-                    startIdx++;
-                }
-            }
-        }
-
-        if (studentsRemaining) {
-            currentBlock++;
-        }
-    }
-
-    // Process Isolation Records
-    for (auto& s : isolationStudents) {
-        s.setSeatCode("ISO-ROOM");
-        
-        // --- आइसोलेसनका लागि पनि डाइनामिकली शिक्षक सेट गरेको ---
-        string dynamicTeacher = getAssignedTeacher("ISO-ROOM");
-
-        csvFile << s.getSN() << "," << s.getRegNo() << "," << s.getRollNo() << ","
-                << s.getName() << "," << s.getDepartment() << "," << s.getSemester() << ","
-                << s.getProgram() << "," << s.getSubjectCode() << "," << dynamicTeacher << ","
-                << s.getSeatCode() << "\n";
-
-        string sql = "INSERT INTO SEAT_PLAN VALUES (" + to_string(s.getSN()) + ", '" + s.getRegNo() + "', '" 
-                     + s.getRollNo() + "', '" + s.getName() + "', '" + s.getDepartment() + "', '" 
-                     + s.getSemester() + "', '" + s.getProgram() + "', '" + s.getSubjectCode() + "', '" 
-                     + dynamicTeacher + "', '" + s.getSeatCode() + "');";
-        sqlite3_exec(DB, sql.c_str(), 0, 0, 0);
-    }
-
-    csvFile.close();
-    cout << "[SUCCESS] Fixed Seat Plan generated! Total rows processed: " << studentList.size() << endl;
-}
+                    // Map specific teacher dynamically depending on block location
+                    string dynamicTeacher = getAssignedTeacher(calculated

@@ -5,10 +5,11 @@
 
 using namespace std;
 
+// Custom engine built to parse CSV dumps and map inside clean relational tables
 bool runDatabaseMigrationEngine(sqlite3* DB) {
     char* err = nullptr;
     
-    // Schema with 10-column structure matching UI properties
+    // Define operational schema templates
     string schema = 
         "DROP TABLE IF EXISTS STUDENT; DROP TABLE IF EXISTS MEDICAL;"
         "DROP TABLE IF EXISTS TEACHER; DROP TABLE IF EXISTS ROUTINE; DROP TABLE IF EXISTS SEAT_PLAN;"
@@ -28,12 +29,12 @@ bool runDatabaseMigrationEngine(sqlite3* DB) {
     int studentCount = 0, medicalCount = 0, routineCount = 0, teacherCount = 0;
     string line;
 
-    // 1. Migrate using exact name from image_3dd70c.jpg
+    // 1. Process and load baseline Student CSV data pipelines
     ifstream f1("data/Student_Info.csv");
     if (!f1.is_open()) {
         cout << "[CRITICAL ERROR] data/Student_Info.csv not found!" << endl;
     } else {
-        getline(f1, line); // Skip headers
+        getline(f1, line); // Skip metadata headers
         while (getline(f1, line)) {
             stringstream ss(line); string sn, reg, r, n, dept, sem, p, b, d;
             getline(ss, sn, ','); getline(ss, reg, ','); getline(ss, r, ',');
@@ -48,7 +49,7 @@ bool runDatabaseMigrationEngine(sqlite3* DB) {
         f1.close();
     }
 
-    // 2. Migrate using exact name from image_3dd70c.jpg
+    // 2. Parse and migrate health tracking logs
     ifstream f2("data/Medical_Log.csv");
     if (!f2.is_open()) {
         cout << "[WARNING] data/Medical_Log.csv not found!" << endl;
@@ -65,7 +66,7 @@ bool runDatabaseMigrationEngine(sqlite3* DB) {
         f2.close();
     }
 
-    // 3. Migrate using exact name from image_3dd70c.jpg
+    // 3. Process exam schedule routine timelines
     ifstream f3("data/Exam_Routine.csv");
     if (!f3.is_open()) {
         cout << "[WARNING] data/Exam_Routine.csv not found!" << endl;
@@ -82,7 +83,7 @@ bool runDatabaseMigrationEngine(sqlite3* DB) {
         f3.close();
     }
 
-    // 4. Migrate using exact name from image_3dd70c.jpg
+    // 4. Ingest academic department supervisor info dumps
     ifstream f4("data/Teacher_Info.csv");
     if (!f4.is_open()) {
         cout << "[WARNING] data/Teacher_Info.csv not found!" << endl;
@@ -99,6 +100,7 @@ bool runDatabaseMigrationEngine(sqlite3* DB) {
         f4.close();
     }
 
+    // Output console pipeline report benchmarks
     cout << "\n--- DB MIGRATION REPORT ---" << endl;
     cout << "STUDENT Table Rows Inserted: " << studentCount << endl;
     cout << "MEDICAL Table Rows Inserted: " << medicalCount << endl;

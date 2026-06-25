@@ -7,27 +7,27 @@
 
 class Student {
 private:
-    int sn;                     // Primary Key (ID is SN)
+    int sn;                     // Primary Identifier Key
     std::string name;
-    std::string regNo;          // KU Prefix
+    std::string regNo;          
     std::string rollNo;
-    std::string department;     // New Field
-    std::string semester;       // New Field
-    std::string program;        // New Field
+    std::string department;     
+    std::string semester;       
+    std::string program;        
     std::string batch;
     std::string isDisabled;
-    std::string hasContagious;  // From Medical_Log.csv
-    std::string subjectCode;    // From Exam_Routine.csv
-    std::string teacherName;    // From Teacher_Info.csv
-    std::string seatCode;       // Generated dynamic seat format
+    std::string hasContagious;  // Joined from Medical logs
+    std::string subjectCode;    // Joined from Exam routines
+    std::string teacherName;    // Joined from Teacher Info list
+    std::string seatCode;       // Dynamic output field tracker
 
 public:
-    // Constructor Updated with New Fields
+    // Core class constructor interface
     Student(int id, std::string n, std::string reg, std::string roll, std::string dept, 
             std::string sem, std::string prog, std::string b, std::string dis, 
             std::string sick = "false", std::string sub = "UNKNOWN", std::string teach = "UNKNOWN");
 
-    // Getters and Setters
+    // Interface Accessors 
     int getSN() const { return sn; }
     std::string getName() const { return name; }
     std::string getRegNo() const { return regNo; }
@@ -45,7 +45,7 @@ public:
     void setSeatCode(std::string code) { seatCode = code; }
 };
 
-// Core Prototypes
+// Execution Pipe Function Signatures
 bool runDatabaseMigrationEngine(sqlite3* DB);
 void loadLiveRecordsIntoVectors(sqlite3* DB, std::vector<Student>& studentList);
 void generateAndExportSeatPlan(sqlite3* DB, std::vector<Student>& studentList);
