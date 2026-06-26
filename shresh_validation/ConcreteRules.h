@@ -3,7 +3,7 @@
 
 #include "SeatingRule.h"
 #include <string>
-#include <string_view>
+#include <string>
 
 // Rule 1: Room Capacity Rule
 // Ensures that the total number of assigned students does not exceed the room capacity.
@@ -13,7 +13,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 1: Room Capacity Rule"; }
+    std::string getRuleName() const override { return "Rule 1: Room Capacity Rule"; }
     bool isOverrideAllowed() const override { return false; } // Capacity is a hard physical limit
 };
 
@@ -25,7 +25,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 2: One Student - One Seat Rule"; }
+    std::string getRuleName() const override { return "Rule 2: One Student - One Seat Rule"; }
     bool isOverrideAllowed() const override { return false; } // Hard logical constraint
 };
 
@@ -37,7 +37,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 3: Contagious Disease Isolation Rule"; }
+    std::string getRuleName() const override { return "Rule 3: Contagious Disease Isolation Rule"; }
     bool isOverrideAllowed() const override { return false; } // Critical health safety rule
 };
 
@@ -50,7 +50,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 4: Physical Disability and Amanuensis Rule"; }
+    std::string getRuleName() const override { return "Rule 4: Physical Disability and Amanuensis Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -62,7 +62,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 5: Same Program Horizontal Separation Rule"; }
+    std::string getRuleName() const override { return "Rule 5: Same Program Horizontal Separation Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -75,7 +75,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 6: Same Class/Semester Separation Rule"; }
+    std::string getRuleName() const override { return "Rule 6: Same Class/Semester Separation Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -87,7 +87,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 7: Consecutive Roll Number Horizontal Separation Rule"; }
+    std::string getRuleName() const override { return "Rule 7: Consecutive Roll Number Horizontal Separation Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -99,7 +99,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 8: Same Program Vertical Arrangement Preference"; }
+    std::string getRuleName() const override { return "Rule 8: Same Program Vertical Arrangement Preference"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -112,7 +112,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 9: Different Program Same Department Rule"; }
+    std::string getRuleName() const override { return "Rule 9: Different Program Same Department Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -124,7 +124,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 10: Same Subject / Exam Group Separation Rule"; }
+    std::string getRuleName() const override { return "Rule 10: Same Subject / Exam Group Separation Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -136,7 +136,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 11: Department/Program Distribution Rule"; }
+    std::string getRuleName() const override { return "Rule 11: Department/Program Distribution Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -148,7 +148,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 12: Invigilator Minimum Rule"; }
+    std::string getRuleName() const override { return "Rule 12: Invigilator Minimum Rule"; }
     bool isOverrideAllowed() const override { return false; } // Admin/policy hard limit
 };
 
@@ -160,7 +160,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 13: Invigilator Capacity Ratio Rule"; }
+    std::string getRuleName() const override { return "Rule 13: Invigilator Capacity Ratio Rule"; }
     bool isOverrideAllowed() const override { return false; } // Admin/policy hard limit
 };
 
@@ -173,7 +173,7 @@ private:
 public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
-    std::string_view getRuleName() const override { return "Rule 14: Manual Override and Rule Warning Rule"; }
+    std::string getRuleName() const override { return "Rule 14: Manual Override and Rule Warning Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 

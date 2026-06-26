@@ -47,7 +47,7 @@ static int countTotalStudents(const SeatPlan& seatPlan) {
     int count = 0;
     for (const auto& row : seatPlan.grid) {
         for (const auto& seat : row) {
-            if (seat.has_value()) {
+            if (seat != nullptr) {
                 count++;
             }
         }
@@ -81,7 +81,7 @@ bool OneStudentOneSeatRule::validate(const SeatPlan& seatPlan) {
         for (int c = 0; c < seatPlan.room.columns; ++c) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& seat = seatPlan.grid[r][c];
-                if (seat.has_value()) {
+                if (seat != nullptr) {
                     const auto& student = *seat;
                     if (!student.rollNo.empty()) {
                         if (!seenRolls.insert(student.rollNo).second) {
@@ -121,7 +121,7 @@ bool ContagiousDiseaseIsolationRule::validate(const SeatPlan& seatPlan) {
         for (int c = 0; c < cols; ++c) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& seat = seatPlan.grid[r][c];
-                if (seat.has_value() && seat->hasContagiousDisease) {
+                if (seat != nullptr && seat->hasContagiousDisease) {
                     // Check all 8 surrounding positions
                     for (int dr = -1; dr <= 1; ++dr) {
                         for (int dc = -1; dc <= 1; ++dc) {
@@ -131,7 +131,7 @@ bool ContagiousDiseaseIsolationRule::validate(const SeatPlan& seatPlan) {
                             if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
                                 if (nr < static_cast<int>(seatPlan.grid.size()) && nc < static_cast<int>(seatPlan.grid[nr].size())) {
                                     const auto& adjSeat = seatPlan.grid[nr][nc];
-                                    if (adjSeat.has_value()) {
+                                    if (adjSeat != nullptr) {
                                         hasViolation = true;
                                         warning_ += "Infection Isolation Violation: Infected student " + seat->name + 
                                                     " (Roll: " + seat->rollNo + ") at (" + std::to_string(r) + "," + std::to_string(c) + 
@@ -164,7 +164,7 @@ bool PhysicalDisabilityRule::validate(const SeatPlan& seatPlan) {
         for (int c = 0; c < cols; ++c) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& seat = seatPlan.grid[r][c];
-                if (seat.has_value()) {
+                if (seat != nullptr) {
                     totalStudents++;
                     if (seat->isPhysicallyImpaired) {
                         disabledCount++;
@@ -207,7 +207,7 @@ bool SameProgramHorizontalRule::validate(const SeatPlan& seatPlan) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r][c + 1];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     if (s1->program == s2->program) {
                         hasViolation = true;
                         warning_ += "Same Program Horizontal Violation: Student " + s1->name + " (Roll: " + s1->rollNo + 
@@ -236,7 +236,7 @@ bool SameSemesterSeparationRule::validate(const SeatPlan& seatPlan) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r][c + 1];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     std::string batch1 = extractBatchYear(s1->registrationNo);
                     std::string batch2 = extractBatchYear(s2->registrationNo);
                     // Same class / semester is characterized by same program and same entry year/batch
@@ -267,7 +267,7 @@ bool ConsecutiveRollSeparationRule::validate(const SeatPlan& seatPlan) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r][c + 1];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     int roll1 = parseRollNumber(s1->rollNo);
                     int roll2 = parseRollNumber(s2->rollNo);
                     // Check if numeric rolls are consecutive (absolute difference is 1)
@@ -298,7 +298,7 @@ bool SameProgramVerticalPreferenceRule::validate(const SeatPlan& seatPlan) {
             if (r + 1 < static_cast<int>(seatPlan.grid.size()) && c < static_cast<int>(seatPlan.grid[r].size()) && c < static_cast<int>(seatPlan.grid[r + 1].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r + 1][c];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     // We prefer same program vertically. If different, we generate a preference warning.
                     if (s1->program != s2->program) {
                         hasViolation = true;
@@ -330,7 +330,7 @@ bool DifferentProgramSameDeptRule::validate(const SeatPlan& seatPlan) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r][c + 1];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     if (s1->department == s2->department && s1->program != s2->program) {
                         verifiedPairs++;
                     }
@@ -361,7 +361,7 @@ bool SameSubjectSeparationRule::validate(const SeatPlan& seatPlan) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& s1 = seatPlan.grid[r][c];
                 const auto& s2 = seatPlan.grid[r][c + 1];
-                if (s1.has_value() && s2.has_value()) {
+                if (s1 != nullptr && s2 != nullptr) {
                     if (s1->subject == s2->subject) {
                         hasViolation = true;
                         warning_ += "Same Subject Horizontal Violation: Students " + s1->name + " and " + s2->name + 
@@ -396,7 +396,7 @@ bool DepartmentDistributionRule::validate(const SeatPlan& seatPlan) {
         for (int c = 0; c < cols; ++c) {
             if (r < static_cast<int>(seatPlan.grid.size()) && c < static_cast<int>(seatPlan.grid[r].size())) {
                 const auto& seat = seatPlan.grid[r][c];
-                if (seat.has_value()) {
+                if (seat != nullptr) {
                     if (c < midCol) {
                         leftTotal++;
                         leftProgramCounts[seat->program]++;
@@ -414,7 +414,9 @@ bool DepartmentDistributionRule::validate(const SeatPlan& seatPlan) {
 
     // Check left side distribution dominance (> 60% of total)
     if (leftTotal > 0) {
-        for (const auto& [prog, count] : leftProgramCounts) {
+        for (const auto& pair : leftProgramCounts) {
+            const auto& prog = pair.first;
+            const auto& count = pair.second;
             double percent = (static_cast<double>(count) / leftTotal) * 100.0;
             if (percent > 60.0) {
                 hasViolation = true;
@@ -426,7 +428,9 @@ bool DepartmentDistributionRule::validate(const SeatPlan& seatPlan) {
 
     // Check right side distribution dominance (> 60% of total)
     if (rightTotal > 0) {
-        for (const auto& [prog, count] : rightProgramCounts) {
+        for (const auto& pair : rightProgramCounts) {
+            const auto& prog = pair.first;
+            const auto& count = pair.second;
             double percent = (static_cast<double>(count) / rightTotal) * 100.0;
             if (percent > 60.0) {
                 hasViolation = true;

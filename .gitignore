@@ -1,0 +1,26 @@
+# Build directory
+build/
+
+# Executables and object files
+*.exe
+*.o
+*.obj
+
+# Log/Error files
+*.log
+err.txt
+err_studentmodel.txt
+gpp_err.txt
+gpp_moc_err.txt
+
+# Generated HTML charts
+kuseat_chart.html
+
+# Local SQLite databases (except in data/)
+/exam_seating.db
+
+# Local build and test scripts
+build.bat
+compile.ps1
+test_engine.cpp
+

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <optional>
+#include <memory>
 
 struct Student {
     std::string name;
@@ -12,6 +12,7 @@ struct Student {
     std::string program;         // e.g., "CE", "AI", "ME"
     std::string department;      // e.g., "DoCSE", "DoME"
     std::string subject;         // e.g., "COMP102", "MATH104"
+    int semester = 1;
     bool hasContagiousDisease = false;
     bool isPhysicallyImpaired = false;
 };
@@ -33,7 +34,7 @@ struct SeatPlan {
     Room room;
     // 2D representation of seats where grid[row][col] is std::optional<Student>
     // Row and Column sizes are defined by Room.rows and Room.columns
-    std::vector<std::vector<std::optional<Student>>> grid;
+    std::vector<std::vector<std::shared_ptr<Student>>> grid;
 };
 
 #endif // DATA_STRUCTURES_H

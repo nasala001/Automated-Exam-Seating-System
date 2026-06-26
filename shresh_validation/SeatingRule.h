@@ -3,7 +3,7 @@
 
 #include "DataStructures.h"
 #include <string>
-#include <string_view>
+#include <string>
 
 class SeatingRule {
 public:
@@ -17,7 +17,7 @@ public:
     virtual std::string getWarningMessage() const = 0;
 
     // Returns a unique identifier or descriptive name for the rule.
-    virtual std::string_view getRuleName() const = 0;
+    virtual std::string getRuleName() const = 0;
 
     // Indicates whether this rule can be manually overridden.
     // Rules like "One Student - One Seat" might be hard limits, whereas seating preferences are overrides.
