@@ -7,24 +7,25 @@ using namespace std;
 int main() {
     sqlite3* DB;
     
-    // Connect to embedded sqlite system file storage
+    // Connect to the SQLite Database file
     if (sqlite3_open("data/KU_Exam_System.db", &DB) != SQLITE_OK) {
-        cout << "[ERROR] Cannot establish link connection to SQLite database storage!" << endl;
+        cout << "[ERROR] Cannot connect to SQLite Database!" << endl;
         return 1;
     }
 
-    // Run custom migration wrapper engine
+    // Run database tables initialization
     if (runDatabaseMigrationEngine(DB)) {
         vector<Student> globalContainer;
 
-        // Ingest updated dynamic records to system vector memory
+        // Fetch ALL 100-150 students from database into memory
         loadLiveRecordsIntoVectors(DB, globalContainer);
 
-        // Export data pipe only if dynamic records exist
+        // Generate final seating allocation if records exist
         if (!globalContainer.empty()) {
             generateAndExportSeatPlan(DB, globalContainer);
+            cout << "[SUCCESS] Seating Plan generated successfully!" << endl;
         } else {
-            cout << "[WARNING] Vector ingestion contains 0 active student files!" << endl;
+            cout << "[WARNING] No student records found in database!" << endl;
         }
     }
 

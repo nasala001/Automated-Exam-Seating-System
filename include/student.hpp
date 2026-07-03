@@ -7,7 +7,7 @@
 
 class Student {
 private:
-    int sn;                     // Primary Identifier Key
+    int sn;                     
     std::string name;
     std::string regNo;          
     std::string rollNo;
@@ -16,18 +16,18 @@ private:
     std::string program;        
     std::string batch;
     std::string isDisabled;
-    std::string hasContagious;  // Joined from Medical logs
-    std::string subjectCode;    // Joined from Exam routines
-    std::string teacherName;    // Joined from Teacher Info list
-    std::string seatCode;       // Dynamic output field tracker
+    std::string hasContagious;  
+    std::string subjectCode;    
+    std::string teacherName;    
+    std::string seatCode;       
 
 public:
-    // Core class constructor interface
+    // Constructor to initialize student objects
     Student(int id, std::string n, std::string reg, std::string roll, std::string dept, 
             std::string sem, std::string prog, std::string b, std::string dis, 
             std::string sick = "false", std::string sub = "UNKNOWN", std::string teach = "UNKNOWN");
 
-    // Interface Accessors 
+    // Getter functions to access data securely
     int getSN() const { return sn; }
     std::string getName() const { return name; }
     std::string getRegNo() const { return regNo; }
@@ -45,7 +45,7 @@ public:
     void setSeatCode(std::string code) { seatCode = code; }
 };
 
-// Execution Pipe Function Signatures
+// Core system framework functions
 bool runDatabaseMigrationEngine(sqlite3* DB);
 void loadLiveRecordsIntoVectors(sqlite3* DB, std::vector<Student>& studentList);
 void generateAndExportSeatPlan(sqlite3* DB, std::vector<Student>& studentList);

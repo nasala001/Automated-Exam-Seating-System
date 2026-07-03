@@ -1,101 +1,101 @@
-SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Subject_Code,Assigned_Teacher,Seat_Code
-1,KU26001,1,Aarav Sharma,Computer Science,Sem 1,BSc,COMP116,Prof. Ram Swarth,MH-A1-ST1
-2,KU26002,2,Bikash Thapa,Civil Engineering,Sem 2,BE,COMP116,Prof. Ram Swarth,MH-A1-ST2
-3,KU26003,3,Chandra Poudel,Electrical Engineering,Sem 3,BE,COMP116,Prof. Ram Swarth,MH-A1-ST3
-4,KU26004,4,Dipika Rai,Mechanical Engineering,Sem 4,BE,COMP116,Prof. Ram Swarth,MH-A1-ST4
-5,KU26005,5,Elina Karki,Architecture,Sem 5,BArch,COMP116,Prof. Ram Swarth,MH-A1-ST5
-6,KU26006,6,Firoj Magar,Electronics,Sem 1,BE,COMP116,Prof. Ram Swarth,MH-A1-ST6
-7,KU26007,7,Gita Tamang,Chemical Engineering,Sem 2,BE,COMP116,Prof. Ram Swarth,MH-A1-ST7
-8,KU26008,8,Hari Basnet,Computer Engineering,Sem 3,BE,COMP116,Prof. Ram Swarth,MH-A1-ST8
-9,KU26009,9,Isha Shrestha,Computer Science,Sem 4,BSc,COMP116,Prof. Ram Swarth,MH-A1-ST9
-10,KU26010,10,Jeevan Adhikari,Civil Engineering,Sem 5,BE,COMP116,Prof. Ram Swarth,MH-A1-ST10
-11,KU26011,11,Kabita Gurung,Electrical Engineering,Sem 1,BE,COMP116,Prof. Ram Swarth,MH-A1-ST11
-12,KU26012,12,Laxman Bhatt,Mechanical Engineering,Sem 2,BE,COMP116,Prof. Ram Swarth,MH-A1-ST12
-13,KU26013,13,Maya Neupane,Architecture,Sem 3,BArch,COMP116,Dr. Sunita Sharma,MH-A2-ST1
-14,KU26014,14,Nabin Dahal,Electronics,Sem 4,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST2
-15,KU26015,15,Ojasvi Joshi,Chemical Engineering,Sem 5,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST3
-16,KU26016,16,Prakash Khadka,Computer Engineering,Sem 1,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST4
-17,KU26017,17,Rita Shrestha,Computer Science,Sem 2,BSc,COMP116,Dr. Sunita Sharma,MH-A2-ST5
-18,KU26018,18,Suman Thapa,Civil Engineering,Sem 3,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST6
-19,KU26019,19,Tulasi Ghimire,Electrical Engineering,Sem 4,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST7
-20,KU26020,20,Umesh Rai,Mechanical Engineering,Sem 5,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST8
-21,KU26021,21,Anjali Yogi,Architecture,Sem 1,BArch,COMP116,Dr. Sunita Sharma,MH-A2-ST9
-22,KU26022,22,Binod Kunwar,Electronics,Sem 2,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST10
-23,KU26023,23,Chitra GC,Chemical Engineering,Sem 3,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST11
-24,KU26024,24,Dinesh Shah,Computer Engineering,Sem 4,BE,COMP116,Dr. Sunita Sharma,MH-A2-ST12
-25,KU26025,25,Esha Giri,Computer Science,Sem 5,BSc,COMP116,Er. Rajesh Gupta,MH-A3-ST1
-26,KU26026,26,Ganesh Khatri,Civil Engineering,Sem 1,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST2
-27,KU26027,27,Hemanta Rana,Electrical Engineering,Sem 2,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST3
-28,KU26028,28,Ishwor Thapa,Mechanical Engineering,Sem 3,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST4
-29,KU26029,29,Janaki Rimal,Architecture,Sem 4,BArch,COMP116,Er. Rajesh Gupta,MH-A3-ST5
-30,KU26030,30,Kiran Poudel,Electronics,Sem 5,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST6
-31,KU26031,31,Laxmi Giri,Chemical Engineering,Sem 1,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST7
-32,KU26032,32,Madan Rai,Computer Engineering,Sem 2,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST8
-33,KU26033,33,Nabin Shah,Computer Science,Sem 3,BSc,COMP116,Er. Rajesh Gupta,MH-A3-ST9
-34,KU26034,34,Lalita Shrestha,Civil Engineering,Sem 4,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST10
-35,KU26035,35,Mina Kunwar,Electrical Engineering,Sem 5,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST11
-36,KU26036,36,Niranjan Shah,Mechanical Engineering,Sem 1,BE,COMP116,Er. Rajesh Gupta,MH-A3-ST12
-37,KU26037,37,Ritu Basnet,Architecture,Sem 2,BArch,COMP116,Prof. KP Mishra,MH-B1-ST1
-38,KU26038,38,Zoya Khan,Electronics,Sem 3,BE,COMP116,Prof. KP Mishra,MH-B1-ST2
-39,KU26039,39,Anand Jha,Chemical Engineering,Sem 4,BE,COMP116,Prof. KP Mishra,MH-B1-ST3
-40,KU26040,40,Barsha Rana,Computer Engineering,Sem 5,BE,COMP116,Prof. KP Mishra,MH-B1-ST4
-41,KU26041,41,Chetan Yogi,Computer Science,Sem 1,BSc,COMP116,Prof. KP Mishra,MH-B1-ST5
-42,KU26042,42,Dilip Kumar,Civil Engineering,Sem 2,BE,COMP116,Prof. KP Mishra,MH-B1-ST6
-43,KU26043,43,Shresh Khanal,Electrical Engineering,Sem 3,BE,COMP116,Prof. KP Mishra,MH-B1-ST7
-44,KU26044,44,Nasala Lakhey,Mechanical Engineering,Sem 4,BE,COMP116,Prof. KP Mishra,MH-B1-ST8
-45,KU26045,45,Pradip Rimal,Architecture,Sem 5,BArch,COMP116,Prof. KP Mishra,MH-B1-ST9
-46,KU26046,46,Rohan Shrestha,Electronics,Sem 1,BE,COMP116,Prof. KP Mishra,MH-B1-ST10
-47,KU26047,47,Sita Aryal,Chemical Engineering,Sem 2,BE,COMP116,Prof. KP Mishra,MH-B1-ST11
-48,KU26048,48,Yubaraj Thapa,Computer Engineering,Sem 3,BE,COMP116,Prof. KP Mishra,MH-B1-ST12
-49,KU26049,49,Asmita Dhakal,Computer Science,Sem 4,BSc,COMP116,Dr. Niranjan Joshi,MH-B2-ST1
-50,KU26050,50,Bibek Khadka,Civil Engineering,Sem 5,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST2
-51,KU26051,51,Ayush Karki,Electrical Engineering,Sem 1,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST3
-52,KU26052,52,Bhumi Shrestha,Mechanical Engineering,Sem 2,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST4
-53,KU26053,53,Deepak Rai,Architecture,Sem 3,BArch,COMP116,Dr. Niranjan Joshi,MH-B2-ST5
-54,KU26054,54,Gaurav Thapa,Electronics,Sem 4,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST6
-55,KU26055,55,Jyoti Magar,Chemical Engineering,Sem 5,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST7
-56,KU26056,56,Kshitiz Bhandari,Computer Engineering,Sem 1,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST8
-57,KU26057,57,Manish Poudel,Computer Science,Sem 2,BSc,COMP116,Dr. Niranjan Joshi,MH-B2-ST9
-58,KU26058,58,Nisha Tamang,Civil Engineering,Sem 3,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST10
-59,KU26059,59,Prabin Basnet,Electrical Engineering,Sem 4,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST11
-60,KU26060,60,Rachana Rai,Mechanical Engineering,Sem 5,BE,COMP116,Dr. Niranjan Joshi,MH-B2-ST12
-61,KU26061,61,Sabin Karki,Architecture,Sem 1,BArch,COMP116,Er. Sandesh Shrestha,MH-B3-ST1
-62,KU26062,62,Sajana Shrestha,Electronics,Sem 2,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST2
-63,KU26063,63,Utsav Dhakal,Chemical Engineering,Sem 3,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST3
-64,KU26064,64,Amrit Thapa,Computer Engineering,Sem 4,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST4
-65,KU26065,65,Bhumika Gurung,Computer Science,Sem 5,BSc,COMP116,Er. Sandesh Shrestha,MH-B3-ST5
-66,KU26066,66,Chandan Mahato,Civil Engineering,Sem 1,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST6
-67,KU26067,67,Dipa Rai,Electrical Engineering,Sem 2,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST7
-68,KU26068,68,Hariom Dev,Mechanical Engineering,Sem 3,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST8
-69,KU26069,69,Kiran KC,Architecture,Sem 4,BArch,COMP116,Er. Sandesh Shrestha,MH-B3-ST9
-70,KU26070,70,Manju Shrestha,Electronics,Sem 5,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST10
-71,KU26071,71,Narendra Modi,Chemical Engineering,Sem 1,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST11
-72,KU26072,72,Pratima Thapa,Computer Engineering,Sem 2,BE,COMP116,Er. Sandesh Shrestha,MH-B3-ST12
-73,KU26073,73,Ramesh Joshi,Computer Science,Sem 3,BSc,COMP116,Mrs. Anjana Regmi,MH-C1-ST1
-74,KU26074,74,Saraswati Rai,Civil Engineering,Sem 4,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST2
-75,KU26075,75,Tara Sharma,Electrical Engineering,Sem 5,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST3
-76,KU26076,76,Vijay Kumar,Mechanical Engineering,Sem 1,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST4
-77,KU26077,77,Aasha Thapa,Architecture,Sem 2,BArch,COMP116,Mrs. Anjana Regmi,MH-C1-ST5
-78,KU26078,78,Bharat Shah,Electronics,Sem 3,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST6
-79,KU26079,79,Devendra Poudel,Chemical Engineering,Sem 4,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST7
-80,KU26080,80,Gopal Krishna,Computer Engineering,Sem 5,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST8
-81,KU26081,81,Indira Joshi,Computer Science,Sem 1,BSc,COMP116,Mrs. Anjana Regmi,MH-C1-ST9
-82,KU26082,82,Kamal Thapa,Civil Engineering,Sem 2,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST10
-83,KU26083,83,Lila Shrestha,Electrical Engineering,Sem 3,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST11
-84,KU26084,84,Mira Rai,Mechanical Engineering,Sem 4,BE,COMP116,Mrs. Anjana Regmi,MH-C1-ST12
-85,KU26085,85,Nirmal Chhetri,Architecture,Sem 5,BArch,COMP116,Dr. Santosh Bhandari,MH-C2-ST1
-86,KU26086,86,Om Prakash,Electronics,Sem 1,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST2
-87,KU26087,87,Pooja Hegde,Chemical Engineering,Sem 2,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST3
-88,KU26088,88,Rajesh Hamal,Computer Engineering,Sem 3,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST4
-89,KU26089,89,Sita Ram,Computer Science,Sem 4,BSc,COMP116,Dr. Santosh Bhandari,MH-C2-ST5
-90,KU26090,90,Uma Thapa,Civil Engineering,Sem 5,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST6
-91,KU26091,91,Vivek Oberoi,Electrical Engineering,Sem 1,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST7
-92,KU26092,92,Yamuna Rai,Mechanical Engineering,Sem 2,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST8
-94,KU26094,94,Bipana Thapa,Electronics,Sem 4,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST9
-95,KU26095,95,Chirag Paswan,Chemical Engineering,Sem 5,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST10
-96,KU26096,96,Dharendra Yogi,Computer Engineering,Sem 1,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST11
-98,KU26098,98,Karishma Manandhar,Civil Engineering,Sem 3,BE,COMP116,Dr. Santosh Bhandari,MH-C2-ST12
-99,KU26099,99,Niraj Basnet,Electrical Engineering,Sem 4,BE,COMP116,Er. Dipendra Shah,MH-C3-ST1
-100,KU26100,100,Pradeep Khadka,Mechanical Engineering,Sem 5,BE,COMP116,Er. Dipendra Shah,MH-C3-ST2
-93,KU26093,93,Arjun Kapoor,Architecture,Sem 3,BArch,COMP116,Medical Team Incharge,ISO-ROOM
-97,KU26097,97,Hemanta Mishra,Computer Science,Sem 2,BSc,COMP116,Medical Team Incharge,ISO-ROOM
+SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Subject_Code,Assigned_Invigilators,Seat_Code
+1,KU26021,21,Anjali Yogi,Architecture,Sem 1,BArch,ARCH105,"Chief: Ar. Binita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST1
+2,KU26007,7,Gita Tamang,Chemical Engineering,Sem 2,BE,CHTR107,"Chief: Dr. Sarita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST2
+3,KU26037,37,Ritu Basnet,Architecture,Sem 2,BArch,ARCH105,"Chief: Ar. Binita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST3
+4,KU26031,31,Laxmi Giri,Chemical Engineering,Sem 1,BE,CHTR107,"Chief: Dr. Sarita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST4
+5,KU26061,61,Sabin Karki,Architecture,Sem 1,BArch,ARCH105,"Chief: Ar. Binita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST5
+6,KU26047,47,Sita Aryal,Chemical Engineering,Sem 2,BE,CHTR107,"Chief: Dr. Sarita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST6
+7,KU26077,77,Aasha Thapa,Architecture,Sem 2,BArch,ARCH105,"Chief: Ar. Binita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST7
+8,KU26071,71,Narendra Modi,Chemical Engineering,Sem 1,BE,CHTR107,"Chief: Dr. Sarita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST8
+9,KU26087,87,Pooja Hegde,Chemical Engineering,Sem 2,BE,CHTR107,"Chief: Dr. Sarita + 1 Asst [Total Required for Hall: 10]",MH-A1-ST9
+10,KU26002,2,Bikash Thapa,Civil Engineering,Sem 2,BE,CIEG102,"Chief: Dr. Ram Swarth + 1 Asst [Total Required for Hall: 10]",MH-A1-ST10
+11,KU26026,26,Ganesh Khatri,Civil Engineering,Sem 1,BE,CIEG102,"Chief: Dr. Ram Swarth + 1 Asst [Total Required for Hall: 10]",MH-A1-ST11
+12,KU26042,42,Dilip Kumar,Civil Engineering,Sem 2,BE,CIEG102,"Chief: Dr. Ram Swarth + 1 Asst [Total Required for Hall: 10]",MH-A1-ST12
+13,KU26066,66,Chandan Mahato,Civil Engineering,Sem 1,BE,CIEG102,"Chief: Dr. Ram Swarth + 1 Asst [Total Required for Hall: 10]",MH-A2-ST1
+14,KU26082,82,Kamal Thapa,Civil Engineering,Sem 2,BE,CIEG102,"Chief: Dr. Ram Swarth + 1 Asst [Total Required for Hall: 10]",MH-A2-ST2
+15,KU26016,16,Prakash Khadka,Computer Engineering,Sem 1,BE,CMPE108,"Chief: Er. Niraj + 1 Asst [Total Required for Hall: 10]",MH-A2-ST3
+16,KU26032,32,Madan Rai,Computer Engineering,Sem 2,BE,CMPE108,"Chief: Er. Niraj + 1 Asst [Total Required for Hall: 10]",MH-A2-ST4
+17,KU26056,56,Kshitiz Bhandari,Computer Engineering,Sem 1,BE,CMPE108,"Chief: Er. Niraj + 1 Asst [Total Required for Hall: 10]",MH-A2-ST5
+18,KU26072,72,Pratima Thapa,Computer Engineering,Sem 2,BE,CMPE108,"Chief: Er. Niraj + 1 Asst [Total Required for Hall: 10]",MH-A2-ST6
+19,KU26096,96,Dharendra Yogi,Computer Engineering,Sem 1,BE,CMPE108,"Chief: Er. Niraj + 1 Asst [Total Required for Hall: 10]",MH-A2-ST7
+20,KU26011,11,Kabita Gurung,Electrical Engineering,Sem 1,BE,ELEG103,"Chief: Prof. Upendra + 1 Asst [Total Required for Hall: 10]",MH-A2-ST8
+21,KU26027,27,Hemanta Rana,Electrical Engineering,Sem 2,BE,ELEG103,"Chief: Prof. Upendra + 1 Asst [Total Required for Hall: 10]",MH-A2-ST9
+22,KU26051,51,Ayush Karki,Electrical Engineering,Sem 1,BE,ELEG103,"Chief: Prof. Upendra + 1 Asst [Total Required for Hall: 10]",MH-A2-ST10
+23,KU26067,67,Dipa Rai,Electrical Engineering,Sem 2,BE,ELEG103,"Chief: Prof. Upendra + 1 Asst [Total Required for Hall: 10]",MH-A2-ST11
+24,KU26091,91,Vivek Oberoi,Electrical Engineering,Sem 1,BE,ELEG103,"Chief: Prof. Upendra + 1 Asst [Total Required for Hall: 10]",MH-A2-ST12
+25,KU26006,6,Firoj Magar,Electronics,Sem 1,BE,ELEX106,"Chief: Er. Anil + 1 Asst [Total Required for Hall: 10]",MH-A3-ST1
+26,KU26022,22,Binod Kunwar,Electronics,Sem 2,BE,ELEX106,"Chief: Er. Anil + 1 Asst [Total Required for Hall: 10]",MH-A3-ST2
+27,KU26046,46,Rohan Shrestha,Electronics,Sem 1,BE,ELEX106,"Chief: Er. Anil + 1 Asst [Total Required for Hall: 10]",MH-A3-ST3
+28,KU26062,62,Sajana Shrestha,Electronics,Sem 2,BE,ELEX106,"Chief: Er. Anil + 1 Asst [Total Required for Hall: 10]",MH-A3-ST4
+29,KU26086,86,Om Prakash,Electronics,Sem 1,BE,ELEX106,"Chief: Er. Anil + 1 Asst [Total Required for Hall: 10]",MH-A3-ST5
+30,KU26001,1,Aarav Sharma,Computer Science,Sem 1,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST6
+31,KU26003,3,Chandra Poudel,Electrical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST7
+32,KU26004,4,Dipika Rai,Mechanical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST8
+33,KU26005,5,Elina Karki,Architecture,Sem 5,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST9
+34,KU26008,8,Hari Basnet,Computer Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST10
+35,KU26009,9,Isha Shrestha,Computer Science,Sem 4,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST11
+36,KU26010,10,Jeevan Adhikari,Civil Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-A3-ST12
+37,KU26013,13,Maya Neupane,Architecture,Sem 3,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST1
+38,KU26014,14,Nabin Dahal,Electronics,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST2
+39,KU26015,15,Ojasvi Joshi,Chemical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST3
+40,KU26017,17,Rita Shrestha,Computer Science,Sem 2,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST4
+41,KU26018,18,Suman Thapa,Civil Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST5
+42,KU26019,19,Tulasi Ghimire,Electrical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST6
+43,KU26020,20,Umesh Rai,Mechanical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST7
+44,KU26023,23,Chitra GC,Chemical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST8
+45,KU26024,24,Dinesh Shah,Computer Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST9
+46,KU26025,25,Esha Giri,Computer Science,Sem 5,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST10
+47,KU26028,28,Ishwor Thapa,Mechanical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST11
+48,KU26029,29,Janaki Rimal,Architecture,Sem 4,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B1-ST12
+49,KU26030,30,Kiran Poudel,Electronics,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST1
+50,KU26033,33,Nabin Shah,Computer Science,Sem 3,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST2
+51,KU26034,34,Lalita Shrestha,Civil Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST3
+52,KU26035,35,Mina Kunwar,Electrical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST4
+53,KU26038,38,Zoya Khan,Electronics,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST5
+54,KU26039,39,Anand Jha,Chemical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST6
+55,KU26040,40,Barsha Rana,Computer Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST7
+56,KU26041,41,Chetan Yogi,Computer Science,Sem 1,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST8
+57,KU26043,43,Shresh Khanal,Electrical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST9
+58,KU26044,44,Nasala Lakhey,Mechanical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST10
+59,KU26045,45,Pradip Rimal,Architecture,Sem 5,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST11
+60,KU26048,48,Yubaraj Thapa,Computer Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B2-ST12
+61,KU26049,49,Asmita Dhakal,Computer Science,Sem 4,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST1
+62,KU26050,50,Bibek Khadka,Civil Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST2
+63,KU26053,53,Deepak Rai,Architecture,Sem 3,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST3
+64,KU26054,54,Gaurav Thapa,Electronics,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST4
+65,KU26055,55,Jyoti Magar,Chemical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST5
+66,KU26057,57,Manish Poudel,Computer Science,Sem 2,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST6
+67,KU26058,58,Nisha Tamang,Civil Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST7
+68,KU26059,59,Prabin Basnet,Electrical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST8
+69,KU26060,60,Rachana Rai,Mechanical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST9
+70,KU26063,63,Utsav Dhakal,Chemical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST10
+71,KU26064,64,Amrit Thapa,Computer Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST11
+72,KU26065,65,Bhumika Gurung,Computer Science,Sem 5,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-B3-ST12
+73,KU26068,68,Hariom Dev,Mechanical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST1
+74,KU26012,12,Laxman Bhatt,Mechanical Engineering,Sem 2,BE,MECH104,"Chief: Er. Subash + 1 Asst [Total Required for Hall: 10]",MH-C1-ST2
+75,KU26069,69,Kiran KC,Architecture,Sem 4,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST3
+76,KU26036,36,Niranjan Shah,Mechanical Engineering,Sem 1,BE,MECH104,"Chief: Er. Subash + 1 Asst [Total Required for Hall: 10]",MH-C1-ST4
+77,KU26070,70,Manju Shrestha,Electronics,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST5
+78,KU26052,52,Bhumi Shrestha,Mechanical Engineering,Sem 2,BE,MECH104,"Chief: Er. Subash + 1 Asst [Total Required for Hall: 10]",MH-C1-ST6
+79,KU26073,73,Ramesh Joshi,Computer Science,Sem 3,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST7
+80,KU26076,76,Vijay Kumar,Mechanical Engineering,Sem 1,BE,MECH104,"Chief: Er. Subash + 1 Asst [Total Required for Hall: 10]",MH-C1-ST8
+81,KU26074,74,Saraswati Rai,Civil Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST9
+82,KU26092,92,Yamuna Rai,Mechanical Engineering,Sem 2,BE,MECH104,"Chief: Er. Subash + 1 Asst [Total Required for Hall: 10]",MH-C1-ST10
+83,KU26075,75,Tara Sharma,Electrical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST11
+84,KU26078,78,Bharat Shah,Electronics,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C1-ST12
+85,KU26079,79,Devendra Poudel,Chemical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST1
+86,KU26080,80,Gopal Krishna,Computer Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST2
+87,KU26081,81,Indira Joshi,Computer Science,Sem 1,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST3
+88,KU26083,83,Lila Shrestha,Electrical Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST4
+89,KU26084,84,Mira Rai,Mechanical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST5
+90,KU26085,85,Nirmal Chhetri,Architecture,Sem 5,BArch,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST6
+91,KU26088,88,Rajesh Hamal,Computer Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST7
+92,KU26089,89,Sita Ram,Computer Science,Sem 4,BSc,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST8
+93,KU26090,90,Uma Thapa,Civil Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST9
+94,KU26094,94,Bipana Thapa,Electronics,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST10
+95,KU26095,95,Chirag Paswan,Chemical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST11
+96,KU26098,98,Karishma Manandhar,Civil Engineering,Sem 3,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C2-ST12
+97,KU26099,99,Niraj Basnet,Electrical Engineering,Sem 4,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C3-ST1
+98,KU26100,100,Pradeep Khadka,Mechanical Engineering,Sem 5,BE,GEN101,"Chief: Prof. Pankaj Kumar + 1 Asst [Total Required for Hall: 10]",MH-C3-ST2
+99,KU26093,93,Arjun Kapoor,Architecture,Sem 3,BArch,GEN101,"Chief: Medical Team Incharge + 1 Nurse",ISO-ROOM
+100,KU26097,97,Hemanta Mishra,Computer Science,Sem 2,BSc,GEN101,"Chief: Medical Team Incharge + 1 Nurse",ISO-ROOM
