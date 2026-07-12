@@ -6,6 +6,8 @@
 #include <memory>
 #include <string>
 
+namespace shresh {
+
 struct ValidationReport {
     bool isValid = true;                       // True if no hard rules failed
     std::vector<std::string> hardErrors;       // Failures of rules where overrides are NOT allowed
@@ -29,5 +31,8 @@ public:
     // Runs all registered rules against the seat plan, sorting failures into hard errors and soft warnings
     ValidationReport validate(const SeatPlan& seatPlan) const;
 };
+
+} // namespace shresh
+
 
 #endif // RULE_VALIDATOR_H

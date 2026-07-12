@@ -71,7 +71,7 @@ bool ExportManager::exportHTML(const QString &path) const {
             int bocc = m_model->occupiedInBlock(block);
             ts << QString("<h2>Block %1 &nbsp; <span class='badge'>%2 / %3</span></h2>\n")
                   .arg(block).arg(bocc).arg(HallConst::PER_MAJOR);
-            ts << "<table><tr><th>Sub-Block</th><th>Bench</th><th>Seat</th>"
+            ts << "<table><tr><th>Seat Code</th>"
                   "<th>Roll No.</th><th>Name</th><th>Department</th><th>Semester</th><th>Status</th></tr>\n";
             for (int sub=1; sub<=3; sub++) {
                 for (int bench=1; bench<=6; bench++) {
@@ -79,12 +79,16 @@ bool ExportManager::exportHTML(const QString &path) const {
                         const SeatCell &cell = m_model->seatAt(block, sub, bench, seat);
                         UIStudent *s = (cell.studentId!=-1) ? m_model->findById(cell.studentId) : nullptr;
                         QString rowBg = s ? "#f0fff4" : "#ffffff";
-                        ts << QString("<tr style='background:%1'><td>%2%3</td><td>%4</td><td>%5</td>"
-                                      "<td>%6</td><td>%7</td><td>%8</td><td>%9</td><td>%10</td></tr>\n")
+                        
+                        int bi = m_model->blockIndex(block);
+                        int r = (bi / 3) * 6 + (bench - 1);
+                        int c = (bi % 3) * 6 + (sub - 1) * 2 + (seat - 1);
+                        QString seatName = m_model->getSeatName(r, c);
+                        
+                        ts << QString("<tr style='background:%1'><td>%2</td>"
+                                      "<td>%3</td><td>%4</td><td>%5</td><td>%6</td><td>%7</td></tr>\n")
                               .arg(rowBg)
-                              .arg(block).arg(sub)
-                              .arg(bench)
-                              .arg(seat==1?"Left":"Right")
+                              .arg(seatName)
                               .arg(s?s->rollNumber:"—")
                               .arg(s?s->name:"—")
                               .arg(s?s->department:"—")
@@ -97,17 +101,19 @@ bool ExportManager::exportHTML(const QString &path) const {
         }
     } else {
         ts << "<h2>Room Occupancy Details</h2>\n";
-        ts << "<table><tr><th>Row</th><th>Col</th>"
+        ts << "<table><tr><th>Seat Code</th>"
               "<th>Roll No.</th><th>Name</th><th>Department</th><th>Semester</th><th>Status</th></tr>\n";
         for (int r = 0; r < m_model->rows(); r++) {
             for (int c = 0; c < m_model->cols(); c++) {
                 const SeatCell &cell = m_model->seatAt(r, c);
                 UIStudent *s = (cell.studentId != -1) ? m_model->findById(cell.studentId) : nullptr;
                 QString rowBg = s ? "#f0fff4" : "#ffffff";
-                ts << QString("<tr style='background:%1'><td>%2</td><td>%3</td>"
-                              "<td>%4</td><td>%5</td><td>%6</td><td>%7</td><td>%8</td></tr>\n")
+                QString seatName = m_model->getSeatName(r, c);
+                
+                ts << QString("<tr style='background:%1'><td>%2</td>"
+                              "<td>%3</td><td>%4</td><td>%5</td><td>%6</td><td>%7</td></tr>\n")
                       .arg(rowBg)
-                      .arg(r + 1).arg(c + 1)
+                      .arg(seatName)
                       .arg(s?s->rollNumber:"—")
                       .arg(s?s->name:"—")
                       .arg(s?s->department:"—")

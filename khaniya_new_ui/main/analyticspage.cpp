@@ -139,26 +139,29 @@ void AnalyticsPage::refresh() {
 }
 
 void AnalyticsPage::refreshDeptTable() {
-    // Clear existing table
-    auto *old = m_deptWidget->findChild<QTableWidget*>();
-    if (old) delete old;
-
     QStringList depts = m_model->departments();
-    if (depts.isEmpty()) return;
+    auto *tbl = m_deptWidget->findChild<QTableWidget*>();
+    if (!tbl) {
+        tbl = new QTableWidget(m_deptWidget);
+        tbl->setColumnCount(4);
+        tbl->setHorizontalHeaderLabels({"Department","Total Students","Assigned","Unassigned"});
+        tbl->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+        tbl->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tbl->setAlternatingRowColors(true);
+        tbl->verticalHeader()->hide();
+        tbl->setStyleSheet(
+            "QTableWidget { border:none; font-size:12px; }"
+            "QHeaderView::section { background:#003366; color:white; font-weight:bold; "
+            "padding:8px 10px; border:none; border-right:1px solid #1a4a7a; }"
+            "QTableWidget::item:selected { background:#dce8f7; color:#003366; }"
+            "QTableWidget::item:alternate { background:#f8fafc; }");
+        auto *deptVL = qobject_cast<QVBoxLayout*>(m_deptWidget->layout());
+        if (deptVL) deptVL->addWidget(tbl);
+    }
 
-    auto *tbl = new QTableWidget(depts.size(), 4, m_deptWidget);
-    tbl->setHorizontalHeaderLabels({"Department","Total Students","Assigned","Unassigned"});
-    tbl->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    tbl->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tbl->setAlternatingRowColors(true);
-    tbl->verticalHeader()->hide();
-    tbl->setStyleSheet(
-        "QTableWidget { border:none; font-size:12px; }"
-        "QHeaderView::section { background:#003366; color:white; font-weight:bold; "
-        "padding:8px 10px; border:none; border-right:1px solid #1a4a7a; }"
-        "QTableWidget::item:selected { background:#dce8f7; color:#003366; }"
-        "QTableWidget::item:alternate { background:#f8fafc; }");
+    tbl->setRowCount(depts.size());
+    if (depts.isEmpty()) return;
 
     for (int i=0; i<depts.size(); i++) {
         QList<UIStudent*> ds = m_model->studentsByDept(depts[i]);
@@ -168,21 +171,24 @@ void AnalyticsPage::refreshDeptTable() {
         int unassigned = total - assigned;
 
         auto setC = [&](int col, const QString &text, Qt::Alignment al=Qt::AlignCenter) {
-            auto *item = new QTableWidgetItem(text);
+            auto *item = tbl->item(i, col);
+            if (!item) {
+                item = new QTableWidgetItem();
+                tbl->setItem(i, col, item);
+            }
+            item->setText(text);
             item->setTextAlignment(al);
-            tbl->setItem(i, col, item);
+            return item;
         };
         setC(0, depts[i], Qt::AlignVCenter|Qt::AlignLeft);
         setC(1, QString::number(total));
-        auto *ai = new QTableWidgetItem(QString::number(assigned));
-        ai->setTextAlignment(Qt::AlignCenter);
+        
+        auto *ai = setC(2, QString::number(assigned));
         if (assigned > 0) ai->setForeground(QColor("#155724"));
-        tbl->setItem(i, 2, ai);
-        auto *ui = new QTableWidgetItem(QString::number(unassigned));
-        ui->setTextAlignment(Qt::AlignCenter);
+        else ai->setForeground(QColor("#1a2332"));
+        
+        auto *ui = setC(3, QString::number(unassigned));
         if (unassigned > 0) ui->setForeground(QColor("#856404"));
-        tbl->setItem(i, 3, ui);
+        else ui->setForeground(QColor("#1a2332"));
     }
-    auto *deptVL = qobject_cast<QVBoxLayout*>(m_deptWidget->layout());
-    if (deptVL) deptVL->addWidget(tbl);
 }

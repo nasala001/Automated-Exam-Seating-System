@@ -91,6 +91,7 @@ public:
     explicit HallMapWidget(HallModel *model, QWidget *parent=nullptr);
     void refresh();
     void highlightStudent(int studentId);  // scroll to & highlight a UIStudent's seat
+    int highlightedStudentId() const { return m_highlightstudentId; }
 
 signals:
     void subBlockClicked(const QString &block, int sub);

@@ -6,6 +6,8 @@
 #include <string>
 #include <cctype>
 
+namespace shresh {
+
 // Helper to parse integer from roll number
 static int parseRollNumber(const std::string& rollNo) {
     std::string numStr;
@@ -223,6 +225,35 @@ bool SameProgramHorizontalRule::validate(const SeatPlan& seatPlan) {
 }
 
 // ==========================================
+// Rule 5b: Same Section Horizontal Separation Rule
+// ==========================================
+bool SameSectionHorizontalRule::validate(const SeatPlan& seatPlan) {
+    bool hasViolation = false;
+    warning_ = "";
+    int rows = seatPlan.room.rows;
+    int cols = seatPlan.room.columns;
+
+    for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < cols - 1; ++c) {
+            if (r < static_cast<int>(seatPlan.grid.size()) && c + 1 < static_cast<int>(seatPlan.grid[r].size())) {
+                const auto& s1 = seatPlan.grid[r][c];
+                const auto& s2 = seatPlan.grid[r][c + 1];
+                if (s1 != nullptr && s2 != nullptr) {
+                    if (!s1->section.empty() && s1->section == s2->section && s1->program == s2->program) {
+                        hasViolation = true;
+                        warning_ += "Same Section Horizontal Violation: Student " + s1->name + " (Roll: " + s1->rollNo + 
+                                    ") and student " + s2->name + " (Roll: " + s2->rollNo + ") from same section '" + 
+                                    s1->section + "' are seated next to each other at Row " + std::to_string(r) + 
+                                    ", Seats " + std::to_string(c) + " and " + std::to_string(c + 1) + ". ";
+                    }
+                }
+            }
+        }
+    }
+    return !hasViolation;
+}
+
+// ==========================================
 // Rule 6: Same Class/Semester Separation Rule
 // ==========================================
 bool SameSemesterSeparationRule::validate(const SeatPlan& seatPlan) {
@@ -271,7 +302,9 @@ bool ConsecutiveRollSeparationRule::validate(const SeatPlan& seatPlan) {
                     int roll1 = parseRollNumber(s1->rollNo);
                     int roll2 = parseRollNumber(s2->rollNo);
                     // Check if numeric rolls are consecutive (absolute difference is 1)
-                    if (roll1 != -99999 && roll2 != -99999 && std::abs(roll1 - roll2) == 1) {
+                    // and students are in the same program or subject
+                    if (roll1 != -99999 && roll2 != -99999 && std::abs(roll1 - roll2) == 1 &&
+                        (s1->program == s2->program || s1->subject == s2->subject)) {
                         hasViolation = true;
                         warning_ += "Consecutive Roll Horizontal Violation: " + s1->name + " (Roll: " + s1->rollNo + 
                                     ") and " + s2->name + " (Roll: " + s2->rollNo + ") are consecutive and seated next to each other at Row " + 
@@ -447,6 +480,10 @@ bool DepartmentDistributionRule::validate(const SeatPlan& seatPlan) {
 // Rule 12: Invigilator Minimum Rule
 // ==========================================
 bool InvigilatorMinimumRule::validate(const SeatPlan& seatPlan) {
+    if (countTotalStudents(seatPlan) == 0) {
+        warning_ = "";
+        return true;
+    }
     if (seatPlan.room.numInvigilators < 2) {
         warning_ = "Invigilator Deficit: Room " + seatPlan.room.roomCode + " has only " + 
                    std::to_string(seatPlan.room.numInvigilators) + " invigilator(s). Minimum required is 2 (1 Chief, 1 Standard).";
@@ -461,6 +498,10 @@ bool InvigilatorMinimumRule::validate(const SeatPlan& seatPlan) {
 // ==========================================
 bool InvigilatorRatioRule::validate(const SeatPlan& seatPlan) {
     int totalStudents = countTotalStudents(seatPlan);
+    if (totalStudents == 0) {
+        warning_ = "";
+        return true;
+    }
     
     // 1 invigilator for every 10 students, but at least 2 total (from Rule 12 & Rule 13 select higher of the two)
     int requiredByRatio = (totalStudents + 9) / 10; // integer division ceil
@@ -509,3 +550,5 @@ bool ManualOverrideRule::validate(const SeatPlan& seatPlan) {
 
     return true;
 }
+
+} // namespace shresh

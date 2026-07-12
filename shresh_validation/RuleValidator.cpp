@@ -2,6 +2,8 @@
 #include "ConcreteRules.h"
 #include <utility>
 
+namespace shresh {
+
 RuleValidator::RuleValidator() {
     // Register all 14 predefined seating and management rules
     rules_.push_back(std::make_unique<RoomCapacityRule>());
@@ -9,6 +11,7 @@ RuleValidator::RuleValidator() {
     rules_.push_back(std::make_unique<ContagiousDiseaseIsolationRule>());
     rules_.push_back(std::make_unique<PhysicalDisabilityRule>());
     rules_.push_back(std::make_unique<SameProgramHorizontalRule>());
+    rules_.push_back(std::make_unique<SameSectionHorizontalRule>());
     rules_.push_back(std::make_unique<SameSemesterSeparationRule>());
     rules_.push_back(std::make_unique<ConsecutiveRollSeparationRule>());
     rules_.push_back(std::make_unique<SameProgramVerticalPreferenceRule>());
@@ -49,3 +52,6 @@ ValidationReport RuleValidator::validate(const SeatPlan& seatPlan) const {
 
     return report;
 }
+
+} // namespace shresh
+

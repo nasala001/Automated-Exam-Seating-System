@@ -4,6 +4,8 @@
 #include "../../shresh_validation/DataStructures.h"
 #include "../../shresh_validation/RuleValidator.h"
 
+namespace shresh {
+
 struct AllocationResult {
     SeatPlan seatPlan;
     ValidationReport validationReport;
@@ -16,3 +18,6 @@ public:
     // and returns the SeatPlan along with the Shresh's validation report.
     static AllocationResult allocateSeats(std::vector<Student>& students, const Room& room);
 };
+
+} // namespace shresh
+

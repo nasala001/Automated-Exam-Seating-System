@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace shreeshant {
+
 // Teacher Blueprint Mapping
 class Teacher {
 public:
@@ -38,4 +40,6 @@ public:
     Student(string n, string roll, string reg, string prog, bool disease, bool impaired);
 };
 
-#endif // STUDENT_HPP
+} // namespace shreeshant
+
+#endif // STUDENT_HPP

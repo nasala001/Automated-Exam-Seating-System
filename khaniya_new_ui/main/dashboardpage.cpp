@@ -141,7 +141,6 @@ void DashboardPage::refresh() {
     int occ      = m_model->occupiedCount();
     int unassign = total - occ;
     int capacity = m_model->rows() * m_model->cols();
-    if (capacity == 0) capacity = HallConst::CAPACITY; // fallback
 
     m_totalStudents->setText(QString::number(total));
     m_assigned->setText(QString::number(occ));
@@ -152,9 +151,6 @@ void DashboardPage::refresh() {
 
     bool isMainRoom = (m_model->activeRoomID() == "MAIN_ROOM");
     
-    // The grid might not be valid for non-MAIN_ROOM. We just hide/show the data or the whole widget.
-    // Assuming m_blockLabels are children of the block grid, we can just update them if isMainRoom,
-    // or set them to 0 if not.
     const QStringList &bnames = HallConst::BLOCK_NAMES;
     for (int i=0; i<9; i++) {
         if (isMainRoom) {
@@ -163,7 +159,7 @@ void DashboardPage::refresh() {
             auto bars = findChildren<QProgressBar*>(QString("bar_%1").arg(bnames[i]));
             for (auto *b : bars) b->setValue(bocc);
         } else {
-            m_blockLabels[i]->setText("N/A");
+            m_blockLabels[i]->setText("Custom Room Layout");
             auto bars = findChildren<QProgressBar*>(QString("bar_%1").arg(bnames[i]));
             for (auto *b : bars) b->setValue(0);
         }

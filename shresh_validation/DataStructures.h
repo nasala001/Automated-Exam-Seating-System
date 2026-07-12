@@ -5,11 +5,14 @@
 #include <vector>
 #include <memory>
 
+namespace shresh {
+
 struct Student {
     std::string name;
     std::string rollNo;          // e.g., "101", "CE-05"
     std::string registrationNo;  // e.g., "024512-19"
     std::string program;         // e.g., "CE", "AI", "ME"
+    std::string section;         // e.g., "A", "B"
     std::string department;      // e.g., "DoCSE", "DoME"
     std::string subject;         // e.g., "COMP102", "MATH104"
     int semester = 1;
@@ -36,5 +39,8 @@ struct SeatPlan {
     // Row and Column sizes are defined by Room.rows and Room.columns
     std::vector<std::vector<std::shared_ptr<Student>>> grid;
 };
+
+} // namespace shresh
+
 
 #endif // DATA_STRUCTURES_H

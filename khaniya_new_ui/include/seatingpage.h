@@ -3,6 +3,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QLabel>
+#include <QPushButton>
 #include <QSplitter>
 #include <QTableWidget>
 #include "studentmodel.h"
@@ -25,6 +26,8 @@ private slots:
     void onSearch();
     void onSearchResultClicked(int row, int col);
     void onRoomSelected(int index);
+    void toggleRoomInfo();
+    void updateRoomInfo();
 
 private:
     HallModel     *m_model;
@@ -34,6 +37,9 @@ private:
     QTableWidget  *m_searchResults;
     QLabel        *m_statusLbl;
     QComboBox     *m_roomSelector;
+    QWidget       *m_roomInfoCard;
+    QLabel        *m_roomInfoDetails;
+    QPushButton   *m_toggleInfoBtn;
 
     void buildUi();
 };

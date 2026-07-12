@@ -1,4 +1,4 @@
-#include "SeatCodeUtils.h"
+﻿#include "SeatCodeUtils.h"
 
 #include <algorithm>
 #include <cctype>
@@ -38,78 +38,82 @@ string normalizeVenueName(const string &fullName) {
   if (name.empty())
     return "UNKNOWN";
 
-  // Known-alias table: covers common venue names whose abbreviations
-  // are institutional conventions that cannot be derived algorithmically.
-  // Keys are stored lowercase for case-insensitive matching.
+  // Normalize underscores to spaces (handles IDs like HALL_B, DRAWING_HALL)
+  string normalized = name;
+  for (char &c : normalized)
+    if (c == '_') c = ' ';
+  normalized = trim(normalized);
+
+  // Known-alias table (case-insensitive full match after normalization)
   static const pair<string, string> knownAliases[] = {
-      {"multipurpose hall", "MPH"},
-      // Add more entries here as needed, e.g.:
-      // { "central examination hall", "CEH" },
+      {"multipurpose hall",        "MPH"},
+      {"multi purpose hall",       "MPH"},
+      {"multi-purpose hall",       "MPH"},
+      {"main hall",                "MH"},
+      {"central examination hall", "CEH"},
+      {"drawing hall",             "DH"},
+      {"lecture hall",             "LH"},
+      {"computer lab",             "CL"},
+      {"seminar hall",             "SH"},
+      {"ku central exam hall",     "KU"},
   };
-  string nameLower = name;
-  for (char &c : nameLower)
+  string normLower = normalized;
+  for (char &c : normLower)
     c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
   for (const auto &alias : knownAliases) {
-    if (nameLower == alias.first)
+    if (normLower == alias.first)
       return alias.second;
   }
 
   // Rule 1: "Block X" -> "BX"
-  // Matches "Block" (case-insensitive) followed by optional space(s) and a
-  // label
-  if (startsWithIgnoreCase(name, "block")) {
-    string rest = trim(name.substr(5)); // everything after "Block"
+  if (startsWithIgnoreCase(normalized, "block")) {
+    string rest = trim(normalized.substr(5));
     if (!rest.empty()) {
       string code = "B";
-      // Append the label (e.g. "9", "9A", "10") uppercased
-      for (char c : rest) {
-        code += toUpper(c);
-      }
+      for (char c : rest) if (!isspace((unsigned char)c)) code += toUpper(c);
       return code;
     }
   }
 
-  // Rule 2: Extract meaningful letters from each word.
-  //   - For a word starting with uppercase: grab the first letter PLUS any
-  //     subsequent uppercase letters within the same word (CamelCase scan).
-  //     "Multipurpose" -> M, P  |  "Hall" -> H  =>  "MPH"
-  //     "Main"         -> M     |  "Examination" -> E  |  "Center" -> C  =>
-  //     "MEC"
-  //   - For a word starting with a digit: append the leading digits as-is.
-  string initials;
-  istringstream iss(name);
-  string word;
-  while (iss >> word) {
-    if (word.empty())
-      continue;
-
-    if (isupper(static_cast<unsigned char>(word[0]))) {
-      // Always include the first (uppercase) letter
-      initials += word[0];
-      // Scan the rest of the word for additional uppercase letters
-      for (size_t i = 1; i < word.size(); ++i) {
-        if (isupper(static_cast<unsigned char>(word[i]))) {
-          initials += word[i];
-        }
-      }
-    } else if (isdigit(static_cast<unsigned char>(word[0]))) {
-      for (char c : word) {
-        if (isdigit(static_cast<unsigned char>(c)))
-          initials += c;
-        else
-          break;
-      }
+  // Rule 2: "Hall X" -> "HX"  (e.g. "Hall B" -> "HB")
+  if (startsWithIgnoreCase(normalized, "hall")) {
+    string rest = trim(normalized.substr(4));
+    if (!rest.empty()) {
+      string code = "H";
+      for (char c : rest) if (!isspace((unsigned char)c)) code += toUpper(c);
+      return code;
     }
   }
 
-  if (!initials.empty())
-    return initials;
+  // Rule 3: initials from each meaningful word, skipping noise words
+  static const char* noiseWords[] = {"the","of","and","at","in","for","a","an",nullptr};
+  auto isNoise = [](const string &w) -> bool {
+    string wl = w;
+    for (char &c : wl) c = (char)tolower((unsigned char)c);
+    for (const char** n = noiseWords; *n; ++n)
+      if (wl == *n) return true;
+    return false;
+  };
 
-  // Fallback: uppercase the whole string (strip spaces)
-  string fallback;
-  for (char c : name) {
-    if (!isspace(static_cast<unsigned char>(c)))
-      fallback += toUpper(c);
+  string initials;
+  istringstream iss(normalized);
+  string word;
+  while (iss >> word) {
+    if (word.empty() || isNoise(word)) continue;
+    if (isdigit((unsigned char)word[0])) {
+      for (char c : word) { if (isdigit((unsigned char)c)) initials += c; else break; }
+    } else {
+      initials += toUpper(word[0]);
+      for (size_t i = 1; i < word.size(); ++i)
+        if (isupper((unsigned char)word[i])) initials += word[i];
+    }
   }
+  if (!initials.empty()) return initials;
+
+  // Fallback: strip spaces, uppercase everything
+  string fallback;
+  for (char c : normalized)
+    if (!isspace((unsigned char)c)) fallback += toUpper(c);
   return fallback;
 }
+

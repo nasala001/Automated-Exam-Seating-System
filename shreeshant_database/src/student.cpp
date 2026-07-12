@@ -1,5 +1,7 @@
 #include "student.hpp"
 
+namespace shreeshant {
+
 // Teacher Constructor Implementation
 Teacher::Teacher(string cid, int b, string n, string contact) {
     courseId = cid;
@@ -31,3 +33,5 @@ Student::Student(string n, string roll, string reg, string prog, bool disease, b
     seatNumber = 0;
     seatCode = "N/A";
 }
+
+} // namespace shreeshant

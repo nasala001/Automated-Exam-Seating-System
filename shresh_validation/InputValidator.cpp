@@ -17,14 +17,25 @@ static bool isDigits(const std::string& str) {
     return std::all_of(str.begin(), str.end(), [](unsigned char c) { return std::isdigit(c); });
 }
 
-// Split row by comma, maintaining simple CSV structure
+namespace shresh {
+
+// Split row by comma, maintaining simple RFC-4180 CSV structure
 std::vector<std::string> InputValidator::splitCSV(const std::string& rawRow) const {
     std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(rawRow);
-    while (std::getline(tokenStream, token, ',')) {
-        tokens.push_back(trim(token));
+    std::string current;
+    bool inQuotes = false;
+    for (size_t i = 0; i < rawRow.size(); ++i) {
+        char c = rawRow[i];
+        if (c == '"') {
+            inQuotes = !inQuotes;
+        } else if (c == ',' && !inQuotes) {
+            tokens.push_back(trim(current));
+            current.clear();
+        } else {
+            current += c;
+        }
     }
+    tokens.push_back(trim(current));
     return tokens;
 }
 
@@ -37,26 +48,41 @@ void InputValidator::reset() {
 bool InputValidator::validateStudentData(const std::string& rawRow) {
     std::vector<std::string> tokens = splitCSV(rawRow);
     
-    // Check fields count (Name, RollNo, RegNo, Program, Department, Subject, HasContagious, IsImpaired)
-    if (tokens.size() != 8) {
-        lastError_ = "Improper student formatting: Expected 8 comma-separated fields, but parsed " + 
+    // Check fields count (Name, RegistrationNo, RollNo, Program, [Section], Department, Subject, Semester, IsImpaired)
+    if (tokens.size() != 8 && tokens.size() != 9) {
+        lastError_ = "Improper student formatting: Expected 8 or 9 comma-separated fields, but parsed " + 
                      std::to_string(tokens.size()) + ". Row: \"" + rawRow + "\"";
         return false;
     }
 
     std::string name = tokens[0];
-    std::string rollNo = tokens[1];
-    std::string registrationNo = tokens[2];
+    std::string registrationNo = tokens[1];
+    std::string rollNo = tokens[2];
     std::string program = tokens[3];
-    std::string department = tokens[4];
-    std::string subject = tokens[5];
-    std::string hasContagiousStr = tokens[6];
-    std::string isImpairedStr = tokens[7];
+    std::string section;
+    std::string department;
+    std::string subject;
+    std::string semesterStr;
+    std::string impairedStr;
 
-    // 1. Check for empty fields
+    if (tokens.size() == 8) {
+        section = "";
+        department = tokens[4];
+        subject = tokens[5];
+        semesterStr = tokens[6];
+        impairedStr = tokens[7];
+    } else {
+        section = tokens[4];
+        department = tokens[5];
+        subject = tokens[6];
+        semesterStr = tokens[7];
+        impairedStr = tokens[8];
+    }
+
+    // 1. Check for empty fields (except section which can be empty)
     if (name.empty() || rollNo.empty() || registrationNo.empty() || 
         program.empty() || department.empty() || subject.empty() || 
-        hasContagiousStr.empty() || isImpairedStr.empty()) {
+        semesterStr.empty() || impairedStr.empty()) {
         lastError_ = "Empty fields detected in student data. Name: '" + name + "', Roll No: '" + rollNo + "'";
         return false;
     }
@@ -67,9 +93,8 @@ bool InputValidator::validateStudentData(const std::string& rawRow) {
         return (s == "0" || s == "1" || s == "true" || s == "false");
     };
 
-    if (!validateBool(hasContagiousStr) || !validateBool(isImpairedStr)) {
-        lastError_ = "Invalid boolean flag for student '" + name + "'. Expected 0/1 or true/false, got: Contagious='" + 
-                     hasContagiousStr + "', Impaired='" + isImpairedStr + "'";
+    if (!validateBool(impairedStr)) {
+        lastError_ = "Invalid boolean flag for student '" + name + "'. Expected 0/1 or true/false, got: Impaired='" + impairedStr + "'";
         return false;
     }
 
@@ -99,6 +124,7 @@ bool InputValidator::validateStudentData(const std::string& rawRow) {
 
     return true;
 }
+
 
 bool InputValidator::validateRoomData(const std::string& rawRow) {
     std::vector<std::string> tokens = splitCSV(rawRow);
@@ -207,3 +233,5 @@ bool InputValidator::validateRoomData(const std::string& rawRow) {
 
     return true;
 }
+
+} // namespace shresh

@@ -221,12 +221,45 @@ void MainWindow::navigateTo(int index) {
 void MainWindow::onModelChanged() { refreshAll(); }
 
 void MainWindow::refreshAll() {
+    if (m_db && !m_model->activeRoomID().isEmpty()) {
+        nasala::RoomRepository roomRepo(m_db);
+        if (!roomRepo.exists(m_model->activeRoomID().toStdString())) {
+            // Active room has been deleted! Find another room or prompt
+            nasala::HallRepository hallRepo(m_db);
+            auto halls = hallRepo.loadAll();
+            bool fallbackFound = false;
+            for (const auto& h : halls) {
+                for (const auto& r : h.getRooms()) {
+                    m_model->setActiveRoom(
+                        QString::fromStdString(h.getHallID()),
+                        QString::fromStdString(r.getRoomID()),
+                        r.getRows(),
+                        r.getColumns(),
+                        QString::fromStdString(h.getHallName())
+                    );
+                    fallbackFound = true;
+                    break;
+                }
+                if (fallbackFound) break;
+            }
+            if (!fallbackFound) {
+                m_model->setActiveRoom("MAIN_HALL", "MAIN_ROOM", 18, 18, "KU Central Exam Hall");
+            }
+            QMessageBox::warning(this, "Active Room Deleted", "The active room was deleted. System has reverted to a default room.");
+        }
+    }
+
     int total = m_model->allStudents().size();
     int occ   = m_model->occupiedCount();
+    int capacity = m_model->rows() * m_model->cols();
+    
+    // Find room name from selector if possible, else use activeRoomID
+    QString roomName = m_model->activeRoomID();
+    
     m_statusBarLbl->setText(
-        QString("Students: %1 | Assigned: %2 | Unassigned: %3 | Hall: %4/%5 (%6%)")
+        QString("Students: %1 | Assigned: %2 | Unassigned: %3 | Room: %4 (%5x%6 = %7 seats) | Utilization: %8%")
         .arg(total).arg(occ).arg(total-occ)
-        .arg(occ).arg(HallConst::CAPACITY)
+        .arg(roomName).arg(m_model->rows()).arg(m_model->cols()).arg(capacity)
         .arg((int)m_model->utilizationPercent()));
     m_dashboard->refresh();
     m_StudentsPage->refresh();
@@ -271,11 +304,19 @@ void MainWindow::promptRoomSelection() {
     auto halls = hallRepo.loadAll();
     for (const auto& hall : halls) {
         for (const auto& room : hall.getRooms()) {
-            roomNames << QString("%1 - %2 (%3x%4)")
+            int capacity = room.getRows() * room.getColumns();
+            QString badges;
+            if (room.isIsolated()) badges += "[ISOLATED] ";
+            if (room.isAccessible()) badges += "[ACCESSIBLE]";
+            badges = badges.trimmed();
+            
+            roomNames << QString("%1 > %2 (%3x%4 = %5 seats) %6")
                              .arg(QString::fromStdString(hall.getHallName()))
                              .arg(QString::fromStdString(room.getRoomName()))
                              .arg(room.getRows())
-                             .arg(room.getColumns());
+                             .arg(room.getColumns())
+                             .arg(capacity)
+                             .arg(badges);
             rooms.append({QString::fromStdString(hall.getHallID()), QString::fromStdString(room.getRoomID()), QString::fromStdString(hall.getHallName()), room.getRows(), room.getColumns()});
         }
     }

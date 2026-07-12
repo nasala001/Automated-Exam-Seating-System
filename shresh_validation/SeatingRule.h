@@ -5,6 +5,8 @@
 #include <string>
 #include <string>
 
+namespace shresh {
+
 class SeatingRule {
 public:
     virtual ~SeatingRule() = default;
@@ -23,5 +25,8 @@ public:
     // Rules like "One Student - One Seat" might be hard limits, whereas seating preferences are overrides.
     virtual bool isOverrideAllowed() const { return true; }
 };
+
+} // namespace shresh
+
 
 #endif // SEATING_RULE_H

@@ -100,27 +100,33 @@ void StudentsPage::buildUi() {
         "QPushButton { background:white; color:#8b0000; border:1.5px solid #8b0000; "
         "border-radius:6px; padding:7px 14px; font-size:12px; }"
         "QPushButton:hover { background:#fff0f0; }");
+    auto *clearAllBtn = mkBtn("Clear All Data",
+        "QPushButton { background:#8b0000; color:white; border:none; "
+        "border-radius:6px; padding:8px 14px; font-weight:bold; font-size:12px; }"
+        "QPushButton:hover { background:#6b0000; }");
     auto *importBtn = mkBtn("Import CSV",
         "QPushButton { background:#c9a84c; color:#1a2332; border:none; border-radius:6px; "
         "padding:8px 14px; font-weight:bold; font-size:12px; }"
         "QPushButton:hover { background:#b8983e; }");
 
-    connect(addBtn,    &QPushButton::clicked, this, &StudentsPage::onAddStudent);
-    connect(editBtn,   &QPushButton::clicked, this, &StudentsPage::onEditStudent);
-    connect(removeBtn, &QPushButton::clicked, this, &StudentsPage::onRemoveStudent);
-    connect(importBtn, &QPushButton::clicked, this, &StudentsPage::onImportCSV);
+    connect(addBtn,      &QPushButton::clicked, this, &StudentsPage::onAddStudent);
+    connect(editBtn,     &QPushButton::clicked, this, &StudentsPage::onEditStudent);
+    connect(removeBtn,   &QPushButton::clicked, this, &StudentsPage::onRemoveStudent);
+    connect(clearAllBtn, &QPushButton::clicked, this, &StudentsPage::onClearAllStudents);
+    connect(importBtn,   &QPushButton::clicked, this, &StudentsPage::onImportCSV);
 
     tbl->addWidget(addBtn);
     tbl->addWidget(editBtn);
     tbl->addWidget(removeBtn);
+    tbl->addWidget(clearAllBtn);
     tbl->addWidget(importBtn);
     vl->addWidget(toolbar);
 
     // Table
     m_table = new QTableWidget;
-    m_table->setColumnCount(8);
+    m_table->setColumnCount(9);
     m_table->setHorizontalHeaderLabels({"ID","Roll No.","Name","Department",
-                                        "Semester","Program","Subject","Seat"});
+                                        "Semester","Program","Section","Subject","Seat"});
     m_table->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
     m_table->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
     m_table->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -201,7 +207,8 @@ void StudentsPage::populateTable(QList<UIStudent*> Students) {
         setC(3, s->department);
         setC(4, QString("Sem %1").arg(s->semester), Qt::AlignCenter);
         setC(5, s->program, Qt::AlignCenter);
-        setC(6, s->subject);
+        setC(6, s->section, Qt::AlignCenter);
+        setC(7, s->subject);
 
         auto *seatItem = new QTableWidgetItem(s->isAssigned() ? s->seatCode() : "Unassigned");
         seatItem->setTextAlignment(Qt::AlignCenter);
@@ -209,7 +216,7 @@ void StudentsPage::populateTable(QList<UIStudent*> Students) {
             seatItem->setForeground(QColor("#155724"));
         else
             seatItem->setForeground(QColor("#856404"));
-        m_table->setItem(i, 7, seatItem);
+        m_table->setItem(i, 8, seatItem);
     }
     m_countLbl->setText(QString("%1 Student(s)").arg(Students.size()));
 }
@@ -246,6 +253,7 @@ void StudentsPage::onAddStudent() {
     auto *semSpin     = new QSpinBox; semSpin->setRange(1,8); semSpin->setValue(1);
     semSpin->setStyleSheet("QSpinBox { border:1.5px solid #d0d9e8; border-radius:5px; padding:6px; font-size:12px; }");
     auto *progEdit    = mkEdit("e.g. BE");
+    auto *secEdit     = mkEdit("e.g. A");
     auto *subjectEdit = mkEdit("e.g. Data Structures");
 
     fl->addRow("Name *",       nameEdit);
@@ -253,6 +261,7 @@ void StudentsPage::onAddStudent() {
     fl->addRow("Department *", deptEdit);
     fl->addRow("Semester",     semSpin);
     fl->addRow("Program",      progEdit);
+    fl->addRow("Section",      secEdit);
     fl->addRow("Subject",      subjectEdit);
 
     auto *bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -276,6 +285,7 @@ void StudentsPage::onAddStudent() {
         s.department = deptEdit->text().trimmed().isEmpty() ? "General" : deptEdit->text().trimmed();
         s.semester   = semSpin->value();
         s.program    = progEdit->text().trimmed().isEmpty() ? "BE" : progEdit->text().trimmed();
+        s.section    = secEdit->text().trimmed();
         s.subject    = subjectEdit->text().trimmed();
         m_model->addStudent(s);
         refresh();
@@ -309,6 +319,7 @@ void StudentsPage::onEditStudent() {
     auto *semSpin     = new QSpinBox; semSpin->setRange(1,8); semSpin->setValue(s->semester);
     semSpin->setStyleSheet("QSpinBox { border:1.5px solid #d0d9e8; border-radius:5px; padding:6px; font-size:12px; }");
     auto *progEdit    = mkEdit(s->program);
+    auto *secEdit     = mkEdit(s->section);
     auto *subjectEdit = mkEdit(s->subject);
 
     fl->addRow("Name *",       nameEdit);
@@ -316,6 +327,7 @@ void StudentsPage::onEditStudent() {
     fl->addRow("Department *", deptEdit);
     fl->addRow("Semester",     semSpin);
     fl->addRow("Program",      progEdit);
+    fl->addRow("Section",      secEdit);
     fl->addRow("Subject",      subjectEdit);
 
     auto *bb = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -334,6 +346,7 @@ void StudentsPage::onEditStudent() {
         s->department = deptEdit->text().trimmed();
         s->semester   = semSpin->value();
         s->program    = progEdit->text().trimmed();
+        s->section    = secEdit->text().trimmed();
         s->subject    = subjectEdit->text().trimmed();
         m_model->updateStudent(*s);
         refresh();
@@ -353,6 +366,15 @@ void StudentsPage::onRemoveStudent() {
     }
 }
 
+void StudentsPage::onClearAllStudents() {
+    if (QMessageBox::question(this, "Confirm Clear All",
+        "Are you sure you want to completely remove ALL students and clear the registry? This action cannot be undone.",
+        QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+        m_model->clearAllStudents();
+        refresh();
+    }
+}
+
 void StudentsPage::onImportCSV() {
     QString path = QFileDialog::getOpenFileName(this, "Import Students CSV", "", "CSV Files (*.csv)");
     if (path.isEmpty()) return;
@@ -364,14 +386,16 @@ void StudentsPage::onImportCSV() {
     while (!ts.atEnd()) {
         QString line = ts.readLine();
         QStringList cols = line.split(',');
-        if (cols.size() < 4) continue;
+        if (cols.size() < 8) continue; // Must match new format
         UIStudent s;
         s.name       = cols[0].trimmed();
-        s.rollNumber = cols[1].trimmed();
-        s.department = cols[2].trimmed();
-        s.semester   = cols.size()>3 ? cols[3].trimmed().toInt() : 1;
-        s.program    = cols.size()>4 ? cols[4].trimmed() : "BE";
-        s.subject    = cols.size()>5 ? cols[5].trimmed() : "";
+        s.registrationNo = cols[1].trimmed();
+        s.rollNumber = cols[2].trimmed();
+        s.program    = cols[3].trimmed();
+        s.section    = cols[4].trimmed();
+        s.department = cols[5].trimmed();
+        s.subject    = cols[6].trimmed();
+        s.semester   = cols[7].trimmed().toInt();
         if (!s.name.isEmpty() && !s.rollNumber.isEmpty()) {
             m_model->addStudent(s);
             count++;

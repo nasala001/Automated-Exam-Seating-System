@@ -20,6 +20,7 @@ private slots:
     void onAddStudent();
     void onEditStudent();
     void onRemoveStudent();
+    void onClearAllStudents();
     void onImportCSV();
     void onFilterChanged();
 

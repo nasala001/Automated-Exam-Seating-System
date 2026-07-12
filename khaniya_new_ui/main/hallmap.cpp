@@ -168,23 +168,23 @@ void MajorBlockWidget::paintEvent(QPaintEvent *) {
 SeatCellWidget::SeatCellWidget(int row, int col, HallModel *model, QWidget *parent)
     : QWidget(parent), m_row(row), m_col(col), m_model(model)
 {
-    setFixedSize(38, 38);
+    setFixedSize(52, 38);
     setCursor(Qt::PointingHandCursor);
     refresh();
 }
 
 void SeatCellWidget::refresh() {
     const SeatCell &cell = m_model->seatAt(m_row, m_col);
+    QString seatName = m_model->getSeatName(m_row, m_col);
     if (cell.studentId != -1) {
         UIStudent *st = m_model->findById(cell.studentId);
         if (st) {
-            setToolTip(QString("Seat R%1-C%2: %3 (%4)\n%5")
-                       .arg(m_row+1).arg(m_col+1)
-                       .arg(st->name).arg(st->rollNumber)
-                       .arg(st->subject));
+            setToolTip(QString("Seat %1: %2 (%3)\n%4")
+                       .arg(seatName).arg(st->name)
+                       .arg(st->rollNumber).arg(st->subject));
         }
     } else {
-        setToolTip(QString("Seat R%1-C%2 (Empty)").arg(m_row+1).arg(m_col+1));
+        setToolTip(QString("Seat %1 (Empty)").arg(seatName));
     }
     update();
 }
@@ -205,8 +205,19 @@ void SeatCellWidget::paintEvent(QPaintEvent *) {
         }
     } else bg = QColor("#dee2e6");
 
+    int highlightedId = -1;
+    auto *mapWidget = qobject_cast<HallMapWidget*>(parentWidget() ? parentWidget()->parentWidget() : nullptr);
+    if (mapWidget) {
+        highlightedId = mapWidget->highlightedStudentId();
+    }
+    bool isHighlighted = (cell.studentId != -1 && cell.studentId == highlightedId);
+
     QColor border = m_hovered ? QColor("#003366") : QColor("#b0c4de");
     int bw = m_hovered ? 2 : 1;
+    if (isHighlighted) {
+        border = QColor("#c9a84c");
+        bw = 3;
+    }
 
     p.setPen(QPen(border, bw));
     p.setBrush(bg);
@@ -216,7 +227,12 @@ void SeatCellWidget::paintEvent(QPaintEvent *) {
     p.setPen(cell.studentId != -1 || cell.locked ? Qt::white : QColor("#1a2332"));
     QFont f("Segoe UI", 7, QFont::Bold);
     p.setFont(f);
-    QString label = QString("R%1\nC%2").arg(m_row+1).arg(m_col+1);
+    QString label = m_model->getSeatName(m_row, m_col);
+    // Break the label into two lines if it contains a hyphen to fit better
+    if (label.contains("-")) {
+        int lastHyphen = label.lastIndexOf("-");
+        label.replace(lastHyphen, 1, "\n");
+    }
     p.drawText(rect(), Qt::AlignCenter, label);
 }
 
@@ -403,6 +419,10 @@ void HallMapWidget::highlightStudent(int studentId) {
     m_highlightstudentId = studentId;
     UIStudent *st = m_model->findById(studentId);
     if (st && st->isAssigned()) {
-        emit subBlockClicked(st->block, st->subBlock);
+        if (!st->block.isEmpty()) {
+            emit subBlockClicked(st->block, st->subBlock);
+        } else {
+            refresh();
+        }
     }
 }

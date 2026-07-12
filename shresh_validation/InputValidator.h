@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_set>
 
+namespace shresh {
+
 class InputValidator {
 private:
     std::unordered_set<std::string> seenRegistrations_;
@@ -32,5 +34,8 @@ public:
     // Helper to retrieve the last validation error message
     std::string getLastError() const { return lastError_; }
 };
+
+} // namespace shresh
+
 
 #endif // INPUT_VALIDATOR_H

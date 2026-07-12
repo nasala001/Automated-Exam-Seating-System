@@ -1,4 +1,4 @@
-#include "../include/seatingpage.h"
+﻿#include "../include/seatingpage.h"
 #include "../include/subblockdialog.h"
 #include "../../nasala_hall_room/include/HallRepository.h"
 #include <QVBoxLayout>
@@ -25,7 +25,7 @@ void SeatingPage::buildUi() {
     // Header
     auto *titleLbl = new QLabel("Examination Hall Seating");
     titleLbl->setStyleSheet("font-size:22px; font-weight:bold; color:#003366;");
-    auto *subLbl = new QLabel("Interactive hall map — click any sub-block to manage seat assignments");
+    auto *subLbl = new QLabel("Interactive hall map â€” click any sub-block to manage seat assignments");
     subLbl->setStyleSheet("font-size:12px; color:#6b7a8d;");
     vl->addWidget(titleLbl);
     vl->addWidget(subLbl);
@@ -40,7 +40,7 @@ void SeatingPage::buildUi() {
     auto *tbl = new QHBoxLayout(toolbar);
     tbl->setContentsMargins(12,10,12,10); tbl->setSpacing(10);
 
-    auto *autoBtn = new QPushButton("⚡ Auto-Assign All");
+    auto *autoBtn = new QPushButton("âš¡ Auto-Assign All");
     autoBtn->setStyleSheet(
         "QPushButton { background:#003366; color:white; border:none; border-radius:6px; "
         "padding:8px 16px; font-weight:bold; font-size:12px; }"
@@ -63,14 +63,46 @@ void SeatingPage::buildUi() {
     m_roomSelector->setStyleSheet("QComboBox { padding:6px 12px; border:1px solid #d0d9e8; border-radius:6px; font-size:12px; }");
     connect(m_roomSelector, &QComboBox::activated, this, &SeatingPage::onRoomSelected);
 
+    m_toggleInfoBtn = new QPushButton("Info");
+    m_toggleInfoBtn->setCheckable(true);
+    m_toggleInfoBtn->setChecked(false);
+    m_toggleInfoBtn->setStyleSheet(
+        "QPushButton { background:white; color:#003366; border:1px solid #d0d9e8; "
+        "border-radius:6px; padding:4px 8px; font-weight:bold; font-size:14px; }"
+        "QPushButton:hover { background:#f0f4fa; }"
+        "QPushButton:checked { background:#003366; color:white; }");
+    connect(m_toggleInfoBtn, &QPushButton::toggled, this, &SeatingPage::toggleRoomInfo);
+
     tbl->addWidget(autoBtn);
     tbl->addWidget(clearBtn);
     tbl->addSpacing(20);
     tbl->addWidget(roomLbl);
     tbl->addWidget(m_roomSelector);
+    tbl->addWidget(m_toggleInfoBtn);
     tbl->addStretch();
     tbl->addWidget(m_statusLbl);
     vl->addWidget(toolbar);
+
+    // Collapsible Room Info Card
+    m_roomInfoCard = new QWidget;
+    m_roomInfoCard->setVisible(false);
+    auto *infoLayout = new QVBoxLayout(m_roomInfoCard);
+    infoLayout->setContentsMargins(0, 0, 0, 0);
+    
+    QFrame *infoFrame = new QFrame;
+    infoFrame->setStyleSheet("QFrame { background:#f8faff; border:1px solid #d0d9e8; border-radius:6px; }");
+    auto *ifl = new QHBoxLayout(infoFrame);
+    ifl->setContentsMargins(16, 12, 16, 12);
+    ifl->setSpacing(20);
+    
+    m_roomInfoDetails = new QLabel("Select a room to view details");
+    m_roomInfoDetails->setStyleSheet("font-size:12px; color:#1a2332;");
+    m_roomInfoDetails->setWordWrap(true);
+    ifl->addWidget(m_roomInfoDetails);
+    ifl->addStretch();
+    
+    infoLayout->addWidget(infoFrame);
+    vl->addWidget(m_roomInfoCard);
 
     // Splitter: hall map (left) | search panel (right)
     auto *splitter = new QSplitter(Qt::Horizontal);
@@ -83,7 +115,7 @@ void SeatingPage::buildUi() {
     auto *mapVL = new QVBoxLayout(mapFrame);
     mapVL->setContentsMargins(12,12,12,12);
 
-    auto *mapTitle = new QLabel("Hall Map — KU Examination Hall");
+    auto *mapTitle = new QLabel("Hall Map â€” KU Examination Hall");
     mapTitle->setStyleSheet("font-size:13px; font-weight:bold; color:#003366;");
     mapVL->addWidget(mapTitle);
 
@@ -108,7 +140,7 @@ void SeatingPage::buildUi() {
     rpl->addWidget(searchTitle);
 
     m_searchBox = new QLineEdit;
-    m_searchBox->setPlaceholderText("🔍  Name or roll number...");
+    m_searchBox->setPlaceholderText("ðŸ”  Name or roll number...");
     m_searchBox->setStyleSheet(
         "QLineEdit { border:1.5px solid #d0d9e8; border-radius:6px; padding:8px 10px; font-size:12px; }"
         "QLineEdit:focus { border-color:#003366; background:#f8faff; }");
@@ -153,16 +185,30 @@ void SeatingPage::reloadRooms() {
         for (const auto& hall : halls) {
             for (const auto& room : hall.getRooms()) {
                 int capacity = room.getRows() * room.getColumns();
-                QString displayName = QString("%1 - %2 [%3 seats]")
-                                      .arg(QString::fromStdString(hall.getHallName()))
-                                      .arg(QString::fromStdString(room.getRoomName()))
-                                      .arg(capacity);
+                QString badges;
+                if (room.isIsolated())   badges += "[ISOLATED] ";
+                if (room.isAccessible()) badges += "[ACCESSIBLE]";
+                badges = badges.trimmed();
+
+                QString roomID   = QString::fromStdString(room.getRoomID());
+                QString hallID   = QString::fromStdString(hall.getHallID());
+                QString hallName = QString::fromStdString(hall.getHallName());
+                QString roomName = QString::fromStdString(room.getRoomName());
+
+                // Pass the hall NAME as venueCode so setActiveRoom calls
+                // normalizeVenueName("Multi Purpose Hall") -> "MPH",
+                // normalizeVenueName("Hall B")            -> "HB", etc.
+                // MAIN_ROOM passes empty so getSeatName uses block-grid coding.
+                QString venueCode = (roomID == "MAIN_ROOM") ? "" : hallName;
+
+                QString displayName = QString("%1  >  %2  (%3x%4 = %5 seats)%6")
+                    .arg(hallName).arg(roomName)
+                    .arg(room.getRows()).arg(room.getColumns()).arg(capacity)
+                    .arg(badges.isEmpty() ? "" : "  " + badges);
+
                 QVariantList varList;
-                varList << QString::fromStdString(hall.getHallID())
-                        << QString::fromStdString(room.getRoomID())
-                        << room.getRows()
-                        << room.getColumns()
-                        << QString::fromStdString(hall.getHallName());
+                varList << hallID << roomID << room.getRows() << room.getColumns()
+                        << venueCode << room.isIsolated() << room.isAccessible() << roomName;
                 m_roomSelector->addItem(displayName, varList);
             }
         }
@@ -187,6 +233,7 @@ void SeatingPage::refresh() {
     m_statusLbl->setText(QString("%1 / %2 Students assigned  (%3 / %4 seats)")
                          .arg(occ).arg(total)
                          .arg(occ).arg(capacity));
+    updateRoomInfo();
     onSearch();
 }
 
@@ -198,10 +245,53 @@ void SeatingPage::onRoomSelected(int index) {
         QString roomID = data[1].toString();
         int rows = data[2].toInt();
         int cols = data[3].toInt();
-        QString hallName = data.size() >= 5 ? data[4].toString() : "";
-        m_model->setActiveRoom(hallID, roomID, rows, cols, hallName);
+        QString venueCode = data.size() >= 5 ? data[4].toString() : "";
+        m_model->setActiveRoom(hallID, roomID, rows, cols, venueCode);
+        updateRoomInfo();
         refresh();
     }
+}
+
+void SeatingPage::toggleRoomInfo() {
+    m_roomInfoCard->setVisible(m_toggleInfoBtn->isChecked());
+}
+
+void SeatingPage::updateRoomInfo() {
+    int index = m_roomSelector->currentIndex();
+    if (index < 0) {
+        m_roomInfoDetails->setText("No room selected");
+        return;
+    }
+    
+    auto data = m_roomSelector->itemData(index).toList();
+    if (data.size() >= 8) {
+        int rows = data[2].toInt();
+        int cols = data[3].toInt();
+        int capacity = rows * cols;
+        QString hallName = data[4].toString();
+        bool isIsolated = data[5].toBool();
+        bool isAccessible = data[6].toBool();
+        QString roomName = data[7].toString();
+        
+        int occ = m_model->occupiedCount();
+        int avail = capacity - occ;
+        
+        QString statusBadge;
+        if (occ == capacity) statusBadge = "<span style='background:#f8d7da; color:#721c24; padding:2px 6px; border-radius:4px;'>FULL</span>";
+        else if (occ >= capacity * 0.8) statusBadge = "<span style='background:#fff3cd; color:#856404; padding:2px 6px; border-radius:4px;'>ALMOST FULL</span>";
+        else statusBadge = "<span style='background:#d4edda; color:#155724; padding:2px 6px; border-radius:4px;'>AVAILABLE</span>";
+        
+        QString text = QString(
+            "<b>Hall:</b> %1 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Room:</b> %2 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Dimensions:</b> %3 rows x %4 cols<br>"
+            "<b>Capacity:</b> %5 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Assigned:</b> %6 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Available:</b> %7 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Status:</b> %8<br>"
+            "<b>Flags:</b> %9 %10"
+        ).arg(hallName).arg(roomName).arg(rows).arg(cols).arg(capacity).arg(occ).arg(avail).arg(statusBadge)
+         .arg(isIsolated ? "<span style='background:#e2e3e5; color:#383d41; padding:2px 4px; border-radius:4px;'>[ISOLATED]</span>" : "")
+         .arg(isAccessible ? "<span style='background:#cce5ff; color:#004085; padding:2px 4px; border-radius:4px;'>[ACCESSIBLE]</span>" : "");
+         
+        m_roomInfoDetails->setText(text);
+    }
+
 }
 
 void SeatingPage::onAutoAssign() {
@@ -247,7 +337,7 @@ void SeatingPage::onSearch() {
         setC(0, s->rollNumber);
         setC(1, s->name);
         setC(2, s->department.left(12));
-        setC(3, s->isAssigned() ? s->seatCode() : "—");
+        setC(3, s->isAssigned() ? s->seatCode() : "â€”");
     }
 }
 
@@ -258,10 +348,14 @@ void SeatingPage::onSearchResultClicked(int row, int) {
     m_hallMap->highlightStudent(sid);
     UIStudent *s = m_model->findById(sid);
     if (s && s->isAssigned()) {
-        m_statusLbl->setText(QString("Showing: %1 → %2").arg(s->name, s->seatCode()));
+        m_statusLbl->setText(QString("Showing: %1 â†’ %2").arg(s->name, s->seatCode()));
     }
 }
 
 void SeatingPage::jumpToStudent(int studentId) {
     m_hallMap->highlightStudent(studentId);
 }
+
+
+
+

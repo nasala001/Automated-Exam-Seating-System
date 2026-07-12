@@ -5,6 +5,8 @@
 #include <string>
 #include <string>
 
+namespace shresh {
+
 // Rule 1: Room Capacity Rule
 // Ensures that the total number of assigned students does not exceed the room capacity.
 class RoomCapacityRule : public SeatingRule {
@@ -63,6 +65,18 @@ public:
     bool validate(const SeatPlan& seatPlan) override;
     std::string getWarningMessage() const override { return warning_; }
     std::string getRuleName() const override { return "Rule 5: Same Program Horizontal Separation Rule"; }
+    bool isOverrideAllowed() const override { return true; }
+};
+
+// Rule 5b: Same Section Horizontal Separation Rule
+// Prevents students from the same section (e.g., Section A next to Section A) from being seated side-by-side horizontally.
+class SameSectionHorizontalRule : public SeatingRule {
+private:
+    std::string warning_;
+public:
+    bool validate(const SeatPlan& seatPlan) override;
+    std::string getWarningMessage() const override { return warning_; }
+    std::string getRuleName() const override { return "Rule 5b: Same Section Horizontal Separation Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
 
@@ -176,5 +190,8 @@ public:
     std::string getRuleName() const override { return "Rule 14: Manual Override and Rule Warning Rule"; }
     bool isOverrideAllowed() const override { return true; }
 };
+
+} // namespace shresh
+
 
 #endif // CONCRETE_RULES_H
