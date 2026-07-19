@@ -135,16 +135,16 @@ void MainWindow::buildSidebar() {
 
     addSectionLbl("NAVIGATION");
 
-    struct NavItem { QString icon; QString label; int page; };
+    struct NavItem { QString label; int page; };
     QList<NavItem> items = {
-        {"", "Dashboard",   0},
-        {"", "Students",    1},
-        {"", "Seat Assignment",2},
-        {"", "Analytics",   3},
-        {"", "Room Manager",4},
+        {"Dashboard",   0},
+        {"Students",    1},
+        {"Seat Assignment",2},
+        {"Analytics",   3},
+        {"Room Manager",4},
     };
     for (auto &ni : items) {
-        auto *btn = makeNavButton(ni.icon, ni.label, ni.page);
+        auto *btn = makeNavButton(ni.label, ni.page);
         m_navBtns.append(btn);
         vl->addWidget(btn);
     }
@@ -187,8 +187,8 @@ void MainWindow::buildSidebar() {
     m_sidebar->setLayout(vl);
 }
 
-QPushButton* MainWindow::makeNavButton(const QString &icon, const QString &label, int index) {
-    auto *btn = new QPushButton(QString("  %1   %2").arg(icon, label));
+QPushButton* MainWindow::makeNavButton(const QString &label, int index) {
+    auto *btn = new QPushButton(QString("  %1").arg(label));
     btn->setCheckable(true);
     btn->setStyleSheet(
         "QPushButton { background:transparent; color:#b8cce0; text-align:left; "
