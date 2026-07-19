@@ -48,6 +48,6 @@ private:
 
     void buildSidebar();
     void buildStatusBar();
-    QPushButton* makeNavButton(const QString &icon, const QString &label, int index);
+    QPushButton* makeNavButton(const QString &label, int index);
     void refreshAll();
 };
