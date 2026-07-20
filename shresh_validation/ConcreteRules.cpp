@@ -57,9 +57,8 @@ static int countTotalStudents(const SeatPlan& seatPlan) {
     return count;
 }
 
-// ==========================================
 // Rule 1: Room Capacity Rule
-// ==========================================
+
 bool RoomCapacityRule::validate(const SeatPlan& seatPlan) {
     int studentCount = countTotalStudents(seatPlan);
     if (studentCount > seatPlan.room.capacity) {
@@ -71,9 +70,9 @@ bool RoomCapacityRule::validate(const SeatPlan& seatPlan) {
     return true;
 }
 
-// ==========================================
+
 // Rule 2: One Student - One Seat Rule
-// ==========================================
+
 bool OneStudentOneSeatRule::validate(const SeatPlan& seatPlan) {
     std::unordered_set<std::string> seenRolls;
     std::unordered_set<std::string> seenRegs;
@@ -109,9 +108,9 @@ bool OneStudentOneSeatRule::validate(const SeatPlan& seatPlan) {
     return true;
 }
 
-// ==========================================
+
 // Rule 3: Contagious Disease Isolation Rule
-// ==========================================
+
 bool ContagiousDiseaseIsolationRule::validate(const SeatPlan& seatPlan) {
     bool hasViolation = false;
     warning_ = "";
@@ -151,9 +150,9 @@ bool ContagiousDiseaseIsolationRule::validate(const SeatPlan& seatPlan) {
     return !hasViolation;
 }
 
-// ==========================================
+
 // Rule 4: Physical Disability and Amanuensis Rule
-// ==========================================
+
 bool PhysicalDisabilityRule::validate(const SeatPlan& seatPlan) {
     bool hasViolation = false;
     warning_ = "";
@@ -195,9 +194,9 @@ bool PhysicalDisabilityRule::validate(const SeatPlan& seatPlan) {
     return !hasViolation;
 }
 
-// ==========================================
+
 // Rule 5: Same Program Horizontal Separation Rule
-// ==========================================
+
 bool SameProgramHorizontalRule::validate(const SeatPlan& seatPlan) {
     bool hasViolation = false;
     warning_ = "";
