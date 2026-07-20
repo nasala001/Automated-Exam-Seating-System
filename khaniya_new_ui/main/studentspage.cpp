@@ -53,7 +53,7 @@ void StudentsPage::buildUi() {
     tbl->setSpacing(10);
 
     m_searchBox = new QLineEdit;
-    m_searchBox->setPlaceholderText("🔍  Search by name or roll number...");
+    m_searchBox->setPlaceholderText("Search by name or roll number...");
     m_searchBox->setMinimumWidth(240);
     m_searchBox->setStyleSheet(
         "QLineEdit { border:1.5px solid #d0d9e8; border-radius:6px; padding:7px 10px; font-size:12px; }"

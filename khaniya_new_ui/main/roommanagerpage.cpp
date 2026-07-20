@@ -216,7 +216,7 @@ void RoomManagerPage::onAddHall() {
     hallVL->setContentsMargins(24, 24, 24, 18);
     hallVL->setSpacing(14);
 
-    auto *hdrLbl = new QLabel("🏛  New Examination Hall", &hallDlg);
+    auto *hdrLbl = new QLabel("New Examination Hall", &hallDlg);
     hdrLbl->setStyleSheet("font-size:16px; font-weight:bold; color:#003366; margin-bottom:4px;");
     hallVL->addWidget(hdrLbl);
 
@@ -298,8 +298,8 @@ void RoomManagerPage::onAddHall() {
     layVL->setSpacing(14);
 
     QString layHdrTxt = numSections > 0
-        ? "📐  Section Layout Configuration"
-        : "📐  Room Layout Configuration";
+        ? "Section Layout Configuration"
+        : "Room Layout Configuration";
     auto *layHdr = new QLabel(layHdrTxt, &layoutDlg);
     layHdr->setStyleSheet("font-size:15px; font-weight:bold; color:#003366; margin-bottom:4px;");
     layVL->addWidget(layHdr);

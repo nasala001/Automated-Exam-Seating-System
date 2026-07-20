@@ -1,4 +1,4 @@
-﻿#include "../include/seatingpage.h"
+#include "../include/seatingpage.h"
 #include "../include/subblockdialog.h"
 #include "../../nasala_hall_room/include/HallRepository.h"
 #include <QVBoxLayout>
@@ -25,7 +25,7 @@ void SeatingPage::buildUi() {
     // Header
     auto *titleLbl = new QLabel("Examination Hall Seating");
     titleLbl->setStyleSheet("font-size:22px; font-weight:bold; color:#003366;");
-    auto *subLbl = new QLabel("Interactive hall map â€” click any sub-block to manage seat assignments");
+    auto *subLbl = new QLabel("Interactive hall map - click any sub-block to manage seat assignments");
     subLbl->setStyleSheet("font-size:12px; color:#6b7a8d;");
     vl->addWidget(titleLbl);
     vl->addWidget(subLbl);
@@ -40,7 +40,7 @@ void SeatingPage::buildUi() {
     auto *tbl = new QHBoxLayout(toolbar);
     tbl->setContentsMargins(12,10,12,10); tbl->setSpacing(10);
 
-    auto *autoBtn = new QPushButton("âš¡ Auto-Assign All");
+    auto *autoBtn = new QPushButton("Auto-Assign All");
     autoBtn->setStyleSheet(
         "QPushButton { background:#003366; color:white; border:none; border-radius:6px; "
         "padding:8px 16px; font-weight:bold; font-size:12px; }"
@@ -115,7 +115,7 @@ void SeatingPage::buildUi() {
     auto *mapVL = new QVBoxLayout(mapFrame);
     mapVL->setContentsMargins(12,12,12,12);
 
-    auto *mapTitle = new QLabel("Hall Map â€” KU Examination Hall");
+    auto *mapTitle = new QLabel("Hall Map - KU Examination Hall");
     mapTitle->setStyleSheet("font-size:13px; font-weight:bold; color:#003366;");
     mapVL->addWidget(mapTitle);
 
@@ -140,7 +140,7 @@ void SeatingPage::buildUi() {
     rpl->addWidget(searchTitle);
 
     m_searchBox = new QLineEdit;
-    m_searchBox->setPlaceholderText("ðŸ”  Name or roll number...");
+    m_searchBox->setPlaceholderText("Name or roll number...");
     m_searchBox->setStyleSheet(
         "QLineEdit { border:1.5px solid #d0d9e8; border-radius:6px; padding:8px 10px; font-size:12px; }"
         "QLineEdit:focus { border-color:#003366; background:#f8faff; }");
@@ -337,7 +337,7 @@ void SeatingPage::onSearch() {
         setC(0, s->rollNumber);
         setC(1, s->name);
         setC(2, s->department.left(12));
-        setC(3, s->isAssigned() ? s->seatCode() : "â€”");
+        setC(3, s->isAssigned() ? s->seatCode() : "-");
     }
 }
 
@@ -348,7 +348,7 @@ void SeatingPage::onSearchResultClicked(int row, int) {
     m_hallMap->highlightStudent(sid);
     UIStudent *s = m_model->findById(sid);
     if (s && s->isAssigned()) {
-        m_statusLbl->setText(QString("Showing: %1 â†’ %2").arg(s->name, s->seatCode()));
+        m_statusLbl->setText(QString("Showing: %1 -> %2").arg(s->name, s->seatCode()));
     }
 }
 

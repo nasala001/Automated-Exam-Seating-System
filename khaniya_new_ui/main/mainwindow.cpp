@@ -137,11 +137,11 @@ void MainWindow::buildSidebar() {
 
     struct NavItem { QString icon; QString label; int page; };
     QList<NavItem> items = {
-        {"-", "Dashboard",   0},
-        {"oZ", "Students",    1},
-        {"Sz", "Seat Assignment",2},
-        {"-'", "Analytics",   3},
-        {"S", "Room Manager",4},
+        {"", "Dashboard",   0},
+        {"", "Students",    1},
+        {"", "Seat Assignment",2},
+        {"", "Analytics",   3},
+        {"", "Room Manager",4},
     };
     for (auto &ni : items) {
         auto *btn = makeNavButton(ni.icon, ni.label, ni.page);
@@ -160,14 +160,14 @@ void MainWindow::buildSidebar() {
         connect(btn, &QPushButton::clicked, this, slot);
         vl->addWidget(btn);
     };
-    addToolBtn("📋  Load Sample Data", &MainWindow::onLoadSampleData);
-    addToolBtn("💾  Save Data",         &MainWindow::onSaveData);
-    addToolBtn("📂  Load Data",         &MainWindow::onLoadData);
+    addToolBtn("Load Sample Data", &MainWindow::onLoadSampleData);
+    addToolBtn("Save Data",         &MainWindow::onSaveData);
+    addToolBtn("Load Data",         &MainWindow::onLoadData);
 
     addSectionLbl("EXPORT");
-    addToolBtn("📊  Export CSV",          &MainWindow::onExportCSV);
-    addToolBtn("🖨   Seating Chart HTML", &MainWindow::onExportHTML);
-    addToolBtn("📋  Block Report HTML",  &MainWindow::onExportBlockReport);
+    addToolBtn("Export CSV",          &MainWindow::onExportCSV);
+    addToolBtn("Seating Chart HTML", &MainWindow::onExportHTML);
+    addToolBtn("Block Report HTML",  &MainWindow::onExportBlockReport);
 
     vl->addStretch();
 

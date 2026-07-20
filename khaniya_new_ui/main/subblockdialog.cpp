@@ -66,7 +66,7 @@ void SeatCard::update(const SeatCell &cell, UIStudent *st, bool selected) {
     m_selected = selected;
 
     if (cell.locked) {
-        m_rollLabel->setText("🔒");
+        m_rollLabel->setText("");
         m_nameLabel->setText("Locked");
         m_statusLabel->setText("LOCKED");
     } else if (st) {
@@ -161,7 +161,7 @@ void SubBlockDialog::buildUi() {
     {
         auto *hdr = new QHBoxLayout;
 
-        auto *icon = new QLabel("🪑", this);
+        auto *icon = new QLabel("", this);
         icon->setStyleSheet("font-size:28px;");
 
         auto *titlesVL = new QVBoxLayout;
@@ -221,8 +221,8 @@ void SubBlockDialog::buildUi() {
     buildVisualTab();
     buildListTab();
 
-    m_tabs->addTab(m_visualTab,   "  🪑  Visual Seat Layout  ");
-    m_tabs->addTab(m_listTab,     "  📋  Students Details List  ");
+    m_tabs->addTab(m_visualTab,   "  Visual Seat Layout  ");
+    m_tabs->addTab(m_listTab,     "  Students Details List  ");
     root->addWidget(m_tabs, 1);
     setLayout(root);
 }
@@ -243,7 +243,7 @@ void SubBlockDialog::buildVisualTab() {
     gridOuterVL->setContentsMargins(0,0,0,0);
     gridOuterVL->setSpacing(8);
 
-    auto *gridLabel = new QLabel("  📍 Seat Grid — Front of Room", gridOuter);
+    auto *gridLabel = new QLabel("  Seat Grid — Front of Room", gridOuter);
     gridLabel->setStyleSheet("font-size:12px; font-weight:600; color:#475569; margin-bottom:4px;");
     gridOuterVL->addWidget(gridLabel);
 
@@ -341,7 +341,7 @@ void SubBlockDialog::buildVisualTab() {
     profileVL->setContentsMargins(16, 16, 16, 16);
     profileVL->setSpacing(8);
 
-    auto *profileHdr = new QLabel("👤  Student Profile", m_profileCard);
+    auto *profileHdr = new QLabel("Student Profile", m_profileCard);
     profileHdr->setStyleSheet("font-size:14px; font-weight:700; color:#003366;");
     profileVL->addWidget(profileHdr);
 
@@ -408,7 +408,7 @@ void SubBlockDialog::buildVisualTab() {
     actionVL->setContentsMargins(14, 14, 14, 14);
     actionVL->setSpacing(8);
 
-    auto *actionHdr = new QLabel("⚡  Actions", actionCard);
+    auto *actionHdr = new QLabel("Actions", actionCard);
     actionHdr->setStyleSheet("font-size:14px; font-weight:700; color:#003366;");
     actionVL->addWidget(actionHdr);
 
@@ -421,7 +421,7 @@ void SubBlockDialog::buildVisualTab() {
     );
     actionVL->addWidget(m_studentCombo);
 
-    m_assignBtn = new QPushButton("✅  Assign to Selected Seat", actionCard);
+    m_assignBtn = new QPushButton("Assign to Selected Seat", actionCard);
     m_assignBtn->setStyleSheet(
         "QPushButton { background:#003366; color:white; border:none; border-radius:7px; "
         "padding:9px; font-weight:700; font-size:12px; }"
@@ -432,7 +432,7 @@ void SubBlockDialog::buildVisualTab() {
     actionVL->addWidget(m_assignBtn);
 
     auto *rowHL2 = new QHBoxLayout;
-    m_unassignBtn = new QPushButton("🗑  Unassign", actionCard);
+    m_unassignBtn = new QPushButton("Unassign", actionCard);
     m_unassignBtn->setStyleSheet(
         "QPushButton { background:white; color:#dc2626; border:1.5px solid #dc2626; "
         "border-radius:7px; padding:8px; font-size:12px; font-weight:600; }"
@@ -442,7 +442,7 @@ void SubBlockDialog::buildVisualTab() {
     m_unassignBtn->setEnabled(false);
     rowHL2->addWidget(m_unassignBtn);
 
-    m_lockBtn = new QPushButton("🔒  Lock Seat", actionCard);
+    m_lockBtn = new QPushButton("Lock Seat", actionCard);
     m_lockBtn->setStyleSheet(
         "QPushButton { background:white; color:#475569; border:1.5px solid #475569; "
         "border-radius:7px; padding:8px; font-size:12px; font-weight:600; }"
@@ -551,7 +551,7 @@ void SubBlockDialog::refreshTable() {
             };
 
             setC(0, code, Qt::AlignCenter);
-            setC(1, st ? st->rollNumber : (cell.locked ? "🔒" : "—"), Qt::AlignCenter);
+            setC(1, st ? st->rollNumber : (cell.locked ? "" : "—"), Qt::AlignCenter);
             setC(2, st ? st->name : "—");
             setC(3, st ? st->department : "—");
             setC(4, st ? QString("Sem %1").arg(st->semester) : "—", Qt::AlignCenter);
@@ -606,7 +606,7 @@ void SubBlockDialog::updateProfilePanel(int bench, int seat) {
     showParent(m_profileSub);
 
     if (cell.locked) {
-        m_profileStatus->setText("  🔒  LOCKED  ");
+        m_profileStatus->setText("  LOCKED  ");
         m_profileStatus->setStyleSheet("font-size:13px; font-weight:700; background:#f1f5f9; "
             "border:1px solid #94a3b8; border-radius:5px; padding:5px 12px; color:#64748b;");
         m_profileRoll->setText("—");
@@ -672,7 +672,7 @@ void SubBlockDialog::onSeatCardClicked(int bench, int seat) {
     m_assignBtn->setEnabled(!hasStudent && !cell.locked);
     m_unassignBtn->setEnabled(hasStudent && !cell.locked);
     m_lockBtn->setEnabled(true);
-    m_lockBtn->setText(cell.locked ? "🔓  Unlock Seat" : "🔒  Lock Seat");
+    m_lockBtn->setText(cell.locked ? "Unlock Seat" : "Lock Seat");
 
     // Sync table selection
     m_table->blockSignals(true);
