@@ -1,32 +1,29 @@
 #include "../include/student.hpp"
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
 int main() {
     sqlite3* DB;
     
-    // Connect to the SQLite Database file
+    // Main KU local SQLite Database connection file path trigger
     if (sqlite3_open("data/KU_Exam_System.db", &DB) != SQLITE_OK) {
-        cout << "[ERROR] Cannot connect to SQLite Database!" << endl;
+        cout << "[ERROR] Cannot open SQLite Database!" << endl;
         return 1;
     }
 
-    // Run database tables initialization
+    cout << "=== KU AUTOMATED EXAM SEATING SYSTEM ===" << endl;
+
+    // Step 1: Raw CSV files check garera SQLite table ma load handine
     if (runDatabaseMigrationEngine(DB)) {
-        vector<Student> globalContainer;
+        
+        cout << "[SYSTEM] Waiting for main logical algorithm to fill SEAT_PLAN table..." << endl;
+        // --------------------------------------------------------------------------
+        // Aashish & Shresh's logic engine runs rules and fills database here...
+        // --------------------------------------------------------------------------
 
-        // Fetch ALL 100-150 students from database into memory
-        loadLiveRecordsIntoVectors(DB, globalContainer);
-
-        // Generate final seating allocation if records exist
-        if (!globalContainer.empty()) {
-            generateAndExportSeatPlan(DB, globalContainer);
-            cout << "[SUCCESS] Seating Plan generated successfully!" << endl;
-        } else {
-            cout << "[WARNING] No student records found in database!" << endl;
-        }
+        // Step 2: Rules validation run bhayeshi direct final CSV export dynamic push garne
+        exportDatabaseToFinalCSV(DB);
     }
 
     sqlite3_close(DB);
