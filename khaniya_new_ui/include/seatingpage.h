@@ -28,6 +28,7 @@ private slots:
     void onRoomSelected(int index);
     void toggleRoomInfo();
     void updateRoomInfo();
+    void onExamModeChanged(int index);
 
 private:
     HallModel     *m_model;
@@ -37,6 +38,7 @@ private:
     QTableWidget  *m_searchResults;
     QLabel        *m_statusLbl;
     QComboBox     *m_roomSelector;
+    QComboBox     *m_modeSelector;
     QWidget       *m_roomInfoCard;
     QLabel        *m_roomInfoDetails;
     QPushButton   *m_toggleInfoBtn;

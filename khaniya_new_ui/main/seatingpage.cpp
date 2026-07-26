@@ -57,6 +57,15 @@ void SeatingPage::buildUi() {
     connect(autoBtn,  &QPushButton::clicked, this, &SeatingPage::onAutoAssign);
     connect(clearBtn, &QPushButton::clicked, this, &SeatingPage::onClearAll);
 
+    auto *modeLbl = new QLabel("Exam Mode: ");
+    modeLbl->setStyleSheet("font-size:12px; font-weight:bold; color:#003366;");
+    m_modeSelector = new QComboBox;
+    m_modeSelector->addItem("Intra-Department (Section-Wise Exam)");
+    m_modeSelector->addItem("Inter-Department (Subject-Wise Exam)");
+    m_modeSelector->setStyleSheet("QComboBox { padding:6px 12px; border:1px solid #d0d9e8; border-radius:6px; font-size:12px; }");
+    m_modeSelector->setCurrentIndex(m_model->examMode() == ExamMode::IntraDepartment ? 0 : 1);
+    connect(m_modeSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &SeatingPage::onExamModeChanged);
+
     auto *roomLbl = new QLabel("Active Room: ");
     roomLbl->setStyleSheet("font-size:12px; font-weight:bold; color:#003366;");
     m_roomSelector = new QComboBox;
@@ -75,7 +84,10 @@ void SeatingPage::buildUi() {
 
     tbl->addWidget(autoBtn);
     tbl->addWidget(clearBtn);
-    tbl->addSpacing(20);
+    tbl->addSpacing(15);
+    tbl->addWidget(modeLbl);
+    tbl->addWidget(m_modeSelector);
+    tbl->addSpacing(15);
     tbl->addWidget(roomLbl);
     tbl->addWidget(m_roomSelector);
     tbl->addWidget(m_toggleInfoBtn);
@@ -300,9 +312,26 @@ void SeatingPage::onAutoAssign() {
     int after  = m_model->occupiedCount();
     refresh();
     int capacity = m_model->rows() * m_model->cols();
-    m_statusLbl->setText(QString("Auto-assigned %1 Students. Total: %2/%3")
-                         .arg(after-before).arg(after).arg(capacity));
-    QMessageBox::information(this, "Success", QString("Successfully auto-assigned %1 students.").arg(after-before));
+    int newlyAssigned = after - before;
+    int unassignedCount = m_model->unassignedStudents().size();
+
+    m_statusLbl->setText(QString("Auto-assigned %1 Students | Unassigned: %2 | Room Occupancy: %3/%4")
+                         .arg(newlyAssigned).arg(unassignedCount).arg(after).arg(capacity));
+
+    if (unassignedCount > 0) {
+        QMessageBox::warning(
+            this, "Seating Capacity Warning",
+            QString("Auto-assigned %1 students.\n\n"
+                    "WARNING: %2 student(s) remain UNASSIGNED because total room capacity (%3 seats) is not enough to seat all enrolled students.")
+                .arg(newlyAssigned)
+                .arg(unassignedCount)
+                .arg(capacity));
+    } else {
+        QMessageBox::information(
+            this, "Auto-Assign Complete",
+            QString("Successfully auto-assigned %1 students. All enrolled students have been seated.")
+                .arg(newlyAssigned));
+    }
 }
 
 void SeatingPage::onClearAll() {
@@ -354,6 +383,12 @@ void SeatingPage::onSearchResultClicked(int row, int) {
 
 void SeatingPage::jumpToStudent(int studentId) {
     m_hallMap->highlightStudent(studentId);
+}
+
+void SeatingPage::onExamModeChanged(int index) {
+    ExamMode mode = (index == 0) ? ExamMode::IntraDepartment : ExamMode::InterDepartment;
+    m_model->setExamMode(mode);
+    refresh();
 }
 
 

@@ -22,6 +22,15 @@ static QString tableStyle() {
            "QTableWidget::item:alternate { background:#f8fafc; }";
 }
 
+static const char *SPINBOX_STYLE =
+    "QSpinBox { border:1.5px solid #003366; border-radius:6px; padding:6px 24px 6px 8px; font-size:12px; background:white; color:#0f172a; }"
+    "QSpinBox::up-button { subcontrol-origin:border; subcontrol-position:top right; width:20px; border-left:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1; background:#f1f5f9; border-top-right-radius:5px; }"
+    "QSpinBox::up-button:hover { background:#dbeafe; }"
+    "QSpinBox::down-button { subcontrol-origin:border; subcontrol-position:bottom right; width:20px; border-left:1px solid #cbd5e1; background:#f1f5f9; border-bottom-right-radius:5px; }"
+    "QSpinBox::down-button:hover { background:#dbeafe; }"
+    "QSpinBox::up-arrow { width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-bottom:5px solid #003366; }"
+    "QSpinBox::down-arrow { width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid #003366; }";
+
 StudentsPage::StudentsPage(HallModel *model, QWidget *parent)
     : QWidget(parent), m_model(model)
 {
@@ -251,7 +260,7 @@ void StudentsPage::onAddStudent() {
     auto *rollEdit    = mkEdit("e.g. KU20001");
     auto *deptEdit    = mkEdit("e.g. Computer Science");
     auto *semSpin     = new QSpinBox; semSpin->setRange(1,8); semSpin->setValue(1);
-    semSpin->setStyleSheet("QSpinBox { border:1.5px solid #d0d9e8; border-radius:5px; padding:6px; font-size:12px; }");
+    semSpin->setStyleSheet(SPINBOX_STYLE);
     auto *progEdit    = mkEdit("e.g. BE");
     auto *secEdit     = mkEdit("e.g. A");
     auto *subjectEdit = mkEdit("e.g. Data Structures");
@@ -317,7 +326,7 @@ void StudentsPage::onEditStudent() {
     auto *rollEdit    = mkEdit(s->rollNumber);
     auto *deptEdit    = mkEdit(s->department);
     auto *semSpin     = new QSpinBox; semSpin->setRange(1,8); semSpin->setValue(s->semester);
-    semSpin->setStyleSheet("QSpinBox { border:1.5px solid #d0d9e8; border-radius:5px; padding:6px; font-size:12px; }");
+    semSpin->setStyleSheet(SPINBOX_STYLE);
     auto *progEdit    = mkEdit(s->program);
     auto *secEdit     = mkEdit(s->section);
     auto *subjectEdit = mkEdit(s->subject);
@@ -378,30 +387,9 @@ void StudentsPage::onClearAllStudents() {
 void StudentsPage::onImportCSV() {
     QString path = QFileDialog::getOpenFileName(this, "Import Students CSV", "", "CSV Files (*.csv)");
     if (path.isEmpty()) return;
-    QFile f(path);
-    if (!f.open(QIODevice::ReadOnly)) return;
-    QTextStream ts(&f);
-    ts.readLine(); // skip header
-    int count = 0;
-    while (!ts.atEnd()) {
-        QString line = ts.readLine();
-        QStringList cols = line.split(',');
-        if (cols.size() < 8) continue; // Must match new format
-        UIStudent s;
-        s.name       = cols[0].trimmed();
-        s.registrationNo = cols[1].trimmed();
-        s.rollNumber = cols[2].trimmed();
-        s.program    = cols[3].trimmed();
-        s.section    = cols[4].trimmed();
-        s.department = cols[5].trimmed();
-        s.subject    = cols[6].trimmed();
-        s.semester   = cols[7].trimmed().toInt();
-        if (!s.name.isEmpty() && !s.rollNumber.isEmpty()) {
-            m_model->addStudent(s);
-            count++;
-        }
-    }
-    QMessageBox::information(this,"Import Complete",
-                             QString("Imported %1 Students.").arg(count));
+    m_model->loadFromCSV(path);
+    int count = m_model->allStudents().size();
+    QMessageBox::information(this, "Import Complete",
+                             QString("Imported %1 Students successfully.").arg(count));
     refresh();
 }

@@ -11,6 +11,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QDialogButtonBox>
+#include <QMessageBox>
 
 // ── Color helpers ────────────────────────────────────────────────────────────
 static QColor utilizationColor(double pct) {
@@ -366,6 +367,15 @@ void HallMapWidget::onSeatClicked(int row, int col) {
             infoLbl->setText(QString("Assigned: %1 (%2)\nProgram: %3 | Subject: %4")
                              .arg(st->name).arg(st->rollNumber)
                              .arg(st->program).arg(st->subject));
+            if (cell.status == SeatStatus::Conflict || st->status == SeatStatus::Conflict) {
+                QString violation = m_model->getViolationDetailForSeat(row, col);
+                auto *conflictBanner = new QLabel(QString("⚠️ CONFLICT: %1").arg(violation), &dialog);
+                conflictBanner->setWordWrap(true);
+                conflictBanner->setStyleSheet(
+                    "background-color: #fee2e2; color: #991b1b; border: 1.5px solid #fca5a5; "
+                    "border-radius: 6px; padding: 10px; font-weight: bold; font-size: 12px; margin-bottom: 8px;");
+                form->addWidget(conflictBanner);
+            }
         }
         
         unassignBtn = new QPushButton("Unassign Student", &dialog);
@@ -410,6 +420,13 @@ void HallMapWidget::onSeatClicked(int row, int col) {
         if (studentCombo && studentCombo->currentIndex() > 0) {
             int studentId = studentCombo->currentData().toInt();
             m_model->assignSeat(studentId, row, col);
+            QStringList warnings = m_model->validateAndGetViolations();
+            if (!warnings.isEmpty()) {
+                QMessageBox::warning(
+                    this, "Rule Violation Warning",
+                    QString("WARNING: The manual assignment violates seating rule(s):\n\n• %1\n\nThe affected seat box(es) have been highlighted in warning color (red).")
+                        .arg(warnings.join("\n• ")));
+            }
         }
         refresh();
     }

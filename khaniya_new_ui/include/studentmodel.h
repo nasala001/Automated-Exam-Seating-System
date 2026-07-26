@@ -12,6 +12,9 @@
 //  Seat Status
 enum class SeatStatus { Empty, Assigned, Occupied, Reserved, Conflict };
 
+//  Exam Mode
+enum class ExamMode { IntraDepartment, InterDepartment };
+
 //  UIStudent Record
 struct UIStudent {
   int id;
@@ -150,6 +153,13 @@ public:
   // Conflict detection
   QList<QPair<int, int>>
   detectConflicts(); // returns pairs of conflicting UIStudent ids
+  QStringList validateAndGetViolations();
+  QString getViolationDetailForSeat(int row, int col);
+  QString getViolationDetailForStudent(int studentId);
+
+  // Exam Mode
+  ExamMode examMode() const { return m_examMode; }
+  void setExamMode(ExamMode mode);
 
   // Import / Export helpers
   void loadSampleData();
@@ -157,6 +167,7 @@ public:
   void fromJson(const QJsonObject &obj);
   void saveToCSV(const QString &path) const;
   void loadFromCSV(const QString &path);
+  void saveStudentRegistry() const;
 
 signals:
   void dataChanged();
@@ -172,5 +183,6 @@ private:
   QString m_activeVenueCode;
   int m_rows = 18;
   int m_cols = 18;
+  ExamMode m_examMode = ExamMode::IntraDepartment;
   std::vector<std::vector<SeatCell>> m_seatsGrid;
 };

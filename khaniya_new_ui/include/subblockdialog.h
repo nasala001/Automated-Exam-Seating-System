@@ -85,6 +85,8 @@ private:
     QLabel *m_profileSec;
     QLabel *m_profileSub;
     QLabel *m_profileEmptyMsg;
+    QLabel *m_profileConflictDetail;
+    QLabel *m_profileDisabilityTag;
 
     // Tab 1 Action panel (inside visual tab)
     QComboBox   *m_studentCombo;

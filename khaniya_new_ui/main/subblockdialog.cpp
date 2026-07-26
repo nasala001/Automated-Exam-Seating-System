@@ -75,7 +75,13 @@ void SeatCard::update(const SeatCell &cell, UIStudent *st, bool selected) {
         QString name = st->name;
         if (name.length() > 20) name = name.left(18) + "…";
         m_nameLabel->setText(name);
-        m_statusLabel->setText(seatCardStatusText(cell.status).toUpper());
+        if (cell.status == SeatStatus::Conflict || st->status == SeatStatus::Conflict) {
+            m_statusLabel->setText("⚠️ CONFLICT");
+            setToolTip(QString("CONFLICT DETECTED\nStudent: %1 (%2)\n⚠️ Seating Rule Conflict").arg(st->name, roll));
+        } else {
+            m_statusLabel->setText(seatCardStatusText(cell.status).toUpper());
+            setToolTip(QString("Seat %1: %2 (%3)").arg(m_seat).arg(st->name).arg(roll));
+        }
     } else {
         m_rollLabel->setText("—");
         m_nameLabel->setText("Empty Seat");
@@ -329,20 +335,20 @@ void SubBlockDialog::buildVisualTab() {
 
     // ── RIGHT: Profile Card + Action Panel ──
     auto *rightVL = new QVBoxLayout;
-    rightVL->setSpacing(12);
+    rightVL->setSpacing(8);
 
     // Profile Card
     m_profileCard = new QFrame;
     m_profileCard->setStyleSheet(
-        "QFrame { background: white; border: 1px solid #e2e8f0; border-radius: 10px; }"
-        "QLabel { border: none; background: transparent; color: #0f172a; }"
+        "QFrame#profileCard { background: white; border: 1px solid #e2e8f0; border-radius: 10px; }"
     );
+    m_profileCard->setObjectName("profileCard");
     auto *profileVL = new QVBoxLayout(m_profileCard);
-    profileVL->setContentsMargins(16, 16, 16, 16);
-    profileVL->setSpacing(8);
+    profileVL->setContentsMargins(12, 10, 12, 10);
+    profileVL->setSpacing(4);
 
     auto *profileHdr = new QLabel("Student Profile", m_profileCard);
-    profileHdr->setStyleSheet("font-size:14px; font-weight:700; color:#003366;");
+    profileHdr->setStyleSheet("font-size:13px; font-weight:700; color:#003366; background:transparent; border:none;");
     profileVL->addWidget(profileHdr);
 
     auto *profileSep = new QFrame(m_profileCard);
@@ -351,29 +357,52 @@ void SubBlockDialog::buildVisualTab() {
     profileSep->setFixedHeight(1);
     profileVL->addWidget(profileSep);
 
-    // Status badge at top
+    // Status badge — uses objectName to avoid parent override
     m_profileStatus = new QLabel("—", m_profileCard);
+    m_profileStatus->setObjectName("profileStatusBadge");
     m_profileStatus->setAlignment(Qt::AlignCenter);
+    m_profileStatus->setWordWrap(true);
+    m_profileStatus->setMinimumHeight(28);
+    m_profileStatus->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_profileStatus->setStyleSheet(
-        "font-size:12px; font-weight:700; background:#f1f5f9; border:1px solid #cbd5e1; "
-        "border-radius:4px; padding:4px 10px; color:#64748b;"
+        "QLabel#profileStatusBadge { font-size:12px; font-weight:700; background:#f1f5f9; border:1.5px solid #cbd5e1; "
+        "border-radius:6px; padding:5px 8px; color:#64748b; }"
     );
     profileVL->addWidget(m_profileStatus);
 
+    // Disability accessibility badge
+    m_profileDisabilityTag = new QLabel(m_profileCard);
+    m_profileDisabilityTag->setObjectName("profileDisabilityBadge");
+    m_profileDisabilityTag->setAlignment(Qt::AlignCenter);
+    m_profileDisabilityTag->setWordWrap(true);
+    m_profileDisabilityTag->setMinimumHeight(24);
+    m_profileDisabilityTag->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_profileDisabilityTag->setVisible(false);
+    profileVL->addWidget(m_profileDisabilityTag);
+
     m_profileEmptyMsg = new QLabel("Click a seat to view\nstudent details.", m_profileCard);
     m_profileEmptyMsg->setAlignment(Qt::AlignCenter);
-    m_profileEmptyMsg->setStyleSheet("color:#94a3b8; font-size:13px; padding:20px;");
+    m_profileEmptyMsg->setStyleSheet("color:#94a3b8; font-size:12px; padding:14px; background:transparent; border:none;");
     profileVL->addWidget(m_profileEmptyMsg);
+
+    // Conflict detail callout
+    m_profileConflictDetail = new QLabel(m_profileCard);
+    m_profileConflictDetail->setObjectName("profileConflictBadge");
+    m_profileConflictDetail->setWordWrap(true);
+    m_profileConflictDetail->setMinimumHeight(24);
+    m_profileConflictDetail->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_profileConflictDetail->setVisible(false);
+    profileVL->addWidget(m_profileConflictDetail);
 
     auto makeRow = [&](const QString &label, QLabel *&out) {
         auto *rowFrame = new QWidget(m_profileCard);
         auto *rowHL = new QHBoxLayout(rowFrame);
-        rowHL->setContentsMargins(0,0,0,0);
-        rowHL->setSpacing(8);
+        rowHL->setContentsMargins(0, 1, 0, 1);
+        rowHL->setSpacing(6);
         auto *keyLbl = new QLabel(label + ":", rowFrame);
-        keyLbl->setStyleSheet("font-size:11px; font-weight:700; color:#64748b; min-width:90px;");
+        keyLbl->setStyleSheet("font-size:11px; font-weight:700; color:#64748b; min-width:70px; background:transparent; border:none;");
         out = new QLabel("—", rowFrame);
-        out->setStyleSheet("font-size:12px; color:#1e293b;");
+        out->setStyleSheet("font-size:11px; color:#1e293b; background:transparent; border:none;");
         out->setWordWrap(true);
         rowHL->addWidget(keyLbl);
         rowHL->addWidget(out, 1);
@@ -382,7 +411,6 @@ void SubBlockDialog::buildVisualTab() {
         return rowFrame;
     };
 
-    // Store the detail rows so we can show/hide the empty msg vs rows
     QList<QWidget*> detailRows;
     detailRows << makeRow("Seat Code",   m_profileSeatCode);
     detailRows << makeRow("Roll No.",    m_profileRoll);
@@ -391,13 +419,17 @@ void SubBlockDialog::buildVisualTab() {
     detailRows << makeRow("Semester",    m_profileSem);
     detailRows << makeRow("Section",     m_profileSec);
     detailRows << makeRow("Subject",     m_profileSub);
-
-    // Connect show/hide logic into the profile update via closure
-    // (done in updateProfilePanel using visibleProperty)
     Q_UNUSED(detailRows)
-    profileVL->addStretch();
 
-    rightVL->addWidget(m_profileCard, 2);
+    profileVL->addStretch(1);
+
+    // Wrap in scroll area so content never clips
+    auto *profileScroll = new QScrollArea;
+    profileScroll->setWidget(m_profileCard);
+    profileScroll->setWidgetResizable(true);
+    profileScroll->setFrameShape(QFrame::NoFrame);
+    profileScroll->setStyleSheet("QScrollArea { background: transparent; border: none; }");
+    rightVL->addWidget(profileScroll, 2);
 
     // Action Panel
     auto *actionCard = new QFrame;
@@ -467,7 +499,10 @@ void SubBlockDialog::buildVisualTab() {
     connect(closeBtn,      &QPushButton::clicked, this, &QDialog::accept);
 
     rightVL->addWidget(actionCard, 1);
-    outerHL->addLayout(rightVL, 1);
+    auto *rightWidget = new QWidget;
+    rightWidget->setMinimumWidth(320);
+    rightWidget->setLayout(rightVL);
+    outerHL->addWidget(rightWidget, 1);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -606,9 +641,12 @@ void SubBlockDialog::updateProfilePanel(int bench, int seat) {
     showParent(m_profileSub);
 
     if (cell.locked) {
-        m_profileStatus->setText("  LOCKED  ");
-        m_profileStatus->setStyleSheet("font-size:13px; font-weight:700; background:#f1f5f9; "
-            "border:1px solid #94a3b8; border-radius:5px; padding:5px 12px; color:#64748b;");
+        m_profileStatus->setText("🔒 SEAT LOCKED");
+        m_profileStatus->setStyleSheet(
+            "QLabel#profileStatusBadge { font-size:12px; font-weight:700; background:#f1f5f9; "
+            "border:1.5px solid #94a3b8; border-radius:6px; padding:5px 8px; color:#475569; }");
+        m_profileDisabilityTag->setVisible(false);
+        m_profileConflictDetail->setVisible(false);
         m_profileRoll->setText("—");
         m_profileName->setText("—");
         m_profileDept->setText("—");
@@ -616,14 +654,46 @@ void SubBlockDialog::updateProfilePanel(int bench, int seat) {
         m_profileSec->setText("—");
         m_profileSub->setText("—");
     } else if (st) {
-        QString statusStr = statusText(cell.status);
-        QString statusColor = cell.status == SeatStatus::Conflict ? "#dc2626"
-                            : cell.status == SeatStatus::Occupied  ? "#16a34a"
-                            : "#2563eb";
-        m_profileStatus->setText(QString("  %1  ").arg(statusStr.toUpper()));
-        m_profileStatus->setStyleSheet(QString(
-            "font-size:13px; font-weight:700; background:%1; "
-            "border-radius:5px; padding:5px 12px; color:white;").arg(statusColor));
+        if (cell.status == SeatStatus::Conflict || st->status == SeatStatus::Conflict) {
+            m_profileStatus->setText("⚠️ CONFLICT");
+            m_profileStatus->setStyleSheet(
+                "QLabel#profileStatusBadge { font-size:12px; font-weight:800; background:#dc2626; "
+                "border:2px solid #991b1b; border-radius:6px; padding:5px 8px; color:white; }");
+            QString violationDetail = m_model->getViolationDetailForSeat(r, c);
+            m_profileConflictDetail->setText("⚠️ " + violationDetail);
+            m_profileConflictDetail->setStyleSheet(
+                "QLabel#profileConflictBadge { font-size:10px; font-weight:600; color:#991b1b; background:#fee2e2; "
+                "border:1.5px solid #fca5a5; border-radius:6px; padding:5px 8px; }");
+            m_profileConflictDetail->setVisible(true);
+        } else {
+            QString statusStr = statusText(cell.status);
+            QString statusColor = cell.status == SeatStatus::Occupied ? "#16a34a" : "#2563eb";
+            m_profileStatus->setText(QString("✅ %1").arg(statusStr.toUpper()));
+            m_profileStatus->setStyleSheet(QString(
+                "QLabel#profileStatusBadge { font-size:12px; font-weight:800; background:%1; "
+                "border:1.5px solid %2; border-radius:6px; padding:5px 8px; color:white; }")
+                .arg(statusColor, cell.status == SeatStatus::Occupied ? "#15803d" : "#1d4ed8"));
+            m_profileConflictDetail->setVisible(false);
+        }
+
+        // Disability Accessibility Tag
+        if (st->isPhysicallyImpaired) {
+            if (r == 0) {
+                m_profileDisabilityTag->setText("♿ PHYSICALLY IMPAIRED (FRONT ROW ACCESSIBLE)");
+                m_profileDisabilityTag->setStyleSheet(
+                    "QLabel#profileDisabilityBadge { font-size:10px; font-weight:700; background:#eff6ff; "
+                    "border:1.5px solid #93c5fd; color:#1e40af; border-radius:5px; padding:4px 6px; }");
+            } else {
+                m_profileDisabilityTag->setText("⚠️ DISABILITY CONFLICT (MUST BE IN FRONT ROW A)");
+                m_profileDisabilityTag->setStyleSheet(
+                    "QLabel#profileDisabilityBadge { font-size:10px; font-weight:800; background:#fff7ed; "
+                    "border:1.5px solid #fdba74; color:#c2410c; border-radius:5px; padding:4px 6px; }");
+            }
+            m_profileDisabilityTag->setVisible(true);
+        } else {
+            m_profileDisabilityTag->setVisible(false);
+        }
+
         m_profileRoll->setText(st->rollNumber.isEmpty() ? QString::number(st->id) : st->rollNumber);
         m_profileName->setText(st->name);
         m_profileDept->setText(st->department);
@@ -631,9 +701,12 @@ void SubBlockDialog::updateProfilePanel(int bench, int seat) {
         m_profileSec->setText(st->section.isEmpty() ? "—" : st->section);
         m_profileSub->setText(st->subject);
     } else {
-        m_profileStatus->setText("  AVAILABLE  ");
-        m_profileStatus->setStyleSheet("font-size:13px; font-weight:700; background:#f1f5f9; "
-            "border:1px solid #cbd5e1; border-radius:5px; padding:5px 12px; color:#94a3b8;");
+        m_profileStatus->setText("AVAILABLE");
+        m_profileStatus->setStyleSheet(
+            "QLabel#profileStatusBadge { font-size:12px; font-weight:700; background:#f1f5f9; "
+            "border:1.5px solid #cbd5e1; border-radius:6px; padding:5px 8px; color:#64748b; }");
+        m_profileDisabilityTag->setVisible(false);
+        m_profileConflictDetail->setVisible(false);
         m_profileRoll->setText("—");
         m_profileName->setText("—");
         m_profileDept->setText("—");
@@ -700,6 +773,14 @@ void SubBlockDialog::onAssignClicked() {
     refresh();
     populateStudentCombo();
     m_assignBtn->setEnabled(false);
+
+    QStringList warnings = m_model->validateAndGetViolations();
+    if (!warnings.isEmpty()) {
+        QMessageBox::warning(
+            this, "Rule Violation Warning",
+            QString("WARNING: The manual assignment violates seating rule(s):\n\n• %1\n\nThe affected seat box(es) have been highlighted in warning color (red).")
+                .arg(warnings.join("\n• ")));
+    }
 }
 
 void SubBlockDialog::onUnassignClicked() {
