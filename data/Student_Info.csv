@@ -1,101 +1,314 @@
-SN,Registration_ID,Roll_No,Name,Department,Semester,Program,Batch,Is_Disabled,Has_Contagious
-1,KU26001,1,Aarav Sharma,Computer Science,Sem 1,BSc,2025,false,false
-2,KU26002,2,Bikash Thapa,Civil Engineering,Sem 2,BE,2025,false,false
-3,KU26003,3,Chandra Poudel,Electrical Engineering,Sem 3,BE,2024,false,false
-4,KU26004,4,Dipika Rai,Mechanical Engineering,Sem 4,BE,2024,false,false
-5,KU26005,5,Elina Karki,Architecture,Sem 5,BArch,2023,false,false
-6,KU26006,6,Firoj Magar,Electronics,Sem 1,BE,2025,false,false
-7,KU26007,7,Gita Tamang,Chemical Engineering,Sem 2,BE,2025,false,false
-8,KU26008,8,Hari Basnet,Computer Engineering,Sem 3,BE,2024,false,false
-9,KU26009,9,Isha Shrestha,Computer Science,Sem 4,BSc,2024,false,false
-10,KU26010,10,Jeevan Adhikari,Civil Engineering,Sem 5,BE,2023,false,false
-11,KU26011,11,Kabita Gurung,Electrical Engineering,Sem 1,BE,2025,false,false
-12,KU26012,12,Laxman Bhatt,Mechanical Engineering,Sem 2,BE,2025,false,false
-13,KU26013,13,Maya Neupane,Architecture,Sem 3,BArch,2024,false,false
-14,KU26014,14,Nabin Dahal,Electronics,Sem 4,BE,2024,false,false
-15,KU26015,15,Ojasvi Joshi,Chemical Engineering,Sem 5,BE,2023,false,false
-16,KU26016,16,Prakash Khadka,Computer Engineering,Sem 1,BE,2025,false,false
-17,KU26017,17,Rita Shrestha,Computer Science,Sem 2,BSc,2025,false,false
-18,KU26018,18,Suman Thapa,Civil Engineering,Sem 3,BE,2024,false,false
-19,KU26019,19,Tulasi Ghimire,Electrical Engineering,Sem 4,BE,2024,false,false
-20,KU26020,20,Umesh Rai,Mechanical Engineering,Sem 5,BE,2023,false,false
-21,KU26021,21,Anjali Yogi,Architecture,Sem 1,BArch,2025,false,false
-22,KU26022,22,Binod Kunwar,Electronics,Sem 2,BE,2025,false,false
-23,KU26023,23,Chitra GC,Chemical Engineering,Sem 3,BE,2024,false,false
-24,KU26024,24,Dinesh Shah,Computer Engineering,Sem 4,BE,2024,false,false
-25,KU26025,25,Esha Giri,Computer Science,Sem 5,BSc,2023,false,false
-26,KU26026,26,Ganesh Khatri,Civil Engineering,Sem 1,BE,2025,false,false
-27,KU26027,27,Hemanta Rana,Electrical Engineering,Sem 2,BE,2025,false,false
-28,KU26028,28,Ishwor Thapa,Mechanical Engineering,Sem 3,BE,2024,false,false
-29,KU26029,29,Janaki Rimal,Architecture,Sem 4,BArch,2024,false,false
-30,KU26030,30,Kiran Poudel,Electronics,Sem 5,BE,2023,false,false
-31,KU26031,31,Laxmi Giri,Chemical Engineering,Sem 1,BE,2025,false,false
-32,KU26032,32,Madan Rai,Computer Engineering,Sem 2,BE,2025,false,false
-33,KU26033,33,Nabin Shah,Computer Science,Sem 3,BSc,2024,false,false
-34,KU26034,34,Lalita Shrestha,Civil Engineering,Sem 4,BE,2024,false,false
-35,KU26035,35,Mina Kunwar,Electrical Engineering,Sem 5,BE,2023,false,false
-36,KU26036,36,Niranjan Shah,Mechanical Engineering,Sem 1,BE,2025,false,false
-37,KU26037,37,Ritu Basnet,Architecture,Sem 2,BArch,2025,false,false
-38,KU26038,38,Zoya Khan,Electronics,Sem 3,BE,2024,false,false
-39,KU26039,39,Anand Jha,Chemical Engineering,Sem 4,BE,2024,false,false
-40,KU26040,40,Barsha Rana,Computer Engineering,Sem 5,BE,2023,false,false
-41,KU26041,41,Chetan Yogi,Computer Science,Sem 1,BSc,2025,false,false
-42,KU26042,42,Dilip Kumar,Civil Engineering,Sem 2,BE,2025,false,false
-43,KU26043,43,Shresh Khanal,Electrical Engineering,Sem 3,BE,2024,false,false
-44,KU26044,44,Nasala Lakhey,Mechanical Engineering,Sem 4,BE,2024,false,false
-45,KU26045,45,Pradip Rimal,Architecture,Sem 5,BArch,2023,false,false
-46,KU26046,46,Rohan Shrestha,Electronics,Sem 1,BE,2025,false,false
-47,KU26047,47,Sita Aryal,Chemical Engineering,Sem 2,BE,2025,false,false
-48,KU26048,48,Yubaraj Thapa,Computer Engineering,Sem 3,BE,2024,false,false
-49,KU26049,49,Asmita Dhakal,Computer Science,Sem 4,BSc,2024,false,false
-50,KU26050,50,Bibek Khadka,Civil Engineering,Sem 5,BE,2023,false,false
-51,KU26051,51,Ayush Karki,Electrical Engineering,Sem 1,BE,2025,false,false
-52,KU26052,52,Bhumi Shrestha,Mechanical Engineering,Sem 2,BE,2025,false,false
-53,KU26053,53,Deepak Rai,Architecture,Sem 3,BArch,2024,false,false
-54,KU26054,54,Gaurav Thapa,Electronics,Sem 4,BE,2024,false,false
-55,KU26055,55,Jyoti Magar,Chemical Engineering,Sem 5,BE,2023,false,false
-56,KU26056,56,Kshitiz Bhandari,Computer Engineering,Sem 1,BE,2025,false,false
-57,KU26057,57,Manish Poudel,Computer Science,Sem 2,BSc,2025,false,false
-58,KU26058,58,Nisha Tamang,Civil Engineering,Sem 3,BE,2024,false,false
-59,KU26059,59,Prabin Basnet,Electrical Engineering,Sem 4,BE,2024,false,false
-60,KU26060,60,Rachana Rai,Mechanical Engineering,Sem 5,BE,2023,false,false
-61,KU26061,61,Sabin Karki,Architecture,Sem 1,BArch,2025,false,false
-62,KU26062,62,Sajana Shrestha,Electronics,Sem 2,BE,2025,false,false
-63,KU26063,63,Utsav Dhakal,Chemical Engineering,Sem 3,BE,2024,false,false
-64,KU26064,64,Amrit Thapa,Computer Engineering,Sem 4,BE,2024,false,false
-65,KU26065,65,Bhumika Gurung,Computer Science,Sem 5,BSc,2023,false,false
-66,KU26066,66,Chandan Mahato,Civil Engineering,Sem 1,BE,2025,false,false
-67,KU26067,67,Dipa Rai,Electrical Engineering,Sem 2,BE,2025,false,false
-68,KU26068,68,Hariom Dev,Mechanical Engineering,Sem 3,BE,2024,false,false
-69,KU26069,69,Kiran KC,Architecture,Sem 4,BArch,2024,false,false
-70,KU26070,70,Manju Shrestha,Electronics,Sem 5,BE,2023,false,false
-71,KU26071,71,Narendra Modi,Chemical Engineering,Sem 1,BE,2025,false,false
-72,KU26072,72,Pratima Thapa,Computer Engineering,Sem 2,BE,2025,false,false
-73,KU26073,73,Ramesh Joshi,Computer Science,Sem 3,BSc,2024,false,false
-74,KU26074,74,Saraswati Rai,Civil Engineering,Sem 4,BE,2024,false,false
-75,KU26075,75,Tara Sharma,Electrical Engineering,Sem 5,BE,2023,false,false
-76,KU26076,76,Vijay Kumar,Mechanical Engineering,Sem 1,BE,2025,false,false
-77,KU26077,77,Aasha Thapa,Architecture,Sem 2,BArch,2025,false,false
-78,KU26078,78,Bharat Shah,Electronics,Sem 3,BE,2024,false,false
-79,KU26079,79,Devendra Poudel,Chemical Engineering,Sem 4,BE,2024,false,false
-80,KU26080,80,Gopal Krishna,Computer Engineering,Sem 5,BE,2023,false,false
-81,KU26081,81,Indira Joshi,Computer Science,Sem 1,BSc,2025,false,false
-82,KU26082,82,Kamal Thapa,Civil Engineering,Sem 2,BE,2025,false,false
-83,KU26083,83,Lila Shrestha,Electrical Engineering,Sem 3,BE,2024,false,false
-84,KU26084,84,Mira Rai,Mechanical Engineering,Sem 4,BE,2024,false,false
-85,KU26085,85,Nirmal Chhetri,Architecture,Sem 5,BArch,2023,false,false
-86,KU26086,86,Om Prakash,Electronics,Sem 1,BE,2025,false,false
-87,KU26087,87,Pooja Hegde,Chemical Engineering,Sem 2,BE,2025,false,false
-88,KU26088,88,Rajesh Hamal,Computer Engineering,Sem 3,BE,2024,false,false
-89,KU26089,89,Sita Ram,Computer Science,Sem 4,BSc,2024,false,false
-90,KU26090,90,Uma Thapa,Civil Engineering,Sem 5,BE,2023,false,false
-91,KU26091,91,Vivek Oberoi,Electrical Engineering,Sem 1,BE,2025,false,false
-92,KU26092,92,Yamuna Rai,Mechanical Engineering,Sem 2,BE,2025,false,false
-93,KU26093,93,Arjun Kapoor,Architecture,Sem 3,BArch,2024,false,true
-94,KU26094,94,Bipana Thapa,Electronics,Sem 4,BE,2024,false,false
-95,KU26095,95,Chirag Paswan,Chemical Engineering,Sem 5,BE,2023,false,false
-96,KU26096,96,Dharendra Yogi,Computer Engineering,Sem 1,BE,2025,false,false
-97,KU26097,97,Hemanta Mishra,Computer Science,Sem 2,BSc,2025,true,false
-98,KU26098,98,Karishma Manandhar,Civil Engineering,Sem 3,BE,2024,false,false
-99,KU26099,99,Niraj Basnet,Electrical Engineering,Sem 4,BE,2024,false,false
-100,KU26100,100,Pradeep Khadka,Mechanical Engineering,Sem 5,BE,2023,false,false
+name,regNo,rollNo,program,batch,isPhysicallyImpaired
+Aashish Dangal,BIT2601,001,BIT,I-1,false
+Shreeshant Jha,BIT2602,002,BIT,I-1,false
+Shresh Khanal,BIT2603,003,BIT,I-1,false
+Pratishthit Khaniya,BIT2604,004,BIT,I-1,false
+Nasala Lakhey,BIT2605,005,BIT,I-1,true
+Rohan Sharma,BIT2606,006,BIT,I-1,false
+Aayush Joshi,BIT2607,007,BIT,I-1,false
+Anjali Shrestha,BIT2608,008,BIT,I-1,false
+Sita Thapa,BIT2609,009,BIT,I-1,false
+Ram Bahadur,BIT2610,010,BIT,I-1,false
+Aman Jha,BIT2611,011,BIT,I-1,false
+Bipana Sen,BIT2612,012,BIT,I-1,false
+Chitra GC,BIT2613,013,BIT,I-1,false
+Dinesh Poudel,BIT2614,014,BIT,I-1,false
+Elena Maskey,BIT2615,015,BIT,I-1,false
+Gopal Thapa,BIT2616,016,BIT,I-1,false
+Hemant Roy,BIT2617,017,BIT,I-1,false
+Indra Jit,BIT2618,018,BIT,I-1,false
+Jeevan Kumar,BIT2619,019,BIT,I-1,false
+Kamal Hasan,BIT2620,020,BIT,I-1,false
+Binod Khadka,BIT2621,021,BIT,I-1,false
+Deepak Raj,BIT2622,022,BIT,I-1,false
+Gita Oli,BIT2501,001,BIT,II-1,false
+Hari Vansa,BIT2502,002,BIT,II-1,false
+Ishwor Karki,BIT2503,003,BIT,II-1,false
+Janak Puri,BIT2504,004,BIT,II-1,false
+Kiran KC,BIT2505,005,BIT,II-1,false
+Laxmi Giri,BIT2506,006,BIT,II-1,false
+Madan Rai,BIT2507,007,BIT,II-1,false
+Nabin Shah,BIT2508,008,BIT,II-1,false
+Om Shrestha,BIT2509,009,BIT,II-1,false
+Pooja Magar,BIT2510,010,BIT,II-1,false
+Ramesh Tamang,BIT2511,011,BIT,II-1,false
+Suman Lama,BIT2512,012,BIT,II-1,false
+Tara Acharya,BIT2513,013,BIT,II-1,false
+Lalita Shrestha,BIT2514,014,BIT,II-1,false
+Mina Kunwar,BIT2515,015,BIT,II-1,false
+Niranjan Shah,BIT2516,016,BIT,II-1,false
+Pradip Rimal,BIT2517,017,BIT,II-1,false
+Ritu Basnet,BIT2518,018,BIT,II-1,false
+Sanjay Jha,BIT2401,001,BIT,III-1,false
+Tilak Rana,BIT2402,002,BIT,III-1,false
+Umesh Yadav,BIT2403,003,BIT,III-1,false
+Vivek Gupta,BIT2404,004,BIT,III-1,false
+Yubaraj KC,BIT2405,005,BIT,III-1,false
+Zoya Khan,BIT2406,006,BIT,III-1,false
+Anand Jha,BIT2407,007,BIT,III-1,false
+Barsha Rana,BIT2408,008,BIT,III-1,false
+Chetan Yogi,BIT2409,009,BIT,III-1,false
+Dilip Kumar,BIT2410,010,BIT,III-1,false
+Ekta Singh,CE2601,101,CE,I-1,false
+Faisal Ahmed,CE2602,102,CE,I-1,false
+Gaurav Patel,CE2603,103,CE,I-1,false
+Harsh Verma,CE2604,104,CE,I-1,false
+Ishita Sharma,CE2605,105,CE,I-1,true
+Jyoti Kumari,CE2606,106,CE,I-1,false
+Kavya Nair,CE2607,107,CE,I-1,false
+Lalit Sharma,CE2608,108,CE,I-1,false
+Mahesh Kumar,CE2609,109,CE,I-1,false
+Nisha Rai,CE2610,110,CE,I-1,false
+ Om Prakash,CE2611,111,CE,I-1,false
+Priya Singh,CE2612,112,CE,I-1,false
+Qureshi Hassan,CE2613,113,CE,I-1,false
+Ravi Kumar,CE2614,114,CE,I-1,false
+Sonia Rai,CE2615,115,CE,I-1,true
+Tanvi Singh,CE2616,116,CE,I-1,false
+Uday Khadka,CE2617,117,CE,I-1,false
+Vikas Sharma,CE2618,118,CE,I-1,false
+Waman Bahadur,CE2619,119,CE,I-1,false
+Xavier Patel,CE2620,120,CE,I-1,false
+Yash Verma,CE2621,121,CE,I-1,false
+Zara Khan,CE2622,122,CE,I-1,false
+Abhishek Negi,CE2623,123,CE,I-1,false
+Bollywood Singh,CE2624,124,CE,I-1,false
+Chandra Kant,CE2625,125,CE,I-1,false
+Deepika Rai,CE2626,126,CE,I-1,false
+Eshna Sinha,CE2627,127,CE,I-1,false
+Farah Malik,CE2628,128,CE,I-1,false
+Gaurav Prakash,CE2629,129,CE,I-1,false
+Harsh Patel,CE2630,130,CE,I-1,false
+Irina Sharma,CE2631,131,CE,I-1,false
+Jatin Kumar,CE2632,132,CE,I-1,false
+Kunal Desai,CE2633,133,CE,I-1,false
+Lavanya Nair,CE2634,134,CE,I-1,false
+Madhav Roy,CE2635,135,CE,I-1,false
+Neha Gupta,CE2636,136,CE,I-1,false
+Omkar Sinha,CE2637,137,CE,I-1,false
+Priya Devi,CE2638,138,CE,I-1,false
+Qasim Khan,CE2639,139,CE,I-1,false
+Ravi Shankar,CE2640,140,CE,I-1,false
+Sneha Verma,CE2641,141,CE,I-1,false
+Tara Singh,CE2642,142,CE,I-1,false
+Uma Kumari,CE2643,143,CE,I-1,false
+Vansh Kapoor,CE2644,144,CE,I-1,false
+Wendy Diaz,CE2645,145,CE,I-1,false
+Xavier Lopez,CE2646,146,CE,I-1,false
+Yasmin Khan,CE2647,147,CE,I-1,false
+Zainab Ali,CE2648,148,CE,I-1,false
+Arjun Reddy,CE2649,149,CE,I-1,false
+Bhavna Joshi,CE2650,150,CE,I-1,false
+Chirag Verma,CE2651,151,CE,I-1,false
+Divya Rao,CE2652,152,CE,I-1,false
+Eshan Singh,CE2653,153,CE,I-1,false
+Fiza Khan,CE2654,154,CE,I-1,false
+Gauri Patel,CE2655,155,CE,I-1,false
+Hemant Joshi,CE2656,156,CE,I-1,false
+Ira Nair,CE2657,157,CE,I-1,false
+Janardan Rao,CE2658,158,CE,I-1,false
+Kaveri Singh,CE2659,159,CE,I-1,false
+Laxman Pandey,CE2660,160,CE,I-1,false
+Mamta Sharma,CE2661,161,CE,I-1,false
+Naveen Kumar,CE2662,162,CE,I-1,false
+Ojasvi Patel,CE2663,163,CE,I-1,false
+Pavan Sharma,CE2664,164,CE,I-1,false
+Quincy Adams,CE2665,165,CE,I-1,false
+Rajesh Singh,CE2666,166,CE,I-1,false
+Sakshi Verma,CE2667,167,CE,I-1,false
+Tarun Gupta,CE2668,168,CE,I-1,false
+Utsav Kumar,CE2669,169,CE,I-1,false
+Vedant Singh,CE2670,170,CE,I-1,false
+Waris Khan,CE2671,171,CE,I-1,false
+Xenon Patel,CE2672,172,CE,I-1,false
+Yuki Tanaka,CE2673,173,CE,I-1,false
+Zion Williams,CE2674,174,CE,I-1,false
+Aarav Sharma,CE2675,175,CE,I-1,false
+Bijay Verma,CE2676,176,CE,I-1,false
+Cyrus Khan,CE2677,177,CE,I-1,false
+Devid Singh,CE2678,178,CE,I-1,false
+Erica Joshi,CE2679,179,CE,I-1,false
+Fedor Patel,CE2680,180,CE,I-1,false
+Gaku Yamamoto,CE2681,181,CE,I-1,false
+Hideo Nakamura,CE2682,182,CE,I-1,false
+Isa Hernandez,CE2683,183,CE,I-1,false
+Jericho Banks,CE2684,184,CE,I-1,false
+Kenji Tanaka,CE2685,185,CE,I-1,false
+Lucia Romano,CE2686,186,CE,I-1,false
+Marco Rossi,CE2687,187,CE,I-1,false
+Nathan Cross,CE2688,188,CE,I-1,false
+Omar Hassan,CE2301,001,CE,II-1,false
+Piper Grant,CE2302,002,CE,II-1,false
+Quinn Murphy,CE2303,003,CE,II-1,false
+Rishi Patel,CE2304,004,CE,II-1,false
+Sage Wilson,CE2305,005,CE,II-1,false
+Tasha Brown,CE2306,006,CE,II-1,false
+Ulysses Green,CE2307,007,CE,II-1,false
+Vienna Taylor,CE2308,008,CE,II-1,false
+Wyatt Davis,CE2309,009,CE,II-1,false
+Xander Martinez,CE2310,010,CE,II-1,false
+Yale Anderson,CE2311,011,CE,II-1,false
+Zephyr Thompson,CE2312,012,CE,II-1,false
+Abigail Lee,CE2313,013,CE,II-1,false
+Bentley Harris,CE2314,014,CE,II-1,false
+Courtney White,CE2315,015,CE,II-1,false
+Dakota Clark,CE2316,016,CE,II-1,false
+Emerson Lewis,CE2317,017,CE,II-1,false
+Finley Young,CE2318,018,CE,II-1,false
+Greyson King,CE2319,019,CE,II-1,false
+Haven Wright,CE2320,020,CE,II-1,false
+Iris Lopez,CE2321,021,CE,II-1,false
+Justice Hill,CE2322,022,CE,II-1,false
+Kingston Scott,CE2323,023,CE,II-1,false
+Lennox Green,CE2324,024,CE,II-1,false
+Madison Adams,CE2325,025,CE,II-1,false
+Neely Nelson,CE2326,026,CE,II-1,false
+Oakley Carter,CE2327,027,CE,II-1,false
+Paisley Mitchell,CE2328,028,CE,II-1,false
+Quinn Roberts,CE2329,029,CE,II-1,false
+Rory Phillips,CE2330,030,CE,II-1,false
+Skylar Campbell,CE2331,031,CE,II-1,false
+Taylor Parker,CE2332,032,CE,II-1,false
+Unity Evans,CE2333,033,CE,II-1,false
+Valence Edwards,CE2334,034,CE,II-1,false
+Wade Collins,CE2335,035,CE,II-1,false
+Xenia Reeves,CE2336,036,CE,II-1,false
+Yarrow Morris,CE2337,037,CE,II-1,false
+Zeke Rogers,CE2338,038,CE,II-1,false
+Aurora Reed,CE2339,039,CE,II-1,false
+Braxton Cook,CE2340,040,CE,II-1,false
+Cayden Morgan,CE2341,041,CE,II-1,false
+Dakota Bell,CE2342,042,CE,II-1,false
+Ezra Murphy,CE2343,043,CE,II-1,false
+Falcon Bailey,CE2344,044,CE,II-1,false
+Garnet Rivera,CE2345,045,CE,II-1,false
+Halo Richardson,CE2346,046,CE,II-1,false
+Indigo Cox,CE2347,047,CE,II-1,false
+Jaxon Howard,CE2348,048,CE,II-1,false
+Kace Ward,CE2349,049,CE,II-1,false
+Lexi Torres,CE2350,050,CE,II-1,false
+Mercer Peterson,CE2351,051,CE,II-1,false
+Noel Gray,CE2352,052,CE,II-1,false
+Ocean Ramirez,CE2353,053,CE,II-1,false
+Peyton James,CE2354,054,CE,II-1,false
+Quinton Watson,CE2355,055,CE,II-1,false
+River Brooks,CE2356,056,CE,II-1,false
+Scout Kelly,CE2357,057,CE,II-1,false
+Tru Sanders,CE2358,058,CE,II-1,false
+Ulrich Bennett,CE2359,059,CE,II-1,false
+Valor Wood,CE2360,060,CE,II-1,false
+Walton Nash,CE2361,061,CE,II-1,false
+Xerxes Rice,CE2362,062,CE,II-1,false
+Yarrow Chapman,CE2363,063,CE,II-1,false
+Zeke Carson,CE2364,064,CE,II-1,false
+Aziz Carter,CE2365,065,CE,II-1,false
+Bellamy Rivera,CE2366,066,CE,II-1,false
+Casper Sullivan,CE2367,067,CE,II-1,true
+Ade Moreno,CE2303S,001,CE,III-1,false
+Brice Gonzalez,CE2304S,002,CE,III-1,false
+Cade Beltran,CE2305S,003,CE,III-1,false
+Dale Salazar,CE2306S,004,CE,III-1,false
+Eamon Esparza,CE2307S,005,CE,III-1,false
+Faxon Warren,CE2308S,006,CE,III-1,false
+Gael Vega,CE2309S,007,CE,III-1,false
+Hal Medina,CE2310S,008,CE,III-1,false
+Ivor Silva,CE2311S,009,CE,III-1,false
+Jaron Soto,CE2312S,010,CE,III-1,false
+Keagan Valencia,CE2313S,011,CE,III-1,false
+Leif Romero,CE2314S,012,CE,III-1,false
+Merlin Jimenez,CE2315S,013,CE,III-1,false
+Nero Herrera,CE2316S,014,CE,III-1,false
+Oberon Weaver,CE2317S,015,CE,III-1,false
+Pax Conner,CE2318S,016,CE,III-1,false
+Quillan Lowe,CE2319S,017,CE,III-1,false
+Rune Carney,CE2320S,018,CE,III-1,false
+Sutton Horne,CE2321S,019,CE,III-1,false
+Tenzin Boone,CE2322S,020,CE,III-1,false
+Ulric Billings,CE2323S,021,CE,III-1,false
+Venn Livingston,CE2324S,022,CE,III-1,false
+Wilder Reeves,CE2325S,023,CE,III-1,false
+Xeno Atwood,CE2326S,024,CE,III-1,false
+Yves Cobb,CE2327S,025,CE,III-1,false
+Zeno Leach,CE2328S,026,CE,III-1,false
+Altan Alford,CE2329S,027,CE,III-1,false
+Blade Gibbs,CE2330S,028,CE,III-1,false
+Calix Ashley,CE2331S,029,CE,III-1,false
+Denim Dotson,CE2332S,030,CE,III-1,false
+Elix Giles,CE2333S,031,CE,III-1,false
+Fabian Francis,CE2334S,032,CE,III-1,false
+Gavril Garth,CE2335S,033,CE,III-1,false
+Hadrian Hambrick,CE2336S,034,CE,III-1,false
+Ivan Haynes,CE2337S,035,CE,III-1,false
+Jasper Hinton,CE2338S,036,CE,III-1,false
+Kendrick Holden,CE2339S,037,CE,III-1,false
+Laszlo Huffman,CE2340S,038,CE,III-1,false
+Milan Inman,CE2341S,039,CE,III-1,false
+Nic Jarrett,CE2342S,040,CE,III-1,false
+Oscar Kessler,CE2343S,041,CE,III-1,false
+Percival Kline,CE2344S,042,CE,III-1,false
+Quinn Knapp,CE2345S,043,CE,III-1,false
+Rory Larsen,CE2346S,044,CE,III-1,false
+Silas Lawton,CE2347S,045,CE,III-1,false
+Taj Leach,CE2348S,046,CE,III-1,false
+Ulick Lemon,CE2349S,047,CE,III-1,false
+Vance Leon,CE2350S,048,CE,III-1,true
+Ashford Leone,CE2201,001,CE,IV-1,false
+Braham Letson,CE2202,002,CE,IV-1,false
+Calhoun Levant,CE2203,003,CE,IV-1,false
+Darby Levesque,CE2204,004,CE,IV-1,false
+Eastman Levy,CE2205,005,CE,IV-1,false
+Fay Levi,CE2206,006,CE,IV-1,false
+Gibson Lewis,CE2207,007,CE,IV-1,false
+Hollis Leyva,CE2208,008,CE,IV-1,false
+Irvin Lezama,CE2209,009,CE,IV-1,false
+Jeronimo Lieber,CE2210,010,CE,IV-1,false
+Kimbal Liebert,CE2211,011,CE,IV-1,false
+Levi Liem,CE2212,012,CE,IV-1,false
+Mylo Lier,CE2213,013,CE,IV-1,false
+Nevada Lieschman,CE2214,014,CE,IV-1,false
+Odin Liggins,CE2215,015,CE,IV-1,false
+Paulin Ligon,CE2216,016,CE,IV-1,false
+Quill Lightbody,CE2217,017,CE,IV-1,false
+Ralston Lightfoot,CE2218,018,CE,IV-1,false
+Sheridan Lightsey,CE2219,019,CE,IV-1,false
+Tennant Ligon,CE2220,020,CE,IV-1,false
+Ulysses Liles,CE2221,021,CE,IV-1,false
+Vesper Liljenquist,CE2222,022,CE,IV-1,false
+Wynton Lilley,CE2223,023,CE,IV-1,false
+Xander Lilly,CE2224,024,CE,IV-1,false
+Yardley Liloia,CE2225,025,CE,IV-1,false
+Zeke Liloia,CE2226,026,CE,IV-1,false
+Alastair Lillis,CE2227,027,CE,IV-1,false
+Baxley Limskey,CE2228,028,CE,IV-1,false
+Cullen Linack,CE2229,029,CE,IV-1,false
+Daley Linaldo,CE2230,030,CE,IV-1,false
+Erbyn Lincio,CE2231,031,CE,IV-1,false
+Fabrice Linco,CE2232,032,CE,IV-1,false
+Gaston Lind,CE2233,033,CE,IV-1,false
+Harlan Lindahl,CE2234,034,CE,IV-1,false
+Isidore Lindell,CE2235,035,CE,IV-1,false
+Jerald Lindahl,CE2236,036,CE,IV-1,false
+Keenly Lindell,CE2237,037,CE,IV-1,false
+Laird Linden,CE2238,038,CE,IV-1,false
+Maury Lindera,CE2239,039,CE,IV-1,false
+Nevin Lindewall,CE2240,040,CE,IV-1,false
+Orville Lindgren,CE2241,041,CE,IV-1,false
+Percival Lindholm,CE2242,042,CE,IV-1,false
+Quinton Lindholm,CE2243,043,CE,IV-1,false
+Royce Lindquist,CE2244,044,CE,IV-1,false
+Salvador Lindsay,CE2245,045,CE,IV-1,false
+Terrence Lindsey,CE2246,046,CE,IV-1,false
+Ulysses Lindsley,CE2247,047,CE,IV-1,false
+Valdo Lindvall,CE2248,048,CE,IV-1,false
+Walton Lindwell,CE2249,049,CE,IV-1,false
+Xenophon Lindsey,CE2250,050,CE,IV-1,false
+Yannis Lindy,CE2251,051,CE,IV-1,false
+Zeke Lindyer,CE2252,052,CE,IV-1,false
+Alwin Line,CE2253,053,CE,IV-1,false
+Blaze Linehan,CE2254,054,CE,IV-1,false
+Cyril Linendoll,CE2255,055,CE,IV-1,false
+Darrell Linenger,CE2256,056,CE,IV-1,false
+Emery Linero,CE2257,057,CE,IV-1,false
+Farley Linescki,CE2258,058,CE,IV-1,false
+Garrett Linfield,CE2259,059,CE,IV-1,false
+Harmon Lingard,CE2260,060,CE,IV-1,true

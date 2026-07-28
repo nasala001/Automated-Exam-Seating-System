@@ -1,9 +1,15 @@
-CourseID,Teacher_Name
-COMP116,Pankaj Kumar
-CIEG102,Dr. Ram Swarth
-ELEG103,Prof. Upendra
-MECH104,Er. Subash
-ARCH105,Ar. Binita
-ELEX106,Er. Anil
-CHTR107,Dr. Sarita
-CMPE108,Er. Niraj
+courseId,batch,teacherName,contactNo
+BIT101,I-1,Dr. Pankaj Kumar,9818001234
+BIT102,I-1,Prof. Ram Swarup,9843005678
+BIT201,II-1,Suman Shrestha,9841009012
+BIT202,II-1,Nirmala Rai,9852003456
+BIT301,III-1,Dr. Binod Bhattarai,9803007890
+BIT302,III-1,Dr. Jyoti Giri,9851001234
+CE101,I-1,Ramesh Joshi,9842005678
+CE102,I-1,Suresh Shrestha,9863009012
+CE201,II-1,Anita Sharma,9860003456
+CE202,II-1,Vikram Singh,9877007890
+CE301,III-1,Priya Dixit,9841001234
+CE302,III-1,Dr. Harsh Patel,9856005678
+CE401,IV-1,Rahul Verma,9842009012
+CE402,IV-1,Dr. Neha Gupta,9851003456
